@@ -31,9 +31,14 @@ abstract class BaseComponent extends Component
       return [];
     }
 
-    public function __construct()
-    {
-      $this->config = Arr::get(config('sm-components'), $this->name, []);
+    /**
+     * Returns config for this component
+     * 
+     * @return array
+     */
+    protected function getConfig()
+    { 
+      return Arr::get(config('sm-components.components'), $this->name, []);
     }
 
     /**

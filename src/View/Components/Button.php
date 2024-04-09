@@ -39,6 +39,6 @@ class Button extends BaseComponent
 
     public function getStyles(): array
     {
-        return Arr::get($this->config, 'styles', []);
+        return Arr::get($this->getConfig(), 'styles', []);
     }
 }
