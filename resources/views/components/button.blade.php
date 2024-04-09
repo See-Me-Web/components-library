@@ -6,6 +6,8 @@
 ])
 
 <button 
-  class="button">
+  {{ $attributes->class([
+    $buttonClasses
+  ])}}>
   {{ $slot ?? $label }}
 </button>
