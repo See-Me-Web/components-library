@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'namespace' => 'seeme',
+
     'components' => [
         'button' => [
             'defaults' => [

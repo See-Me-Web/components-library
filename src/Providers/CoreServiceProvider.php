@@ -9,7 +9,6 @@ class CoreServiceProvider extends ServiceProvider
 {
     const CONFIG_PATH = __DIR__ . '/../../config/sm-components.php';
     const VIEWS_PATH = __DIR__ . '/../../resources/views';
-    const NAMESPACE = 'seeme';
 
     /**
      * Register any application services.
@@ -32,7 +31,7 @@ class CoreServiceProvider extends ServiceProvider
             self::CONFIG_PATH => $this->app->configPath('sm-components.php'),
         ], 'config');
 
-        $this->loadViewsFrom(self::VIEWS_PATH, self::NAMESPACE);
-        Blade::componentNamespace('Seeme\\Components\\View\\Components', self::NAMESPACE);
+        $this->loadViewsFrom(self::VIEWS_PATH, config('sm-components.namespace'));
+        Blade::componentNamespace('Seeme\\Components\\View\\Components', config('sm-components.namespace'));
     }
 }
