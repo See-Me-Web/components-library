@@ -8,14 +8,52 @@ use Seeme\Components\Providers\CoreServiceProvider;
 
 abstract class BaseComponent extends Component
 {
-    protected $name = '';
+    /**
+     * Component's name
+     */
+    protected string $name = '';
     protected $config = [];
 
+    /**
+     * Returns data passed to component's view
+     * 
+     * @return array
+     */
     abstract protected function with(): array;
+
+    /**
+     * Returns mergeData passed to component's view
+     * 
+     * @return array
+     */
+    protected function withMerge(): array 
+    {
+      return [];
+    }
 
     public function __construct()
     {
       $this->config = Arr::get(config('sm-components'), $this->name, []);
+    }
+
+    /**
+     * Returns view file name in dot notation
+     * 
+     * @return string
+     */
+    public function getViewName(): string
+    {
+      return sprintf('components.%s', $this->name);
+    }
+
+    /**
+     * Returns view file name in dot notation prefixed with package namespace
+     * 
+     * @return string
+     */
+    public function getNamespacedViewName(): string 
+    {
+      return sprintf("%s::%s", CoreServiceProvider::NAMESPACE, $this->getViewName());
     }
 
     /**
@@ -25,8 +63,10 @@ abstract class BaseComponent extends Component
      */
     public function render()
     {
-      $namespace = CoreServiceProvider::NAMESPACE;
-
-      return $this->view("$namespace::components.$this->name", $this->with());
+      return $this->view(
+        $this->getNamespacedViewName(),
+        $this->with(), 
+        $this->withMerge()
+      );
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Seeme\Components\View\Components;
 
+use Illuminate\Support\Arr;
+
 class Button extends BaseComponent
 {
     protected $name = 'button';
@@ -17,7 +19,26 @@ class Button extends BaseComponent
     public function with(): array
     {
         return [
-            'buttonClass' => 'test'
+            'buttonClasses' => $this->getButtonClasses()
         ];
+    }
+
+    public function getButtonClasses()
+    {
+        return Arr::toCssClasses([
+            $this->getButtonStyleClasses()
+        ]);
+    }
+
+    public function getButtonStyleClasses(): string
+    {
+        return Arr::toCssClasses(
+            Arr::get($this->getStyles(), $this->style, [])
+        );
+    }
+
+    public function getStyles(): array
+    {
+        return Arr::get($this->config, 'styles', []);
     }
 }

@@ -7,7 +7,7 @@
 
 <button 
   {{ $attributes->class([
-    $buttonClasses
+    $buttonClasses ?? ''
   ])}}>
   {{ $slot ?? $label }}
 </button>
