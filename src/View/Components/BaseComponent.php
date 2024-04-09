@@ -4,19 +4,18 @@ namespace Seeme\Components\View\Components;
 
 use Illuminate\Support\Arr;
 use Roots\Acorn\View\Component;
+use Seeme\Components\Providers\CoreServiceProvider;
 
 abstract class BaseComponent extends Component
 {
     protected $name = '';
     protected $config = [];
-    protected $namespace = 'sm-components';
 
     abstract protected function with(): array;
 
     public function __construct()
     {
       $this->config = Arr::get(config('sm-components'), $this->name, []);
-      $this->namespace = Arr::get(config('sm-components'), 'namespace', 'sm-components');
     }
 
     /**
@@ -26,6 +25,8 @@ abstract class BaseComponent extends Component
      */
     public function render()
     {
-      return $this->view("$this->namespace::components.$this->name", $this->with());
+      $namespace = CoreServiceProvider::NAMESPACE;
+
+      return $this->view("$namespace::components.$this->name", $this->with());
     }
 }
