@@ -1,0 +1,28 @@
+{
+  "name": "see-me-web/components-library",
+  "type": "package",
+  "description": "SEE-ME components library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Adrian Bareja",
+      "email": "adrian.bareja@see-me.pl"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Seeme\\Library\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^8.0",
+    "roots/acorn": "^4.2"
+  },
+  "extra": {
+    "acorn": {
+      "providers": [
+        "Seeme\\Components\\Providers\\CoreServiceProvider"
+      ]
+    }
+  }
+}
