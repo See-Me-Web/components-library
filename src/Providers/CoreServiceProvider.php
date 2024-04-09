@@ -33,6 +33,6 @@ class CoreServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->loadViewsFrom(self::VIEWS_PATH, self::NAMESPACE);
-        Blade::componentNamespace('Seeme\\Components\\Views\\Components', self::NAMESPACE);
+        Blade::componentNamespace('Seeme\\Components\\View\\Components', self::NAMESPACE);
     }
 }
