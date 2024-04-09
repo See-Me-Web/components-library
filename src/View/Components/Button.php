@@ -6,7 +6,7 @@ use Illuminate\Support\Arr;
 
 class Button extends BaseComponent
 {
-    protected $name = 'button';
+    protected string $name = 'button';
     protected $style = 'primary';
     protected $size = 'medium';
 
