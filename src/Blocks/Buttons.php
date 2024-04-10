@@ -26,7 +26,7 @@ class Buttons extends Block
      *
      * @var string
      */
-    public $category = 'proget';
+    public $category = 'formatting';
 
     /**
      * The block icon.

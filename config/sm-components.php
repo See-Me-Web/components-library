@@ -4,7 +4,7 @@ return [
     'components' => [
         'button' => [
             'defaults' => [
-                'button-defaults'
+                'inline-flex items-center justify-center'
             ],
             'styles' => [
                 'primary' => [
@@ -16,13 +16,13 @@ return [
             ],
             'sizes' => [
                 'small' => [
-                    'button-small'
+                    'text-sm p-2'
                 ],
                 'medium' => [
-                    'button-medium'
+                    'text-base p-4'
                 ],
                 'large' => [
-                    'button-large'
+                    'text-large p-4'
                 ]
             ]
         ]

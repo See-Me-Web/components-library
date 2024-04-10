@@ -26,7 +26,7 @@ class Button extends Block
      *
      * @var string
      */
-    public $category = 'proget';
+    public $category = 'formatting';
 
     /**
      * The block icon.
@@ -124,15 +124,7 @@ class Button extends Block
      */
     public function with()
     {
-        return [
-            'link' => get_field('link'),
-            'style' => get_field('style') ?: 'primary',
-            'size' => get_field('size') ?: 'medium',
-            'iconBefore' => get_field('icon_left'),
-            'iconAfter' => get_field('icon_right'),
-            'customWidth' => get_field('custom_width'),
-            'width' => get_field('width'),
-        ];
+        return [];
     }
 
     /**

@@ -26,7 +26,9 @@ class Button extends BaseComponent
     public function getButtonClasses()
     {
         return Arr::toCssClasses([
-            $this->getButtonStyleClasses()
+            $this->getDefaults(),
+            $this->getButtonStyleClasses(),
+            $this->getButtonSizeClasses()
         ]);
     }
 
@@ -37,8 +39,25 @@ class Button extends BaseComponent
         );
     }
 
+    public function getButtonSizeClasses(): string
+    {
+        return Arr::toCssClasses(
+            Arr::get($this->getSizes(), $this->size, [])
+        );
+    }
+
     public function getStyles(): array
     {
         return Arr::get($this->getConfig(), 'styles', []);
+    }
+
+    public function getSizes(): array
+    {
+        return Arr::get($this->getConfig(), 'sizes', []);
+    }
+
+    public function getDefaults(): string
+    {
+        return Arr::toCssClasses(Arr::get($this->getConfig(), 'defaults', []));
     }
 }

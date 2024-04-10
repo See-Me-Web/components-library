@@ -30,6 +30,7 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->publishes([
             self::CONFIG_PATH => $this->app->configPath('sm-components.php'),
+            self::VIEWS_PATH => $this->app->resourcePath('views/vendor/sm-components')
         ], 'config');
 
         $this->loadViewsFrom(self::VIEWS_PATH, self::NAMESPACE);
