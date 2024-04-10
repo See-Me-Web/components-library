@@ -7,48 +7,48 @@ use Illuminate\Support\Arr;
 class Button extends BaseComponent
 {
     protected string $name = 'button';
-    protected $style = 'primary';
+    protected $variant = 'primary';
     protected $size = 'medium';
 
-    public function __construct(string $style = 'primary', string $size = 'medium')
+    public function __construct(string $variant = 'primary', string $size = 'medium')
     {   
-        $this->style = $style;
+        $this->variant = $variant;
         $this->size = $size;   
     }
 
     public function with(): array
     {
         return [
-            'buttonClasses' => $this->getButtonClasses()
+            'classes' => $this->getClasses()
         ];
     }
 
-    public function getButtonClasses()
+    public function getClasses()
     {
         return Arr::toCssClasses([
             $this->getDefaults(),
-            $this->getButtonStyleClasses(),
-            $this->getButtonSizeClasses()
+            $this->getVariantClasses(),
+            $this->getSizeClasses()
         ]);
     }
 
-    public function getButtonStyleClasses(): string
+    public function getVariantClasses(): string
     {
         return Arr::toCssClasses(
-            Arr::get($this->getStyles(), $this->style, [])
+            Arr::get($this->getVariants(), $this->variant, [])
         );
     }
 
-    public function getButtonSizeClasses(): string
+    public function getSizeClasses(): string
     {
         return Arr::toCssClasses(
             Arr::get($this->getSizes(), $this->size, [])
         );
     }
 
-    public function getStyles(): array
+    public function getVariants(): array
     {
-        return Arr::get($this->getConfig(), 'styles', []);
+        return Arr::get($this->getConfig(), 'variants', []);
     }
 
     public function getSizes(): array

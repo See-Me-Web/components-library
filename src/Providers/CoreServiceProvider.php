@@ -5,6 +5,7 @@ namespace Seeme\Components\Providers;
 use Seeme\Components\Services\BlocksService;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Log1x\AcfComposer\AcfComposer;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -38,5 +39,6 @@ class CoreServiceProvider extends ServiceProvider
         Blade::componentNamespace('Seeme\\Components\\View\\Components', self::NAMESPACE);
 
         $this->app->make(BlocksService::class)->registerActions();
+        $this->app->make(AcfComposer::class);
     }
 }

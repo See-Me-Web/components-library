@@ -6,7 +6,7 @@ return [
             'defaults' => [
                 'inline-flex items-center justify-center'
             ],
-            'styles' => [
+            'variants' => [
                 'primary' => [
                     'button-primary'
                 ],
@@ -24,6 +24,15 @@ return [
                 'large' => [
                     'text-large p-4'
                 ]
+            ]
+        ],
+        'heading' => [
+            'sizes' => [
+                'xs' => 'text-xs',
+                'sm' => 'text-sm',
+                'md' => 'text-md',
+                'lg' => 'text-lg',
+                'xl' => 'text-xl',
             ]
         ]
     ],
