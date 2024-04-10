@@ -12,7 +12,7 @@
   "autoload": {
     "psr-4": {
       "Seeme\\Components\\": "src/",
-      "Seeme\\Components\\Blocks": "src/Blocks"
+      "Seeme\\Components\\Blocks\\": "src/Blocks"
     }
   },
   "require": {
