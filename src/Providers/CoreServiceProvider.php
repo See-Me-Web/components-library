@@ -2,6 +2,7 @@
 
 namespace Seeme\Components\Providers;
 
+use Seeme\Components\Services\BlocksService;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,5 +36,7 @@ class CoreServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(self::VIEWS_PATH, self::NAMESPACE);
         Blade::componentNamespace('Seeme\\Components\\View\\Components', self::NAMESPACE);
+
+        $this->app->make(BlocksService::class)->registerActions();
     }
 }

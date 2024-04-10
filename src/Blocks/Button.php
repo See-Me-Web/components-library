@@ -2,10 +2,10 @@
 
 namespace Seeme\Components\Blocks;
 
-use Log1x\AcfComposer\Block;
+use Seeme\Components\Blocks\Abstract\BaseBlock;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Button extends Block
+class Button extends BaseBlock
 {
     /**
      * The block name.
@@ -20,13 +20,6 @@ class Button extends Block
      * @var string
      */
     public $description = 'A simple Button block.';
-
-    /**
-     * The block category.
-     *
-     * @var string
-     */
-    public $category = 'formatting';
 
     /**
      * The block icon.
