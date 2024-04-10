@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Blocks;
+namespace Seeme\Components\Blocks;
 
 use Log1x\AcfComposer\Block;
 use StoutLogic\AcfBuilder\FieldsBuilder;
