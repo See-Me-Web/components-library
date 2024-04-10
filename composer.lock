@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b872d6fc5795fd1cbc8e3f3c2574172",
+    "content-hash": "da230553ab42606f9748b523551b2ca4",
     "packages": [
         {
             "name": "brick/math",
@@ -2534,6 +2534,64 @@
             "time": "2024-01-28T23:22:08+00:00"
         },
         {
+            "name": "log1x/acf-composer",
+            "version": "v3.0.23",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Log1x/acf-composer.git",
+                "reference": "35afac709de3d9838f6a02f62db66e7a95073693"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Log1x/acf-composer/zipball/35afac709de3d9838f6a02f62db66e7a95073693",
+                "reference": "35afac709de3d9838f6a02f62db66e7a95073693",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0",
+                "stoutlogic/acf-builder": "^1.11"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.14",
+                "roots/acorn": "^3.0|^4.0"
+            },
+            "type": "package",
+            "extra": {
+                "acorn": {
+                    "providers": [
+                        "Log1x\\AcfComposer\\Providers\\AcfComposerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Log1x\\AcfComposer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brandon Nifong",
+                    "email": "brandon@tendency.me"
+                }
+            ],
+            "description": "Create fields, blocks, option pages, and widgets using ACF Builder and Sage 10",
+            "support": {
+                "issues": "https://github.com/Log1x/acf-composer/issues",
+                "source": "https://github.com/Log1x/acf-composer/tree/v3.0.23"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Log1x",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-14T13:48:21+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "3.5.0",
             "source": {
@@ -3692,6 +3750,52 @@
                 "source": "https://github.com/roots/support/tree/1.0.0"
             },
             "time": "2019-01-28T09:46:14+00:00"
+        },
+        {
+            "name": "stoutlogic/acf-builder",
+            "version": "v1.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/StoutLogic/acf-builder.git",
+                "reference": "e63ab87233ea3675cd519f1dd6b6d4230b3cef97"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/StoutLogic/acf-builder/zipball/e63ab87233ea3675cd519f1dd6b6d4230b3cef97",
+                "reference": "e63ab87233ea3675cd519f1dd6b6d4230b3cef97",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/inflector": "^1.1|^2.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpdocumentor/reflection-docblock": "2.*",
+                "phpunit/phpunit": "4.*",
+                "squizlabs/php_codesniffer": "^2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StoutLogic\\AcfBuilder\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Steve Pfisterer",
+                    "email": "steve@stoutlogic.com"
+                }
+            ],
+            "description": "An Advanced Custom Field Configuration Builder",
+            "support": {
+                "issues": "https://github.com/StoutLogic/acf-builder/issues",
+                "source": "https://github.com/StoutLogic/acf-builder/tree/v1.12.0"
+            },
+            "time": "2021-09-17T17:32:44+00:00"
         },
         {
             "name": "symfony/console",

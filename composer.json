@@ -16,7 +16,8 @@
   },
   "require": {
     "php": "^8.0",
-    "roots/acorn": "^4.2"
+    "roots/acorn": "^4.2",
+    "log1x/acf-composer": "^3.0"
   },
   "extra": {
     "acorn": {
