@@ -23,11 +23,11 @@ class BlocksService {
      */
     public function addCustomBlockCategory($categories): array
     {
-        return array_merge([
-          [
-            'slug' => 'sm-blocks',
-            'title' => 'SM Blocks'
-          ]
-        ], $categories);
+        $categories[] = [
+          'slug' => 'sm-blocks',
+          'title' => 'SM Blocks'
+        ];
+
+        return $categories;
     }
 }

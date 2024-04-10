@@ -5,14 +5,14 @@ namespace Seeme\Components\Blocks;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Buttons extends BaseBlock
+class Heading extends BaseBlock
 {
     /**
      * The block name.
      *
      * @var string
      */
-    public $name = 'Buttons';
+    public $name = 'Heading';
 
     /**
      * The block description.
