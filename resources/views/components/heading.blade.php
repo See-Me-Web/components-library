@@ -4,7 +4,7 @@
 ])
 
 <{{ $element }}
-  {{ $attributes->class([$classes ?? '']) }}
+  {{ $attributes->class($classes) }}
 >
  {{ $slot }}
 </{{ $element }}>

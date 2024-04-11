@@ -1,18 +1,16 @@
 <?php
 
-namespace Seeme\Components\View\Components;
+namespace Seeme\Components\View\Components\Abstract;
 
-use Illuminate\Support\Arr;
 use Roots\Acorn\View\Component;
 use Seeme\Components\Providers\CoreServiceProvider;
 
 abstract class BaseComponent extends Component
 {
     /**
-     * Component's name
+     * Component name
      */
     protected string $name = '';
-    protected $config = [];
 
     /**
      * Returns data passed to component's view
@@ -29,16 +27,6 @@ abstract class BaseComponent extends Component
     protected function withMerge(): array 
     {
       return [];
-    }
-
-    /**
-     * Returns config for this component
-     * 
-     * @return array
-     */
-    protected function getConfig()
-    { 
-      return Arr::get(config('sm-components.components'), $this->name, []);
     }
 
     /**

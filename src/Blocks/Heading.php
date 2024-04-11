@@ -3,6 +3,7 @@
 namespace Seeme\Components\Blocks;
 
 use Seeme\Components\Blocks\Abstract\BaseBlock;
+use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Heading extends BaseBlock
@@ -17,7 +18,7 @@ class Heading extends BaseBlock
     /**
      * The block view.
      */
-    public $view = 'seeme::blocks.heading';
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.heading';
 
     /**
      * The block description.

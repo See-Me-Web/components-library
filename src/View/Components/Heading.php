@@ -2,7 +2,8 @@
 
 namespace Seeme\Components\View\Components;
 
-use Illuminate\Support\Arr;
+use Seeme\Components\Helpers\HeadingHelper;
+use Seeme\Components\View\Components\Abstract\BaseComponent;
 
 class Heading extends BaseComponent
 {
@@ -19,14 +20,7 @@ class Heading extends BaseComponent
     public function with(): array
     {
         return [
-          'classes' => $this->getClasses()
+          'classes' => HeadingHelper::getClasses($this->size)
         ];
-    }
-
-    public function getClasses()
-    {
-        return Arr::toCssClasses([
-            Arr::get(Arr::get($this->getConfig(), 'sizes', []), $this->size, '')
-        ]);
     }
 }

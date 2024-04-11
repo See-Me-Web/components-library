@@ -3,6 +3,7 @@
 namespace Seeme\Components\Blocks;
 
 use Seeme\Components\Blocks\Abstract\BaseBlock;
+use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Buttons extends BaseBlock
@@ -17,7 +18,7 @@ class Buttons extends BaseBlock
     /**
      * The block view.
      */
-    public $view = 'seeme::blocks.buttons';
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.buttons';
 
     /**
      * The block description.

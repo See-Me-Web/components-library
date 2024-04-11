@@ -43,8 +43,15 @@ class BlocksService
     public function registerBlocks(): void
     {
         $blocks = glob(__DIR__ . '/../Blocks/*.php');
+        $blocksToLoad = config('sm-components.blocks', []);
 
         foreach($blocks as $block) {
+            $blockName = basename($block, '.php');
+
+            if( is_array($blocksToLoad) && !in_array($blockName, $blocksToLoad) ) {
+                continue;
+            }
+
             $class = 'Seeme\\Components\\Blocks\\' . basename($block, '.php');
             $this->app->make($class)->compose();
         }
