@@ -15,11 +15,16 @@ class Buttons extends BaseBlock
     public $name = 'Buttons';
 
     /**
+     * The block view.
+     */
+    public $view = 'seeme::blocks.buttons';
+
+    /**
      * The block description.
      *
      * @var string
      */
-    public $description = 'A simple Buttons block.';
+    public $description = 'Group of buttons';
 
     /**
      * The block icon.

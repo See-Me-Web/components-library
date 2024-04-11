@@ -15,25 +15,32 @@ class Button extends BaseBlock
     public $name = 'Button';
 
     /**
+     * The block view.
+     */
+    public $view = 'seeme::blocks.button';
+
+    /**
      * The block description.
      *
      * @var string
      */
-    public $description = 'A simple Button block.';
+    public $description = 'Button';
 
     /**
      * The block icon.
      *
      * @var string|array
      */
-    public $icon = 'screenoptions';
+    public $icon = 'button';
 
     /**
      * The block keywords.
      *
      * @var array
      */
-    public $keywords = [];
+    public $keywords = [
+        'button'
+    ];
 
     /**
      * The block post type allow list.
@@ -102,13 +109,6 @@ class Button extends BaseBlock
      * @var array
      */
     public $styles = [];
-
-    /**
-     * The block preview example data.
-     *
-     * @var array
-     */
-    public $example = [];
 
     /**
      * Data to be passed to the block before rendering.

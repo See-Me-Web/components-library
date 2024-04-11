@@ -5,7 +5,6 @@ namespace Seeme\Components\Providers;
 use Seeme\Components\Services\BlocksService;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Log1x\AcfComposer\AcfComposer;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -30,15 +29,45 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->handlePublishes();
+        $this->handleViews();
+        $this->handleBlocks();
+    }
+
+    /**
+     * Registers paths to be published by publish command
+     * 
+     * @return void
+     */
+    public function handlePublishes(): void
+    {
         $this->publishes([
             self::CONFIG_PATH => $this->app->configPath('sm-components.php'),
-            self::VIEWS_PATH => $this->app->resourcePath('views/vendor/sm-components')
         ], 'config');
 
+        $this->publishes([
+            self::VIEWS_PATH => $this->app->resourcePath('views/vendor/sm-components')
+        ], 'views');
+    }
+
+    /**
+     * Register views and components namespace
+     * 
+     * @return void
+     */
+    public function handleViews(): void
+    {
         $this->loadViewsFrom(self::VIEWS_PATH, self::NAMESPACE);
         Blade::componentNamespace('Seeme\\Components\\View\\Components', self::NAMESPACE);
+    }
 
-        $this->app->make(BlocksService::class)->registerActions();
-        $this->app->make(AcfComposer::class);
+    /**
+     * Create and initialize Seeme\Components\BlocksService
+     * 
+     * @return void
+     */
+    public function handleBlocks(): void
+    {
+        $this->app->make(BlocksService::class)->init();
     }
 }
