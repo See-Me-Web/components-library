@@ -15,25 +15,32 @@ class Heading extends BaseBlock
     public $name = 'Heading';
 
     /**
+     * The block view.
+     */
+    public $view = 'seeme::blocks.heading';
+
+    /**
      * The block description.
      *
      * @var string
      */
-    public $description = 'A simple Buttons block.';
+    public $description = 'Heading block';
 
     /**
      * The block icon.
      *
      * @var string|array
      */
-    public $icon = 'screenoptions';
+    public $icon = 'heading';
 
     /**
      * The block keywords.
      *
      * @var array
      */
-    public $keywords = [];
+    public $keywords = [
+        'heading'
+    ];
 
     /**
      * The block post type allow list.
@@ -103,13 +110,6 @@ class Heading extends BaseBlock
      * @var array
      */
     public $styles = [];
-
-    /**
-     * The block preview example data.
-     *
-     * @var array
-     */
-    public $example = [];
 
     /**
      * Data to be passed to the block before rendering.

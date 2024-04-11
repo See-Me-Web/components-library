@@ -42,7 +42,7 @@ class BlocksService
      */
     public function registerBlocks(): void
     {
-        $blocks = glob(__DIR__ . '../Blocks/*.php');
+        $blocks = glob(__DIR__ . '/../Blocks/*.php');
 
         foreach($blocks as $block) {
             $class = 'Seeme\\Components\\Blocks\\' . basename($block, '.php');

@@ -31,14 +31,16 @@ class Buttons extends BaseBlock
      *
      * @var string|array
      */
-    public $icon = 'screenoptions';
+    public $icon = 'button';
 
     /**
      * The block keywords.
      *
      * @var array
      */
-    public $keywords = [];
+    public $keywords = [
+        'buttons'
+    ];
 
     /**
      * The block post type allow list.
