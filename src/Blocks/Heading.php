@@ -131,7 +131,8 @@ class Heading extends BaseBlock
         return [
             'text' => get_field('text'),
             'size' => get_field('size') ?: HeadingHelper::getDefaultSize(),
-            'element' => get_field('element') ?: 'h3'
+            'element' => get_field('element') ?: 'h3',
+            'style' => $this->getStyle()
         ];
     }
 

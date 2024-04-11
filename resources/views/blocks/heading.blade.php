@@ -5,7 +5,7 @@
   :class="Arr::toCssClasses([
     $block->classes
   ])"
-  style="{{ $block->style }}"
+  style="{{ $style }}"
 >
   {!! $text !!}
 </x-seeme::heading>
