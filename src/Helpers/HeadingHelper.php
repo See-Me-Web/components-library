@@ -9,7 +9,7 @@ class HeadingHelper
   private static $sizes = [
     'xs' => 'heading-xs text-xs',
     'sm' => 'heading-sm text-sm',
-    'md' => 'heading-md text-md',
+    'md' => 'heading-md text-base',
     'lg' => 'heading-lg text-lg',
     'xl' => 'heading-xl text-xl'
   ];

@@ -3,7 +3,7 @@
   :size="$size ?? 'md'"
   :element="$element ?? 'h3'"
   :class="Arr::toCssClasses([
-    $block->classes
+    $classes
   ])"
   style="{{ $style }}"
 >

@@ -48,7 +48,7 @@ class BlocksService
         foreach($blocks as $block) {
             $blockName = basename($block, '.php');
 
-            if( is_array($blocksToLoad) && !in_array($blockName, $blocksToLoad) ) {
+            if( is_array($blocksToLoad) && !empty($blocksToLoad) && !in_array($blockName, $blocksToLoad) ) {
                 continue;
             }
 

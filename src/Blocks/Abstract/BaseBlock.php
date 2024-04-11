@@ -14,6 +14,18 @@ abstract class BaseBlock extends Block
      */
     public $category = 'sm-blocks';
 
+    public function getClasses(): string
+    {
+        return str_replace([
+            'align-text-center',
+            'align-text-right',
+        ], 
+        [
+            'text-center',
+            'text-right',
+        ], parent::getClasses());
+    }
+
     /**
      * Get block style property from gutenberg settings
      * 
