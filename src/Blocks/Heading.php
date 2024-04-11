@@ -3,6 +3,7 @@
 namespace Seeme\Components\Blocks;
 
 use Seeme\Components\Blocks\Abstract\BaseBlock;
+use Seeme\Components\Helpers\HeadingHelper;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
@@ -95,13 +96,21 @@ class Heading extends BaseBlock
         'align_text' => true,
         'align_content' => false,
         'full_height' => false,
-        'anchor' => true,
-        'mode' => true,
+        'anchor' => false,
+        'mode' => false,
         'multiple' => true,
         'jsx' => true,
         'spacing' => [
-            'padding' => ['top', 'bottom'],
-            'margin' => ['top', 'bottom']
+            'padding' => true,
+            'margin' => true,
+        ],
+        'typography' => [
+            'appearance' => true,
+        ],
+        'color' => [
+            'text' => true,
+            'link' => false,
+            'background' => false,
         ]
     ];
 
@@ -120,9 +129,9 @@ class Heading extends BaseBlock
     public function with()
     {
         return [
-            'allowedBlocks' => [
-                'acf/button'
-            ],
+            'text' => get_field('text'),
+            'size' => get_field('size') ?: HeadingHelper::getDefaultSize(),
+            'element' => get_field('element') ?: 'h3'
         ];
     }
 
@@ -133,8 +142,31 @@ class Heading extends BaseBlock
      */
     public function fields()
     {
-        $buttons = new FieldsBuilder('buttons');
+        $heading = new FieldsBuilder('heading');
 
-        return $buttons->build();
+        $heading
+            ->addTextarea('text', [
+                'label' => 'Tekst',
+                'rows' => 3,
+                'new_lines' => 'br'
+            ])
+            ->addSelect('size', [
+                'label' => 'Rozmiar',
+                'choices' => HeadingHelper::getSizesLabels(),
+                'default_value' => HeadingHelper::getDefaultSize()
+            ])
+            ->addSelect('element', [
+                'choices' => [
+                    'div' => 'Div',
+                    'h2' => 'H2',
+                    'h3' => 'H3',
+                    'h4' => 'H4',
+                    'h5' => 'H5',
+                    'h6' => 'H6',
+                ],
+                'default_value' => 'h3'
+            ]);
+
+        return $heading->build();
     }
 }
