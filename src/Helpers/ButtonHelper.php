@@ -11,11 +11,14 @@ class ButtonHelper extends ComponentHelper
     'primary' => [
       'label' => 'Primary',
       'classes' => [
-        'btn-primary'
+        'btn-primary inline-flex items-center justify-center gap-4',
+        'outline outline-1 bg-trasparent outline-primary text-primary',
+        'text-base whitespace-nowrap transition-colors',
+        'rounded-full no-underline hover:no-underline'
       ]
     ],
     'secondary' => [
-      'label' => 'Primary',
+      'label' => 'Secondary',
       'classes' => [
         'btn-secondary'
       ]
@@ -25,15 +28,15 @@ class ButtonHelper extends ComponentHelper
   private static $sizes = [
     'small' => [
       'label' => 'Small',
-      'classes' => 'btn-small'
+      'classes' => 'btn-small p-4 text-sm'
     ],
     'medium' => [
       'label' => 'Medium',
-      'classes' => 'btn-medium'
+      'classes' => 'btn-medium p-6 text-sm md:text-base'
     ],
     'large' => [
       'label' => 'Large',
-      'classes' => 'btn-large'
+      'classes' => 'btn-large p-8 text-base md:text-lg'
     ]
   ];
 

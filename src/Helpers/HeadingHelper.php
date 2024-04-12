@@ -27,7 +27,39 @@ class HeadingHelper extends ComponentHelper
     'xl' => [
       'label' => 'Extra large',
       'classes' => 'heading-xl text-xl'
-    ]
+    ],
+    '2xl' => [
+      'label' => 'Extra large (2x)',
+      'classes' => 'heading-xl text-2xl'
+    ],
+    '3xl' => [
+      'label' => 'Extra large (3x)',
+      'classes' => 'heading-xl text-3xl'
+    ],
+    '4xl' => [
+      'label' => 'Extra large (4x)',
+      'classes' => 'heading-xl text-4xl'
+    ],
+    '5xl' => [
+      'label' => 'Extra large (5x)',
+      'classes' => 'heading-xl text-5xl'
+    ],
+    '6xl' => [
+      'label' => 'Extra large (6x)',
+      'classes' => 'heading-xl text-6xl'
+    ],
+    '7xl' => [
+      'label' => 'Extra large (7x)',
+      'classes' => 'heading-xl text-7xl'
+    ],
+    '8xl' => [
+      'label' => 'Extra large (8x)',
+      'classes' => 'heading-xl text-8xl'
+    ],
+    '9xl' => [
+      'label' => 'Extra large (9x)',
+      'classes' => 'heading-xl text-9xl'
+    ],
   ];
 
   private static $weights = [
