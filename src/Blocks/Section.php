@@ -6,26 +6,26 @@ use Seeme\Components\Blocks\Abstract\BaseBlock;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class PartnersSlider extends BaseBlock
+class Section extends BaseBlock
 {
     /**
      * The block name.
      *
      * @var string
      */
-    public $name = 'PartnersSlider';
+    public $name = 'Section';
 
     /**
      * The block view.
      */
-    public $view = CoreServiceProvider::NAMESPACE . '::blocks.partners-slider';
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.section';
 
     /**
      * The block description.
      *
      * @var string
      */
-    public $description = 'Partners slider';
+    public $description = 'Section';
 
     /**
      * The block icon.
@@ -40,8 +40,7 @@ class PartnersSlider extends BaseBlock
      * @var array
      */
     public $keywords = [
-        'partners',
-        'slider'
+        'section'
     ];
 
     /**
@@ -95,7 +94,7 @@ class PartnersSlider extends BaseBlock
         'align' => true,
         'align_text' => false,
         'align_content' => false,
-        'full_height' => false,
+        'full_height' => true,
         'anchor' => true,
         'mode' => true,
         'multiple' => true,
@@ -125,16 +124,6 @@ class PartnersSlider extends BaseBlock
     public function with()
     {
         return [
-          'allowedBlocksBefore' => [
-            'acf/heading'
-          ],
-          'allowedBlocksInner' => [
-            'core/image'
-          ],
-          'allowedBlocksAfter' => [
-            'acf/buttons',
-            'acf/button'
-          ],
           'style' => $this->getStyle()
         ];
     }
@@ -146,8 +135,8 @@ class PartnersSlider extends BaseBlock
      */
     public function fields()
     {
-        $slider = new FieldsBuilder('partners-slider');
+        $builder = new FieldsBuilder('section');
 
-        return $slider->build();
+        return $builder->build();
     }
 }
