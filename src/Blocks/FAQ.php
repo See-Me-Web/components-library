@@ -103,7 +103,7 @@ class FAQ extends BaseBlock
           'padding' => true,
           'margin' => true
         ],
-        'colors' => [
+        'color' => [
           'text' => true,
           'background' => true
         ]
