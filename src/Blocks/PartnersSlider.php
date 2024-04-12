@@ -135,7 +135,7 @@ class PartnersSlider extends BaseBlock
             'acf/buttons',
             'acf/button'
           ],
-          'style' => $this->getStyles()
+          'style' => $this->getStyle()
         ];
     }
 
