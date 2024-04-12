@@ -2,9 +2,9 @@
   id="{{ $block->block->anchor ?? $block->block->id }}"
   :size="$size ?? 'md'"
   :element="$element ?? 'h3'"
-  :weight="$wieght ?? 'normal'"
+  :weight="$weight ?? 'normal'"
   :class="Arr::toCssClasses([
-    $classes
+    $block->classes
   ])"
   style="{{ $style }}"
 >

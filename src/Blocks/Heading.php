@@ -104,9 +104,7 @@ class Heading extends BaseBlock
             'padding' => true,
             'margin' => true,
         ],
-        'typography' => [
-            'appearance' => true,
-        ],
+        'typography' => true,
         'color' => [
             'text' => true,
             'link' => false,
