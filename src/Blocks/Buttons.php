@@ -131,6 +131,7 @@ class Buttons extends BaseBlock
             'allowedBlocks' => [
                 'acf/button'
             ],
+            'style' => $this->getStyle()
         ];
     }
 
