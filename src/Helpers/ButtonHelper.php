@@ -23,9 +23,18 @@ class ButtonHelper extends ComponentHelper
   ];
 
   private static $sizes = [
-    'small' => 'btn-small',
-    'medium' => 'btn-medium',
-    'large' => 'btn-large'
+    'small' => [
+      'label' => 'Small',
+      'classes' => 'btn-small'
+    ],
+    'medium' => [
+      'label' => 'Medium',
+      'classes' => 'btn-medium'
+    ],
+    'large' => [
+      'label' => 'Large',
+      'classes' => 'btn-large'
+    ]
   ];
 
   public static function getVariants(): array
