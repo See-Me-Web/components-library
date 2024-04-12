@@ -3,7 +3,6 @@
 namespace Seeme\Components\Blocks;
 
 use Seeme\Components\Blocks\Abstract\BaseBlock;
-use Seeme\Components\Helpers\ButtonHelper;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
@@ -99,7 +98,7 @@ class FAQ extends BaseBlock
         'anchor' => true,
         'mode' => true,
         'multiple' => true,
-        'jsx' => false,
+        'jsx' => true,
         'spacing' => [
           'padding' => true,
           'margin' => true
