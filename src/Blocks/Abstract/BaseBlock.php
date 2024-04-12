@@ -48,7 +48,13 @@ abstract class BaseBlock extends Block
             $style[] = ";color: var(--wp--preset--color--{$this->block->textColor})";
         }
 
-        return implode(';', $style);
+        return str_replace([
+            'blockGap',
+            'lineHeight'
+        ], [
+            'gap',
+            'line-height'
+        ], implode(';', $style));
     }
 
     /**
