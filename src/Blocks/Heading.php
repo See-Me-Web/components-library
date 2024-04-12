@@ -107,7 +107,7 @@ class Heading extends BaseBlock
         'typography' => [
             'fontSize' => true,
             'lineHeight' => true,
-            'fontWeight' => true
+            'appearance' => true
         ],
         'color' => [
             'text' => true,
