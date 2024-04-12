@@ -14,6 +14,9 @@ abstract class BaseBlock extends Block
      */
     public $category = 'sm-blocks';
 
+    /**
+     * Replace gutenberg classes with Tailwind ones
+     */
     public function getClasses(): string
     {
         return str_replace([

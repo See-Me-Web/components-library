@@ -101,7 +101,8 @@ class Buttons extends BaseBlock
         'jsx' => true,
         'spacing' => [
             'padding' => ['top', 'bottom'],
-            'margin' => ['top', 'bottom']
+            'margin' => ['top', 'bottom'],
+            'blockGap' => true
         ]
     ];
 

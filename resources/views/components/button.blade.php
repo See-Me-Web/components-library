@@ -4,7 +4,7 @@
   'label' => '',
   'iconLeft' => '',
   'iconRight' => '',
-  'cssStyles' => ''
+  'styles' => ''
 ])
 
 <button 
@@ -12,7 +12,7 @@
     $attributes->class([
       $classes ?? ''
     ])->merge([
-      'style' => $cssStyles
+      'style' => $styles
     ])
   }}
 >

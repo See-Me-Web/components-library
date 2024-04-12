@@ -9,14 +9,23 @@ class ButtonHelper extends ComponentHelper
 {
   private static $variants = [
     'primary' => [
-      'inline-flex'
+      'label' => 'Primary',
+      'classes' => [
+        'btn-primary'
+      ]
+    ],
+    'secondary' => [
+      'label' => 'Primary',
+      'classes' => [
+        'btn-secondary'
+      ]
     ]
   ];
 
   private static $sizes = [
-    'small' => '',
-    'medium' => '',
-    'large' => ''
+    'small' => 'btn-small',
+    'medium' => 'btn-medium',
+    'large' => 'btn-large'
   ];
 
   public static function getVariants(): array
@@ -24,15 +33,24 @@ class ButtonHelper extends ComponentHelper
     return apply_filters('sm/components/button/variants', static::$variants);
   }
 
+  public static function getDefaultVariant(): string{
+    return apply_filters('sm/components/button/defaultVariant', 'primary');
+  }
+
   public static function getSizes(): array
   {
     return apply_filters('sm/components/button/sizes', static::$sizes);
   }
 
+  public static function getDefaultSize(): string
+  {
+    return apply_filters('sm/components/button/defaultSize', 'medium');
+  }
+
   public static function getClasses(string $variant = 'primary', string $size = 'medium'): string
   {
     return Arr::toCssClasses([
-      Arr::get(static::getVariants(), $variant . '.classes', ''),
+      Arr::toCssClasses(Arr::get(static::getVariants(), $variant . '.classes', [])),
       Arr::get(static::getSizes(), $size . '.classes', ''),
     ]);
   }

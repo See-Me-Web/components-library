@@ -96,18 +96,13 @@ class Heading extends BaseBlock
         'align_text' => true,
         'align_content' => false,
         'full_height' => false,
-        'anchor' => false,
+        'anchor' => true,
         'mode' => false,
         'multiple' => true,
         'jsx' => true,
         'spacing' => [
             'padding' => true,
             'margin' => true,
-        ],
-        'typography' => [
-            'fontSize' => true,
-            'lineHeight' => true,
-            'appearance' => true
         ],
         'color' => [
             'text' => true,

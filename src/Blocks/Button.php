@@ -3,6 +3,7 @@
 namespace Seeme\Components\Blocks;
 
 use Seeme\Components\Blocks\Abstract\BaseBlock;
+use Seeme\Components\Helpers\ButtonHelper;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
@@ -102,6 +103,10 @@ class Button extends BaseBlock
         'mode' => true,
         'multiple' => true,
         'jsx' => false,
+        'spacing' => [
+            'padding' => ['top', 'bottom'],
+            'margin' => ['top', 'bottom'],
+        ]
     ];
 
     /**
@@ -118,7 +123,14 @@ class Button extends BaseBlock
      */
     public function with()
     {
-        return [];
+        return [
+            'link' => get_field('link') ?: [],
+            'variant' => get_field('variant') ?: ButtonHelper::getDefaultVariant(),
+            'size' => get_field('size') ?: ButtonHelper::getDefaultSize(),
+            'iconLeft' => get_field('iconLeft') ?: false,
+            'iconRight' => get_field('iconRight') ?: false,
+            'style' => $this->getStyle()
+        ];
     }
 
     /**
@@ -131,7 +143,23 @@ class Button extends BaseBlock
         $button = new FieldsBuilder('button');
 
         $button
-          ->addText('test');
+          ->addLink('link')
+          ->addSelect('variant', [
+            'label' => 'Wariant',
+            'choices' => ButtonHelper::getOptions(ButtonHelper::getVariants()),
+            'default_value' => ButtonHelper::getDefaultVariant()
+          ])
+          ->addSelect('size', [
+            'label' => 'Rozmiar',
+            'choices' => ButtonHelper::getOptions(ButtonHelper::getSizes()),
+            'default_value' => ButtonHelper::getDefaultSize()
+          ])
+          ->addImage('iconLeft', [
+            'label' => 'Icon before text',
+          ])
+          ->addImage('iconRight', [
+            'label' => 'Icon after text',
+          ]);
 
         return $button->build();
     }
