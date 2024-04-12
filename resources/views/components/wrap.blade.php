@@ -1,3 +1,3 @@
 <div class="max-w-[50rem]">
-  {{ $slot }}
+  {!! $slot !!}
 </div>
