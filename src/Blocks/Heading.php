@@ -56,7 +56,9 @@ class Heading extends BaseBlock
      *
      * @var array
      */
-    public $parent = [];
+    public $parent = [
+        'acf/faq'
+    ];
 
     /**
      * The default block mode.
