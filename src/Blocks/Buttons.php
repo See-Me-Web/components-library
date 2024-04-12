@@ -141,7 +141,6 @@ class Buttons extends BaseBlock
     public function fields()
     {
         $buttons = new FieldsBuilder('buttons');
-
         return $buttons->build();
     }
 }

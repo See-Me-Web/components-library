@@ -10,17 +10,19 @@ class Heading extends BaseComponent
     protected string $name = 'heading';
     protected $size = 'md';
     protected $element = 'h3';
+    protected $weight = 'normal';
 
-    public function __construct(string $size = 'md', string $element = 'h3')
+    public function __construct(string $size = 'md', string $element = 'h3', string $weight = 'normal')
     {
       $this->size = $size;
       $this->element = $element;
+      $this->weight = $weight;
     }
 
     public function with(): array
     {
         return [
-          'classes' => HeadingHelper::getClasses($this->size)
+          'classes' => HeadingHelper::getClasses($this->size, $this->weight)
         ];
     }
 }

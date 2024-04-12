@@ -132,6 +132,7 @@ class Heading extends BaseBlock
             'text' => get_field('text'),
             'size' => get_field('size') ?: HeadingHelper::getDefaultSize(),
             'element' => get_field('element') ?: 'h3',
+            'weight' => get_field('weight') ?: HeadingHelper::getDefaultWeight(),
             'style' => $this->getStyle()
         ];
     }
@@ -153,7 +154,7 @@ class Heading extends BaseBlock
             ])
             ->addSelect('size', [
                 'label' => 'Rozmiar',
-                'choices' => HeadingHelper::getSizesLabels(),
+                'choices' => HeadingHelper::getOptions(HeadingHelper::getSizes()),
                 'default_value' => HeadingHelper::getDefaultSize()
             ])
             ->addSelect('element', [
@@ -166,6 +167,11 @@ class Heading extends BaseBlock
                     'h6' => 'H6',
                 ],
                 'default_value' => 'h3'
+            ])
+            ->addSelect('weight', [
+                'label' => 'Grubość czcionki',
+                'choices' => HeadingHelper::getOptions(HeadingHelper::getWeights()),
+                'default_value' => HeadingHelper::getDefaultWeight()
             ]);
 
         return $heading->build();

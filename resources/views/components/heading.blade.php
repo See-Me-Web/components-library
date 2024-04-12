@@ -1,6 +1,7 @@
 @props([
   'size' => 'md',
-  'element' => 'h3' 
+  'element' => 'h3',
+  'weight' => 'normal'
 ])
 
 <{{ $element }}
