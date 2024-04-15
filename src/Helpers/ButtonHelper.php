@@ -3,9 +3,9 @@
 namespace Seeme\Components\Helpers;
 
 use Illuminate\Support\Arr;
-use Seeme\Components\Helpers\Abstract\StylesHelper;
+use Seeme\Components\Helpers\Abstract\ComponentHelper;
 
-class ButtonHelper extends StylesHelper
+class ButtonHelper extends ComponentHelper
 {
   private static $variants = [
     'primary' => [
