@@ -33,7 +33,7 @@ class Wrapper extends BaseBlock
      *
      * @var string|array
      */
-    public $icon = 'code';
+    public $icon = 'editor-code';
 
     /**
      * The block keywords.

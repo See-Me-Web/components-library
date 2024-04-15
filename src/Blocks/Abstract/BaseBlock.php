@@ -4,6 +4,8 @@ namespace Seeme\Components\Blocks\Abstract;
 
 use Illuminate\Support\Arr;
 use Log1x\AcfComposer\Block;
+use Seeme\Components\Helpers\BorderHelper;
+use StoutLogic\AcfBuilder\FieldsBuilder;
 
 abstract class BaseBlock extends Block
 {
@@ -14,11 +16,20 @@ abstract class BaseBlock extends Block
      */
     public $category = 'sm-blocks';
 
+    public $styles_support = [];
+
     /**
      * Replace gutenberg classes with Tailwind ones
      */
     public function getClasses(): string
     {
+        $classes = explode(' ', parent::getClasses());
+
+        $classes = Arr::toCssClasses([
+            ...$classes,
+            ...$this->getStylesClasses()
+        ]);
+
         return str_replace([
             'align-text-center',
             'align-text-right',
@@ -28,7 +39,35 @@ abstract class BaseBlock extends Block
             'text-center',
             'text-right',
             'min-h-[100vh]'
-        ], parent::getClasses());
+        ], $classes);
+    }
+
+    public function getStylesClasses(): array
+    {
+        $classes = [];
+
+        if( $this->supportsStyles('border') ) {
+            $classes[] = BorderHelper::getClasses();
+        }
+
+        return $classes;
+    }
+
+    public function getStylesFields()
+    {
+        $builder = new FieldsBuilder('styles');
+
+        if( $this->supportsStyles('border') ) {
+            $builder
+                ->addFields(BorderHelper::getFields());
+        }
+
+        return $builder;
+    }
+
+    public function supportsStyles(string $key)
+    {
+        return in_array($key, $this->styles_support);
     }
 
     /**

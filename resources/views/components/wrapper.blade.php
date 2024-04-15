@@ -2,6 +2,9 @@
   'size' => 'xl'
 ])
 
-<div {{ $attributes->class($classes) }}>
+<div {{ $attributes->class([
+  $classes,
+  'mx-auto'
+]) }}>
   {!! $slot !!}
 </div>

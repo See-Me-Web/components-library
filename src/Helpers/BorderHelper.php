@@ -4,10 +4,11 @@ namespace Seeme\Components\Helpers;
 
 use Illuminate\Support\Arr;
 use Seeme\Components\Helpers\Abstract\StylesHelper;
+use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class SectionHelper extends StylesHelper
+class BorderHelper extends StylesHelper
 {
-  private static $borderRadiuses = [
+  private static $radiuses = [
     'none' => [
       'label' => 'None',
       'classes' => 'rounded-none'
@@ -34,20 +35,24 @@ class SectionHelper extends StylesHelper
     ],
   ];
 
-  public static function getBorderRadiuses(): array
-  {
-    return apply_filters('sm/components/section/borderRadiuses', static::$borderRadiuses);
-  }
-
-  public static function getDefaultBorderRadius(): string
-  {
-    return apply_filters('sm/components/section/defaultBorderRadius', 'none');
-  }
-
-  public static function getClasses(string $borderRadius = 'none'): string
+  public static function getClasses(): string
   {
     return Arr::toCssClasses([
-      Arr::get(static::getBorderRadiuses(), $borderRadius . '.classes', ''),
+      Arr::get(static::$radiuses, get_field('borderRadius') . '.classes', '')
     ]);
+  }
+
+  public static function getFields(): FieldsBuilder
+  {
+    $builder = new FieldsBuilder('border-styles');
+
+    $builder 
+      ->addSelect('borderRadius', [
+        'label' => 'Zaokrąglenie',
+        'choices' => static::getOptions(static::$radiuses),
+        'default_value' => 'none'
+      ]);
+
+    return $builder;
   }
 }

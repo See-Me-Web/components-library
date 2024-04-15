@@ -3,9 +3,9 @@
 namespace Seeme\Components\Helpers;
 
 use Illuminate\Support\Arr;
-use Seeme\Components\Helpers\Abstract\BaseHelper;
+use Seeme\Components\Helpers\Abstract\StylesHelper;
 
-class WrapperHelper extends BaseHelper
+class WrapperHelper extends StylesHelper
 {
   private static $widths = [
     'sm' => [

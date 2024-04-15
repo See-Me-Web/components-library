@@ -3,12 +3,13 @@
 namespace Seeme\Components\Blocks;
 
 use Seeme\Components\Blocks\Abstract\BaseBlock;
-use Seeme\Components\Helpers\SectionHelper;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Section extends BaseBlock
 {
+    public $styles_support = ['border'];
+
     /**
      * The block name.
      *
@@ -125,17 +126,8 @@ class Section extends BaseBlock
     public function with()
     {
         return [
-          'classes' => $this->getClasses(),
           'style' => $this->getStyle()
         ];
-    }
-
-    public function getClasses(): string
-    {
-      $classes = explode(' ', parent::getClasses());
-      $classes[] = SectionHelper::getClasses(get_field('borderRadius') ?: SectionHelper::getDefaultBorderRadius());
-
-      return implode(' ', $classes);
     }
 
     /**
@@ -148,11 +140,7 @@ class Section extends BaseBlock
         $builder = new FieldsBuilder('section');
 
         $builder
-          ->addSelect('borderRadius',[
-            'label' => 'Zaokrąglenie',
-            'choices' => SectionHelper::getOptions(SectionHelper::getBorderRadiuses()),
-            'default_value' => SectionHelper::getDefaultBorderRadius()
-          ]);
+          ->addFields($this->getStylesFields());
 
         return $builder->build();
     }
