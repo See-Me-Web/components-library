@@ -3,37 +3,37 @@
 namespace Seeme\Components\Blocks;
 
 use Seeme\Components\Blocks\Abstract\BaseBlock;
-use Seeme\Components\Helpers\SectionHelper;
+use Seeme\Components\Helpers\WrapperHelper;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Section extends BaseBlock
+class Wrapper extends BaseBlock
 {
     /**
      * The block name.
      *
      * @var string
      */
-    public $name = 'Section';
+    public $name = 'Wrapper';
 
     /**
      * The block view.
      */
-    public $view = CoreServiceProvider::NAMESPACE . '::blocks.section';
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.wrapper';
 
     /**
      * The block description.
      *
      * @var string
      */
-    public $description = 'Section';
+    public $description = 'Wrapper';
 
     /**
      * The block icon.
      *
      * @var string|array
      */
-    public $icon = 'tagcloud';
+    public $icon = 'code';
 
     /**
      * The block keywords.
@@ -41,7 +41,7 @@ class Section extends BaseBlock
      * @var array
      */
     public $keywords = [
-        'section'
+        'wrapper'
     ];
 
     /**
@@ -125,17 +125,8 @@ class Section extends BaseBlock
     public function with()
     {
         return [
-          'classes' => $this->getClasses(),
-          'style' => $this->getStyle()
+          'size' => get_field('maxWidth') ?: WrapperHelper::getDefaultWidth()
         ];
-    }
-
-    public function getClasses(): string
-    {
-      $classes = explode(' ', parent::getClasses());
-      $classes[] = SectionHelper::getClasses(get_field('borderRadius') ?: SectionHelper::getDefaultBorderRadius());
-
-      return implode(' ', $classes);
     }
 
     /**
@@ -145,13 +136,13 @@ class Section extends BaseBlock
      */
     public function fields()
     {
-        $builder = new FieldsBuilder('section');
+        $builder = new FieldsBuilder('wrapper');
 
         $builder
-          ->addSelect('borderRadius',[
-            'label' => 'Zaokrąglenie',
-            'choices' => SectionHelper::getOptions(SectionHelper::getBorderRadiuses()),
-            'default_value' => SectionHelper::getDefaultBorderRadius()
+          ->addSelect('maxWidth',[
+            'label' => 'Maksymalna szerokość',
+            'choices' => WrapperHelper::getOptions(WrapperHelper::getWidths()),
+            'default_value' => WrapperHelper::getDefaultWidth()
           ]);
 
         return $builder->build();

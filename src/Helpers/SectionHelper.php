@@ -3,9 +3,9 @@
 namespace Seeme\Components\Helpers;
 
 use Illuminate\Support\Arr;
-use Seeme\Components\Helpers\Abstract\ComponentHelper;
+use Seeme\Components\Helpers\Abstract\BaseHelper;
 
-class SectionHelper extends ComponentHelper
+class SectionHelper extends BaseHelper
 {
   private static $borderRadiuses = [
     'none' => [

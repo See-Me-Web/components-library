@@ -3,9 +3,9 @@
 namespace Seeme\Components\Helpers;
 
 use Illuminate\Support\Arr;
-use Seeme\Components\Helpers\Abstract\ComponentHelper;
+use Seeme\Components\Helpers\Abstract\BaseHelper;
 
-class HeadingHelper extends ComponentHelper
+class HeadingHelper extends BaseHelper
 {
   private static $sizes = [
     'xs' => [

@@ -22,10 +22,12 @@ abstract class BaseBlock extends Block
         return str_replace([
             'align-text-center',
             'align-text-right',
+            'full-height'
         ], 
         [
             'text-center',
             'text-right',
+            'min-h-[100vh]'
         ], parent::getClasses());
     }
 

@@ -4,7 +4,7 @@ namespace Seeme\Components\Helpers\Abstract;
 
 use Seeme\Components\Helpers\ArrHelper;
 
-abstract class ComponentHelper
+abstract class BaseHelper
 {
   abstract public static function getClasses();
   
