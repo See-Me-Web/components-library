@@ -124,11 +124,7 @@ class Button extends BaseBlock
     public function with()
     {
         return [
-            'link' => get_field('link') ?: [],
-            'variant' => get_field('variant') ?: ButtonHelper::getDefaultVariant(),
-            'size' => get_field('size') ?: ButtonHelper::getDefaultSize(),
-            'iconLeft' => get_field('iconLeft') ?: false,
-            'iconRight' => get_field('iconRight') ?: false,
+            ...ButtonHelper::getCurrentSettings(),
             'style' => $this->getStyle()
         ];
     }
@@ -140,27 +136,11 @@ class Button extends BaseBlock
      */
     public function fields()
     {
-        $button = new FieldsBuilder('button');
+        $builder = new FieldsBuilder('button');
 
-        $button
-          ->addLink('link')
-          ->addSelect('variant', [
-            'label' => 'Wariant',
-            'choices' => ButtonHelper::getOptions(ButtonHelper::getVariants()),
-            'default_value' => ButtonHelper::getDefaultVariant()
-          ])
-          ->addSelect('size', [
-            'label' => 'Rozmiar',
-            'choices' => ButtonHelper::getOptions(ButtonHelper::getSizes()),
-            'default_value' => ButtonHelper::getDefaultSize()
-          ])
-          ->addImage('iconLeft', [
-            'label' => 'Icon before text',
-          ])
-          ->addImage('iconRight', [
-            'label' => 'Icon after text',
-          ]);
+        $builder
+            ->addFields(ButtonHelper::getFields());
 
-        return $button->build();
+        return $builder->build();
     }
 }

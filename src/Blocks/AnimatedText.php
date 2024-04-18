@@ -3,38 +3,37 @@
 namespace Seeme\Components\Blocks;
 
 use Seeme\Components\Blocks\Abstract\BaseBlock;
+use Seeme\Components\Helpers\ButtonHelper;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Section extends BaseBlock
+class AnimatedText extends BaseBlock
 {
-    public $styles_support = ['border', 'background', 'shadow'];
-
     /**
      * The block name.
      *
      * @var string
      */
-    public $name = 'Section';
+    public $name = 'AnimatedText';
 
     /**
      * The block view.
      */
-    public $view = CoreServiceProvider::NAMESPACE . '::blocks.section';
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.animated-text';
 
     /**
      * The block description.
      *
      * @var string
      */
-    public $description = 'Section';
+    public $description = 'Text animated with scroll of the page';
 
     /**
      * The block icon.
      *
      * @var string|array
      */
-    public $icon = 'tagcloud';
+    public $icon = 'heading';
 
     /**
      * The block keywords.
@@ -42,7 +41,7 @@ class Section extends BaseBlock
      * @var array
      */
     public $keywords = [
-        'section'
+        'animated'
     ];
 
     /**
@@ -95,19 +94,15 @@ class Section extends BaseBlock
     public $supports = [
         'align' => false,
         'align_text' => false,
-        'align_content' => true,
+        'align_content' => false,
         'full_height' => false,
         'anchor' => true,
         'mode' => true,
         'multiple' => true,
-        'jsx' => true,
+        'jsx' => false,
         'spacing' => [
-          'padding' => true,
-          'margin' => true
-        ],
-        'color' => [
-          'text' => true,
-          'background' => true
+            'padding' => ['top', 'bottom'],
+            'margin' => ['top', 'bottom'],
         ],
     ];
 
@@ -126,8 +121,9 @@ class Section extends BaseBlock
     public function with()
     {
         return [
-          ...$this->getStylesConfig(),
-          'style' => $this->getStyle()
+            'text' => get_field('text') ?: '',
+            'speedFactor' => get_field('speedFactor') ?: 1.5,
+            'style' => $this->getStyle()
         ];
     }
 
@@ -138,10 +134,22 @@ class Section extends BaseBlock
      */
     public function fields()
     {
-        $builder = new FieldsBuilder('section');
+        $builder = new FieldsBuilder('animated-text');
 
         $builder
-          ->addFields($this->getStylesFields());
+          ->addTextarea('text', [
+              'label' => 'Tekst',
+              'rows' => 3,
+              'new_lines' => 'br'
+          ])
+          ->addRange('speedFactor', [
+            'label' => 'Czynnik szybkości',
+            'instructions' => 'Im większa liczba tym tekst szybciej przesunie się poza ekran',
+            'step' => 0.1,
+            'min' => 0,
+            'max' => 5,
+            'default_value' => 1.5
+          ]);
 
         return $builder->build();
     }

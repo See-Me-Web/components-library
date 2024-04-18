@@ -4,6 +4,7 @@ namespace Seeme\Components\Helpers;
 
 use Illuminate\Support\Arr;
 use Seeme\Components\Helpers\Abstract\ComponentHelper;
+use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class HeadingHelper extends ComponentHelper
 {
@@ -103,6 +104,51 @@ class HeadingHelper extends ComponentHelper
   public static function getDefaultWeight(): string
   {
     return apply_filters('sm/components/heading/defaultWeight', 'normal');
+  }
+
+  public static function getFields(): FieldsBuilder
+  {
+    $builder = new FieldsBuilder('heading');
+
+    $builder
+      ->addTextarea('text', [
+          'label' => 'Tekst',
+          'rows' => 3,
+          'new_lines' => 'br'
+      ])
+      ->addSelect('size', [
+          'label' => 'Rozmiar',
+          'choices' => static::getOptions(static::getSizes()),
+          'default_value' => static::getDefaultSize()
+      ])
+      ->addSelect('element', [
+          'choices' => [
+              'div' => 'Div',
+              'h2' => 'H2',
+              'h3' => 'H3',
+              'h4' => 'H4',
+              'h5' => 'H5',
+              'h6' => 'H6',
+          ],
+          'default_value' => 'h3'
+      ])
+      ->addSelect('weight', [
+          'label' => 'Grubość czcionki',
+          'choices' => static::getOptions(static::getWeights()),
+          'default_value' => static::getDefaultWeight()
+      ]);
+
+    return $builder;
+  }
+
+  public static function getCurrentSettings(): array
+  {
+    return [
+      'text' => get_field('text'),
+      'size' => get_field('size') ?: static::getDefaultSize(),
+      'element' => get_field('element') ?: 'h3',
+      'weight' => get_field('weight') ?: static::getDefaultWeight(),
+    ];
   }
 
   public static function getClasses(string $size = 'md', string $weight = 'normal'): string

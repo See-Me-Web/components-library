@@ -92,7 +92,7 @@ class Wrapper extends BaseBlock
      * @var array
      */
     public $supports = [
-        'align' => false,
+        'align' => true,
         'align_text' => false,
         'align_content' => false,
         'full_height' => true,
@@ -125,7 +125,8 @@ class Wrapper extends BaseBlock
     public function with()
     {
         return [
-          'size' => get_field('maxWidth') ?: WrapperHelper::getDefaultWidth()
+          ...WrapperHelper::getCurrentSettings(),
+          'style' => $this->getStyle()
         ];
     }
 
@@ -139,11 +140,7 @@ class Wrapper extends BaseBlock
         $builder = new FieldsBuilder('wrapper');
 
         $builder
-          ->addSelect('maxWidth',[
-            'label' => 'Maksymalna szerokość',
-            'choices' => WrapperHelper::getOptions(WrapperHelper::getWidths()),
-            'default_value' => WrapperHelper::getDefaultWidth()
-          ]);
+          ->addFields(WrapperHelper::getFields());
 
         return $builder->build();
     }

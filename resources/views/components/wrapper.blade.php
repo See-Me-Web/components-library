@@ -3,8 +3,7 @@
 ])
 
 <div {{ $attributes->class([
-  $classes,
-  'mx-auto'
+  $classes
 ]) }}>
   {!! $slot !!}
 </div>

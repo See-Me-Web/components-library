@@ -126,10 +126,7 @@ class Heading extends BaseBlock
     public function with()
     {
         return [
-            'text' => get_field('text'),
-            'size' => get_field('size') ?: HeadingHelper::getDefaultSize(),
-            'element' => get_field('element') ?: 'h3',
-            'weight' => get_field('weight') ?: HeadingHelper::getDefaultWeight(),
+            ...HeadingHelper::getCurrentSettings(),
             'style' => $this->getStyle()
         ];
     }
@@ -141,36 +138,11 @@ class Heading extends BaseBlock
      */
     public function fields()
     {
-        $heading = new FieldsBuilder('heading');
+        $builder = new FieldsBuilder('heading');
 
-        $heading
-            ->addTextarea('text', [
-                'label' => 'Tekst',
-                'rows' => 3,
-                'new_lines' => 'br'
-            ])
-            ->addSelect('size', [
-                'label' => 'Rozmiar',
-                'choices' => HeadingHelper::getOptions(HeadingHelper::getSizes()),
-                'default_value' => HeadingHelper::getDefaultSize()
-            ])
-            ->addSelect('element', [
-                'choices' => [
-                    'div' => 'Div',
-                    'h2' => 'H2',
-                    'h3' => 'H3',
-                    'h4' => 'H4',
-                    'h5' => 'H5',
-                    'h6' => 'H6',
-                ],
-                'default_value' => 'h3'
-            ])
-            ->addSelect('weight', [
-                'label' => 'Grubość czcionki',
-                'choices' => HeadingHelper::getOptions(HeadingHelper::getWeights()),
-                'default_value' => HeadingHelper::getDefaultWeight()
-            ]);
+        $builder
+            ->addFields(HeadingHelper::getFields());
 
-        return $heading->build();
+        return $builder->build();
     }
 }

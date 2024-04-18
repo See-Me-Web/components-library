@@ -2,16 +2,18 @@
 
 namespace Seeme\Components\Helpers\Abstract;
 
-use Seeme\Components\Helpers\ArrHelper;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-abstract class StylesHelper
+abstract class StylesHelper extends BaseViewHelper
 {
   abstract public static function getClasses(): string;
   abstract public static function getFields(): FieldsBuilder;
-  
-  public static function getOptions(array $arr): array
+  abstract public static function getCurrentSettings(): array;
+  // abstract public static function getStyles();
+
+  public static function isEnabled(string $key): bool
   {
-    return ArrHelper::flattenAssoc($arr, 'label');
+    $setting = get_field($key);
+    return isset($setting) && $setting == true;
   }
 }

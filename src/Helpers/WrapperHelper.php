@@ -4,6 +4,7 @@ namespace Seeme\Components\Helpers;
 
 use Illuminate\Support\Arr;
 use Seeme\Components\Helpers\Abstract\ComponentHelper;
+use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class WrapperHelper extends ComponentHelper
 {
@@ -42,6 +43,27 @@ class WrapperHelper extends ComponentHelper
   public static function getDefaultWidth(): string
   {
     return apply_filters('sm/components/wrapper/defaultWidth', 'xl');
+  }
+
+  public static function getFields(): FieldsBuilder
+  {
+    $builder = new FieldsBuilder('wrapper');
+
+    $builder
+      ->addSelect('maxWidth',[
+        'label' => 'Maksymalna szerokość',
+        'choices' => static::getOptions(static::getWidths()),
+        'default_value' => static::getDefaultWidth()
+      ]);
+
+    return $builder;
+  }
+
+  public static function getCurrentSettings(): array
+  {
+    return [
+      'size' => get_field('maxWidth') ?: static::getDefaultWidth()
+    ];
   }
 
   public static function getClasses(string $width = 'md'): string

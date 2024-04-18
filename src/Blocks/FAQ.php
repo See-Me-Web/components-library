@@ -8,6 +8,8 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class FAQ extends BaseBlock
 {
+    public $styles_support = ['border', 'background', 'shadow'];
+
     /**
      * The block name.
      *
@@ -25,7 +27,7 @@ class FAQ extends BaseBlock
      *
      * @var string
      */
-    public $description = 'FAQ section with questions and answers';
+    public $description = 'FAQ section with questions and anserws grouped in topics';
 
     /**
      * The block icon.
@@ -91,7 +93,7 @@ class FAQ extends BaseBlock
      * @var array
      */
     public $supports = [
-        'align' => true,
+        'align' => false,
         'align_text' => false,
         'align_content' => false,
         'full_height' => false,
@@ -104,9 +106,9 @@ class FAQ extends BaseBlock
           'margin' => true
         ],
         'color' => [
-          'text' => true,
-          'background' => true
-        ]
+            'text' => true,
+            'background' => true
+        ],
     ];
 
     /**
@@ -124,9 +126,8 @@ class FAQ extends BaseBlock
     public function with()
     {
         return [
-          'allowedBlocks' => [
-            'acf/heading'
-          ]
+          ...$this->getStylesConfig(),
+          'style' => $this->getStyle()
         ];
     }
 
@@ -137,8 +138,11 @@ class FAQ extends BaseBlock
      */
     public function fields()
     {
-        $faq = new FieldsBuilder('faq');
+        $builder = new FieldsBuilder('faq');
 
-        return $faq->build();
+        $builder
+            ->addFields($this->getStylesFields());
+
+        return $builder->build();
     }
 }

@@ -1,0 +1,1 @@
+<div class="block-overlay inset-0 bg-[--overlay-color] absolute z-10"></div>

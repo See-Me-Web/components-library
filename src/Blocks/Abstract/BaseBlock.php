@@ -4,7 +4,9 @@ namespace Seeme\Components\Blocks\Abstract;
 
 use Illuminate\Support\Arr;
 use Log1x\AcfComposer\Block;
-use Seeme\Components\Helpers\BorderHelper;
+use Seeme\Components\StylesPartials\Background;
+use Seeme\Components\StylesPartials\Border;
+use Seeme\Components\StylesPartials\Shadow;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 abstract class BaseBlock extends Block
@@ -16,7 +18,30 @@ abstract class BaseBlock extends Block
      */
     public $category = 'sm-blocks';
 
-    public $styles_support = [];
+    public $styles_support = [
+        // 'background',
+        // 'border',
+        // 'shadow'
+    ];
+
+    public $partials_controllers = [
+        'background' => Background::class,
+        'border' => Border::class,
+        'shadow' => Shadow::class
+    ];
+
+    public $classes_map = [
+        'align-text-left' => 'text-left',
+        'align-text-center' => 'text-center',
+        'align-text-right' => 'text-right',
+        'full-height' => 'min-h-[80vh]',
+        'alignleft' => 'mr-auto',
+        'aligncenter' => 'mx-auto',
+        'alignright' => 'ml-auto',
+        'is-position-top' => 'flex flex-col justify-start',
+        'is-position-center' => 'flex flex-col justify-center',
+        'is-position-bottom' => 'flex flex-col justify-end'
+    ];
 
     /**
      * Replace gutenberg classes with Tailwind ones
@@ -30,24 +55,27 @@ abstract class BaseBlock extends Block
             ...$this->getStylesClasses()
         ]);
 
-        return str_replace([
-            'align-text-center',
-            'align-text-right',
-            'full-height'
-        ], 
-        [
-            'text-center',
-            'text-right',
-            'min-h-[100vh]'
-        ], $classes);
+        return str_replace(
+            array_keys($this->classes_map),
+            array_values($this->classes_map),
+            $classes
+        );
     }
 
     public function getStylesClasses(): array
     {
         $classes = [];
 
-        if( $this->supportsStyles('border') ) {
-            $classes[] = BorderHelper::getClasses();
+        foreach($this->styles_support as $partial) {
+            if( $this->supportsStyles($partial) ) {
+                $controller = $this->partials_controllers[$partial] ?? false;
+
+                if( !$controller ) {
+                    continue;
+                }
+
+                $classes[] = $controller::getClasses();
+            }
         }
 
         return $classes;
@@ -57,17 +85,31 @@ abstract class BaseBlock extends Block
     {
         $builder = new FieldsBuilder('styles');
 
-        if( $this->supportsStyles('border') ) {
-            $builder
-                ->addFields(BorderHelper::getFields());
+        foreach($this->styles_support as $partial) {
+            if( $this->supportsStyles($partial) ) {
+                $controller = $this->partials_controllers[$partial] ?? false;
+
+                if( !$controller ) {
+                    continue;
+                }
+
+                $builder
+                    ->addAccordion($controller::getFieldsTitle())
+                    ->addFields($controller::getFields());
+            }
         }
 
         return $builder;
     }
 
-    public function supportsStyles(string $key)
+    /**
+     * Check if block supports custom styles
+     * 
+     * @return bool
+     */
+    public function supportsStyles(string $style): bool
     {
-        return in_array($key, $this->styles_support);
+        return in_array($style, $this->styles_support);
     }
 
     /**
@@ -89,6 +131,18 @@ abstract class BaseBlock extends Block
             $style[] = ";color: var(--wp--preset--color--{$this->block->textColor})";
         }
 
+        foreach($this->styles_support as $partial) {
+            if( $this->supportsStyles($partial) ) {
+                $controller = $this->partials_controllers[$partial] ?? false;
+
+                if( !$controller ) {
+                    continue;
+                }
+
+                $style[] = $controller::getStyle();
+            }
+        }
+
         return str_replace([
             'blockGap',
             'lineHeight'
@@ -96,6 +150,25 @@ abstract class BaseBlock extends Block
             'gap',
             'line-height'
         ], implode(';', $style));
+    }
+
+    public function getStylesConfig(): array
+    {
+        $config = [];
+
+        foreach($this->styles_support as $partial) {
+            if( $this->supportsStyles($partial) ) {
+                $controller = $this->partials_controllers[$partial] ?? false;
+
+                if( !$controller ) {
+                    continue;
+                }
+
+                $config = array_merge($config, $controller::getStylesConfig());
+            }
+        }
+
+        return $config;
     }
 
     /**

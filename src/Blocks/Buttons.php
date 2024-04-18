@@ -114,13 +114,6 @@ class Buttons extends BaseBlock
     public $styles = [];
 
     /**
-     * The block preview example data.
-     *
-     * @var array
-     */
-    public $example = [];
-
-    /**
      * Data to be passed to the block before rendering.
      *
      * @return array
@@ -142,7 +135,7 @@ class Buttons extends BaseBlock
      */
     public function fields()
     {
-        $buttons = new FieldsBuilder('buttons');
-        return $buttons->build();
+        $builder = new FieldsBuilder('buttons');
+        return $builder->build();
     }
 }
