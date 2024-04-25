@@ -52,7 +52,7 @@ class BlocksService
                 continue;
             }
 
-            $class = 'Seeme\\Components\\Blocks\\' . basename($block, '.php');
+            $class = 'Seeme\\Components\\Blocks\\' . $blockName;
             $this->app->make($class)->compose();
         }
     }

@@ -8,4 +8,5 @@
   class="w-full h-full object-cover aspect-video" 
   autoplay
   muted
+  loop
 ></video>

@@ -108,7 +108,7 @@ class Heading extends BaseBlock
             'text' => true,
             'link' => false,
             'background' => false,
-        ]
+        ],
     ];
 
     /**
@@ -123,11 +123,10 @@ class Heading extends BaseBlock
      *
      * @return array
      */
-    public function with()
+    public function getWith(): array
     {
         return [
             ...HeadingHelper::getCurrentSettings(),
-            'style' => $this->getStyle()
         ];
     }
 
@@ -136,13 +135,13 @@ class Heading extends BaseBlock
      *
      * @return array
      */
-    public function fields()
+    public function getBlockFields(): FieldsBuilder
     {
         $builder = new FieldsBuilder('heading');
 
         $builder
             ->addFields(HeadingHelper::getFields());
 
-        return $builder->build();
+        return $builder;
     }
 }

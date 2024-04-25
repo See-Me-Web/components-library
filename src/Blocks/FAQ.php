@@ -2,20 +2,19 @@
 
 namespace Seeme\Components\Blocks;
 
+use Illuminate\Support\Str;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class FAQ extends BaseBlock
+class Faq extends BaseBlock
 {
-    public $styles_support = ['border', 'background', 'shadow'];
-
     /**
      * The block name.
      *
      * @var string
      */
-    public $name = 'FAQ';
+    public $name = 'Faq';
 
     /**
      * The block view.
@@ -103,7 +102,8 @@ class FAQ extends BaseBlock
         'jsx' => true,
         'spacing' => [
           'padding' => true,
-          'margin' => true
+          'margin' => true,
+          'blockGap' => true,
         ],
         'color' => [
             'text' => true,
@@ -123,12 +123,23 @@ class FAQ extends BaseBlock
      *
      * @return array
      */
-    public function with()
+    public function getWith(): array
     {
         return [
-          ...$this->getStylesConfig(),
-          'style' => $this->getStyle()
+          'groups' => $this->getGroups(),
+          'allowedBlocks' => [
+            'core/paragraph',
+            'acf/heading'
+          ]
         ];
+    }
+
+    public function getGroups(): array
+    {
+        return array_map(fn ($group) => [
+            'slug' => Str::slug($group['title'] ?? ''),
+            ...$group
+        ], get_field('groups') ?: []);
     }
 
     /**
@@ -136,13 +147,54 @@ class FAQ extends BaseBlock
      *
      * @return array
      */
-    public function fields()
+    public function getBlockFields(): FieldsBuilder
     {
         $builder = new FieldsBuilder('faq');
 
         $builder
-            ->addFields($this->getStylesFields());
+            ->addAccordion('Ustawienia bloku')
+            ->addFlexibleContent('groups', [
+                'button_label' => 'Dodaj grupę'
+            ])
+                ->addLayout($this->getGroupLayout(), [
+                    'label' => 'Grupa'
+                ])
+            ->endFlexibleContent();
 
-        return $builder->build();
+        return $builder;
+    }
+
+    public function getGroupLayout(): FieldsBuilder
+    {
+        $builder = new FieldsBuilder('faq-group');
+
+        $builder
+            ->addText('title', [
+                'label' => 'Tytuł grupy'
+            ])
+            ->addFlexibleContent('items', [
+                'button_label' => 'Dodaj element'
+            ])
+                ->addLayout($this->getItemLayout(), [
+                    'label' => 'Element'
+                ])
+            ->endFlexibleContent();
+
+        return $builder;
+    }
+
+    public function getItemLayout(): FieldsBuilder
+    {
+        $builder = new FieldsBuilder('faq-item');
+
+        $builder
+            ->addText('title', [
+                'label' => 'Tytuł'
+            ])
+            ->addWysiwyg('content', [
+                'label' => 'Treść'
+            ]);
+
+        return $builder;
     }
 }

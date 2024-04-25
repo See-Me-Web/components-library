@@ -9,7 +9,7 @@
     name="background-slider"
     :fullWidth="true"
     :showArrows="$backgroundSlider['showArrows'] ?? false"
-    :showArrowsMobile="$backgroundSlider['showArrows'] ?? false"
+    :showArrowsMobile="$backgroundSlider['showArrowsMobile'] ?? false"
     :config="$backgroundSlider['config'] ?? []"
   > 
     @foreach($slides as $slide)

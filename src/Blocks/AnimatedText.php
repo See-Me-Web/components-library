@@ -3,7 +3,6 @@
 namespace Seeme\Components\Blocks;
 
 use Seeme\Components\Blocks\Abstract\BaseBlock;
-use Seeme\Components\Helpers\ButtonHelper;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
@@ -118,12 +117,12 @@ class AnimatedText extends BaseBlock
      *
      * @return array
      */
-    public function with()
+    public function getWith(): array
     {
         return [
             'text' => get_field('text') ?: '',
-            'speedFactor' => get_field('speedFactor') ?: 1.5,
-            'style' => $this->getStyle()
+            'speedFactor' => (float) get_field('speedFactor'),
+            'fontSize' => get_field('fontSize') ?: 17,
         ];
     }
 
@@ -132,11 +131,12 @@ class AnimatedText extends BaseBlock
      *
      * @return array
      */
-    public function fields()
+    public function getBlockFields(): FieldsBuilder
     {
         $builder = new FieldsBuilder('animated-text');
 
         $builder
+          ->addAccordion('Ustawienia bloku')
           ->addTextarea('text', [
               'label' => 'Tekst',
               'rows' => 3,
@@ -149,8 +149,25 @@ class AnimatedText extends BaseBlock
             'min' => 0,
             'max' => 5,
             'default_value' => 1.5
+          ])
+          ->addRange('fontSize', [
+            'label' => 'Wielkość tekstu',
+            'min' => 1,
+            'max' => 30,
+            'step' => 0.5,
+            'append' => 'vw',
+            'default_value' => 17
           ]);
 
-        return $builder->build();
+        return $builder;
+    }
+
+    public function getAdditionalStyles(): array
+    {
+        $fontSize = get_field('fontSize') ?: 17;
+
+        return [
+            "--font-size: {$fontSize}vw"
+        ];
     }
 }

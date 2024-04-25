@@ -123,12 +123,9 @@ class Section extends BaseBlock
      *
      * @return array
      */
-    public function with()
+    public function getWith(): array
     {
-        return [
-          ...$this->getStylesConfig(),
-          'style' => $this->getStyle()
-        ];
+        return [];
     }
 
     /**
@@ -136,13 +133,10 @@ class Section extends BaseBlock
      *
      * @return array
      */
-    public function fields()
+    public function getBlockFields(): FieldsBuilder
     {
         $builder = new FieldsBuilder('section');
 
-        $builder
-          ->addFields($this->getStylesFields());
-
-        return $builder->build();
+        return $builder;
     }
 }

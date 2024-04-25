@@ -12,6 +12,7 @@
   x-data="slider(@Js($name), @Js($config))" 
   x-on:resize.window.debounce="showNav = !(swiper.isBeginning && swiper.isEnd)"
   @class([
+    'flex',
     'swiper mx-auto relative',
     'swiper-full' => $fullWidth,
     'xl:px-7' => $showArrows && ! $fullWidth,
@@ -20,7 +21,6 @@
   ])>
   <div @class([
     'swiper-container overflow-hidden w-full h-full',
-    'px-5' => $fullWidth === false
    ]) x-ref="container">
     <div class="swiper-wrapper">
       {{ $slot ?? '' }}

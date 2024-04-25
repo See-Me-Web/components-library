@@ -2,7 +2,7 @@
 
 namespace Seeme\Components\View\Components;
 
-use Seeme\Components\Helpers\ButtonHelper;
+use Seeme\Components\Partials\Components\Button as ComponentsButton;
 use Seeme\Components\View\Components\Abstract\BaseComponent;
 
 class Button extends BaseComponent
@@ -20,7 +20,10 @@ class Button extends BaseComponent
     public function with(): array
     {
         return [
-            'classes' => ButtonHelper::getClasses($this->variant, $this->size)
+            'classes' => ComponentsButton::getClasses([
+                'variant' => $this->variant,
+                'size' => $this->size
+            ])
         ];
     }
 }

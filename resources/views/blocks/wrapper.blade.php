@@ -1,7 +1,10 @@
 <x-seeme::wrapper 
   :size="$size ?? 'xl'"
   style="{{ $style }}"
-  class="{{ $block->classes }}"
+  @class([
+    'w-full',
+    $block->classes 
+  ])
 >
   <InnerBlocks />
 </x-seeme::wrapper>

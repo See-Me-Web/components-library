@@ -2,13 +2,15 @@
 
 namespace Seeme\Components\Blocks;
 
-use Seeme\Components\Blocks\Abstract\BaseBlock;
-use Seeme\Components\Helpers\ButtonHelper;
+use Seeme\Components\Blocks\Abstract\ComponentBlock;
+use Seeme\Components\Partials\Components\Button as ComponentsButton;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Button extends BaseBlock
+class Button extends ComponentBlock
 {
+    public $component_partial = ComponentsButton::class;
+
     /**
      * The block name.
      *
@@ -121,12 +123,9 @@ class Button extends BaseBlock
      *
      * @return array
      */
-    public function with()
+    public function getWith(): array
     {
-        return [
-            ...ButtonHelper::getCurrentSettings(),
-            'style' => $this->getStyle()
-        ];
+        return [];
     }
 
     /**
@@ -134,13 +133,10 @@ class Button extends BaseBlock
      *
      * @return array
      */
-    public function fields()
+    public function getBlockFields(): FieldsBuilder
     {
         $builder = new FieldsBuilder('button');
 
-        $builder
-            ->addFields(ButtonHelper::getFields());
-
-        return $builder->build();
+        return $builder;
     }
 }

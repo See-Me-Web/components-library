@@ -122,11 +122,10 @@ class Wrapper extends BaseBlock
      *
      * @return array
      */
-    public function with()
+    public function getWith(): array
     {
         return [
           ...WrapperHelper::getCurrentSettings(),
-          'style' => $this->getStyle()
         ];
     }
 
@@ -135,13 +134,13 @@ class Wrapper extends BaseBlock
      *
      * @return array
      */
-    public function fields()
+    public function getBlockFields(): FieldsBuilder
     {
         $builder = new FieldsBuilder('wrapper');
 
         $builder
           ->addFields(WrapperHelper::getFields());
 
-        return $builder->build();
+        return $builder;
     }
 }

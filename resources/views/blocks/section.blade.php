@@ -6,7 +6,7 @@
     $block->classes,
   ])
 >
-  @include('seeme::partials.styles.background')
-
+  @include('seeme::partials.blockStyles')
+  
   <InnerBlocks />
 </section>

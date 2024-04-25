@@ -8,6 +8,12 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Buttons extends BaseBlock
 {
+    public $classes_map = [
+        'align-text-left' => 'justify-start',
+        'align-text-center' => 'justify-center',
+        'align-text-right' => 'justify-rend',
+    ];
+
     /**
      * The block name.
      *
@@ -118,13 +124,12 @@ class Buttons extends BaseBlock
      *
      * @return array
      */
-    public function with()
+    public function getWith(): array
     {
         return [
             'allowedBlocks' => [
                 'acf/button'
             ],
-            'style' => $this->getStyle()
         ];
     }
 
@@ -133,9 +138,10 @@ class Buttons extends BaseBlock
      *
      * @return array
      */
-    public function fields()
+    public function getBlockFields(): FieldsBuilder
     {
         $builder = new FieldsBuilder('buttons');
-        return $builder->build();
+        
+        return $builder;
     }
 }

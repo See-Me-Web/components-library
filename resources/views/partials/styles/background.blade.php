@@ -1,21 +1,27 @@
 @php
   $backgroundVideo = isset($background['backgroundVideo']) ? $background['backgroundVideo'] : [];
   $backgroundSlider = isset($background['backgroundSlider']) ? $background['backgroundSlider'] : [];
+  $hasOverlay = $background['hasOverlay'] ?? false;
+  $hasVideo = $background['hasVideo'] ?? false;
+  $hasSlider = $background['hasSlider'] ?? false;
 @endphp
 
-<div class="inset-0 absolute -z-10">
-  @if(isset($background['hasVideo']) && $background['hasVideo'] == true)
-    @includeFirst([
-      'seeme::partials.styles.background.' . ($backgroundVideo['provider'] ?? 'file'), 
-      ''
-    ])
-  @endif
 
-  @if(isset($background['hasSlider']) && $background['hasSlider'] == true)
-    @include('seeme::partials.styles.background.slider')
-  @endif
+@if($hasOverlay || $hasVideo || $hasSlider)
+  <div class="inset-0 absolute -z-10">
+    @if($hasVideo)
+      @includeFirst([
+        'seeme::partials.styles.background.' . ($backgroundVideo['provider'] ?? 'file'), 
+        ''
+      ])
+    @endif
 
-  @if(isset($background['hasOverlay']) && $background['hasOverlay'] == true)
-    @include('seeme::partials.styles.background.overlay')
-  @endif
-</div>
+    @if($hasSlider)
+      @include('seeme::partials.styles.background.slider')
+    @endif
+
+    @if($hasOverlay)
+      @include('seeme::partials.styles.background.overlay')
+    @endif
+  </div>
+@endif

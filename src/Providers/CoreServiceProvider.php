@@ -4,6 +4,7 @@ namespace Seeme\Components\Providers;
 
 use Seeme\Components\Services\BlocksService;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class CoreServiceProvider extends ServiceProvider
@@ -32,6 +33,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->handlePublishes();
         $this->handleViews();
         $this->handleBlocks();
+        $this->handleComposers();
     }
 
     /**
@@ -69,5 +71,15 @@ class CoreServiceProvider extends ServiceProvider
     public function handleBlocks(): void
     {
         $this->app->make(BlocksService::class)->init();
+    }
+
+    public function handleComposers(): void
+    {
+        $composers = glob(__DIR__ . '/../View/Composers/*.php');
+
+        foreach($composers as $composer) {
+            $class = 'Seeme\\Components\\View\\Composers\\' . basename($composer, '.php');
+            View::composer($class::views(), $class);
+        }
     }
 }

@@ -4,9 +4,10 @@ namespace Seeme\Components\Blocks\Abstract;
 
 use Illuminate\Support\Arr;
 use Log1x\AcfComposer\Block;
-use Seeme\Components\StylesPartials\Background;
-use Seeme\Components\StylesPartials\Border;
-use Seeme\Components\StylesPartials\Shadow;
+use Seeme\Components\Helpers\ArrHelper;
+use Seeme\Components\Partials\Styles\Background;
+use Seeme\Components\Partials\Styles\Border;
+use Seeme\Components\Partials\Styles\Shadow;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 abstract class BaseBlock extends Block
@@ -36,12 +37,20 @@ abstract class BaseBlock extends Block
         'align-text-right' => 'text-right',
         'full-height' => 'min-h-[80vh]',
         'alignleft' => 'mr-auto',
-        'aligncenter' => 'mx-auto',
+        'aligncenter' => '!mx-auto',
         'alignright' => 'ml-auto',
         'is-position-top' => 'flex flex-col justify-start',
         'is-position-center' => 'flex flex-col justify-center',
         'is-position-bottom' => 'flex flex-col justify-end'
     ];
+
+    public $styles_map = [
+        'blockGap' => 'gap',
+        'lineHeight' => 'line-height'
+    ];
+
+    abstract public function getWith(): array;
+    abstract public function getBlockFields(): FieldsBuilder;
 
     /**
      * Replace gutenberg classes with Tailwind ones
@@ -50,9 +59,21 @@ abstract class BaseBlock extends Block
     {
         $classes = explode(' ', parent::getClasses());
 
+        foreach($this->styles_support as $partial) {
+            if( $this->supportsStyles($partial) ) {
+                $controller = $this->partials_controllers[$partial] ?? false;
+
+                if( !$controller ) {
+                    continue;
+                }
+
+                $classes[] = Arr::toCssClasses($controller::getClasses());
+            }
+        }
+
         $classes = Arr::toCssClasses([
             ...$classes,
-            ...$this->getStylesClasses()
+            ...$this->getAdditionalClasses()
         ]);
 
         return str_replace(
@@ -60,56 +81,6 @@ abstract class BaseBlock extends Block
             array_values($this->classes_map),
             $classes
         );
-    }
-
-    public function getStylesClasses(): array
-    {
-        $classes = [];
-
-        foreach($this->styles_support as $partial) {
-            if( $this->supportsStyles($partial) ) {
-                $controller = $this->partials_controllers[$partial] ?? false;
-
-                if( !$controller ) {
-                    continue;
-                }
-
-                $classes[] = $controller::getClasses();
-            }
-        }
-
-        return $classes;
-    }
-
-    public function getStylesFields()
-    {
-        $builder = new FieldsBuilder('styles');
-
-        foreach($this->styles_support as $partial) {
-            if( $this->supportsStyles($partial) ) {
-                $controller = $this->partials_controllers[$partial] ?? false;
-
-                if( !$controller ) {
-                    continue;
-                }
-
-                $builder
-                    ->addAccordion($controller::getFieldsTitle())
-                    ->addFields($controller::getFields());
-            }
-        }
-
-        return $builder;
-    }
-
-    /**
-     * Check if block supports custom styles
-     * 
-     * @return bool
-     */
-    public function supportsStyles(string $style): bool
-    {
-        return in_array($style, $this->styles_support);
     }
 
     /**
@@ -139,22 +110,24 @@ abstract class BaseBlock extends Block
                     continue;
                 }
 
-                $style[] = $controller::getStyle();
+                $style[] = ArrHelper::toCssStyles($controller::getStyles());
             }
         }
 
-        return str_replace([
-            'blockGap',
-            'lineHeight'
-        ], [
-            'gap',
-            'line-height'
-        ], implode(';', $style));
+        $style = array_merge($style, $this->getAdditionalStyles());
+
+        $style = implode(';', $style);
+
+        return str_replace(
+            array_keys($this->styles_map),
+            array_values($this->styles_map),
+            $style
+        );
     }
 
-    public function getStylesConfig(): array
+    public function getStylesFields()
     {
-        $config = [];
+        $builder = new FieldsBuilder('styles');
 
         foreach($this->styles_support as $partial) {
             if( $this->supportsStyles($partial) ) {
@@ -164,11 +137,41 @@ abstract class BaseBlock extends Block
                     continue;
                 }
 
-                $config = array_merge($config, $controller::getStylesConfig());
+                $builder
+                    ->addFields($controller::fields());
             }
         }
 
-        return $config;
+        return $builder;
+    }
+
+    /**
+     * Check if block supports custom styles
+     * 
+     * @return bool
+     */
+    public function supportsStyles(string $style): bool
+    {
+        return in_array($style, $this->styles_support);
+    }
+
+    public function getStylesVariables(): array
+    {
+        $vars = [];
+
+        foreach($this->styles_support as $partial) {
+            if( $this->supportsStyles($partial) ) {
+                $controller = $this->partials_controllers[$partial] ?? false;
+
+                if( !$controller ) {
+                    continue;
+                }
+
+                $vars = array_merge($vars, $controller::getVariables());
+            }
+        }
+
+        return $vars;
     }
 
     /**
@@ -215,5 +218,35 @@ abstract class BaseBlock extends Block
         }
 
         return $value;
+    }
+
+    public function getAdditionalClasses(): array
+    {
+        return [];
+    }
+
+    public function getAdditionalStyles(): array
+    {
+        return [];
+    }
+
+    public function with()
+    {
+        return [
+            'style' => $this->getStyle(),
+            'stylesSupport' => $this->styles_support,
+            ...$this->getStylesVariables(),
+            ...$this->getWith()
+        ];
+    }
+
+    public function fields() 
+    {
+        $builder = $this->getBlockFields();
+
+        $builder
+            ->addFields($this->getStylesFields());
+
+        return $builder->build();
     }
 }
