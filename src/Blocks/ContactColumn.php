@@ -55,7 +55,9 @@ class ContactColumn extends BaseBlock
      *
      * @var array
      */
-    public $parent = [];
+    public $parent = [
+      'acf/contact'
+    ];
 
     /**
      * The default block mode.
@@ -105,7 +107,7 @@ class ContactColumn extends BaseBlock
         ],
         'color' => [
           'text' => true,
-          'background' => true
+          'background' => false
         ],
     ];
 
@@ -129,9 +131,10 @@ class ContactColumn extends BaseBlock
             'acf/heading',
             'core/paragraph',
             'acf/buttons',
-            'acf/contact-accordeon',
+            'acf/accordeon',
             'acf/map',
-            'acf/socials'
+            'acf/socials',
+            'acf/icon'
           ]
         ];
     }

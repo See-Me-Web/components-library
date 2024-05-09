@@ -2,14 +2,13 @@
 
 namespace Seeme\Components\Blocks;
 
+use Illuminate\Support\Arr;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class PostCard extends BaseBlock
-{
-    public $styles_support = ['border', 'background', 'shadow'];
-
+{ 
     /**
      * The block name.
      *
@@ -106,10 +105,6 @@ class PostCard extends BaseBlock
           'padding' => true,
           'margin' => true
         ],
-        'color' => [
-          'text' => true,
-          'background' => true
-        ],
     ];
 
     /**
@@ -119,6 +114,10 @@ class PostCard extends BaseBlock
      */
     public $styles = [];
 
+    public $uses_context = [
+      'postsSlider'
+    ];
+
     /**
      * Data to be passed to the block before rendering.
      *
@@ -126,10 +125,12 @@ class PostCard extends BaseBlock
      */
     public function getWith(): array
     {
+        $id = get_field('post') ?: false;
+
         return [
-          'id' => get_field('post') ?: 0,
-          'postType' => get_post_type(get_field('post') ?: 0),
-          'cardWidth' => get_field('cardWidth') ?: 1
+          'id' => $id,
+          'cardWidth' => get_field('cardWidth') ?: 1,
+          'inSlider' => Arr::exists($this->context, 'postsSlider')
         ];
     }
 

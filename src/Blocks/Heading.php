@@ -2,13 +2,28 @@
 
 namespace Seeme\Components\Blocks;
 
+use Log1x\AcfComposer\AcfComposer;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
-use Seeme\Components\Helpers\HeadingHelper;
+use Seeme\Components\Partials\Heading as PartialsHeading;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Heading extends BaseBlock
-{
+{   
+    /**
+     * Array of partials used by this block
+     */
+    public array $partials = [];
+
+    public function __construct(AcfComposer $composer)
+    {
+        $this->partials = [
+            'heading' => new PartialsHeading()
+        ];
+
+        parent::__construct($composer);
+    }
+
     /**
      * The block name.
      *
@@ -126,7 +141,7 @@ class Heading extends BaseBlock
     public function getWith(): array
     {
         return [
-            ...HeadingHelper::getCurrentSettings(),
+            ...$this->partials['heading']->getVariables(),
         ];
     }
 
@@ -140,7 +155,7 @@ class Heading extends BaseBlock
         $builder = new FieldsBuilder('heading');
 
         $builder
-            ->addFields(HeadingHelper::getFields());
+            ->addFields($this->partials['heading']->fields());
 
         return $builder;
     }

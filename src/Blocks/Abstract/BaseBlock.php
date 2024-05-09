@@ -5,9 +5,11 @@ namespace Seeme\Components\Blocks\Abstract;
 use Illuminate\Support\Arr;
 use Log1x\AcfComposer\Block;
 use Seeme\Components\Helpers\ArrHelper;
-use Seeme\Components\Partials\Styles\Background;
-use Seeme\Components\Partials\Styles\Border;
-use Seeme\Components\Partials\Styles\Shadow;
+use Seeme\Components\Partials\Abstract\BasePartial;
+use Seeme\Components\Partials\Background;
+use Seeme\Components\Partials\Border;
+use Seeme\Components\Partials\Shadow;
+use Seeme\Components\Partials\Text;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 abstract class BaseBlock extends Block
@@ -19,16 +21,13 @@ abstract class BaseBlock extends Block
      */
     public $category = 'sm-blocks';
 
-    public $styles_support = [
-        // 'background',
-        // 'border',
-        // 'shadow'
-    ];
+    public $styles_support = [];
 
     public $partials_controllers = [
         'background' => Background::class,
+        'text' => Text::class,
         'border' => Border::class,
-        'shadow' => Shadow::class
+        'shadow' => Shadow::class,
     ];
 
     public $classes_map = [
@@ -61,13 +60,19 @@ abstract class BaseBlock extends Block
 
         foreach($this->styles_support as $partial) {
             if( $this->supportsStyles($partial) ) {
-                $controller = $this->partials_controllers[$partial] ?? false;
+                $className = $this->partials_controllers[$partial] ?? false;
 
-                if( !$controller ) {
+                if( !$className ) {
                     continue;
                 }
 
-                $classes[] = Arr::toCssClasses($controller::getClasses());
+                $controller = new $className;
+
+                if( !$controller || ! $controller instanceof BasePartial) {
+                    continue;
+                }
+
+                $classes[] = Arr::toCssClasses($controller->getClasses());
             }
         }
 
@@ -104,13 +109,19 @@ abstract class BaseBlock extends Block
 
         foreach($this->styles_support as $partial) {
             if( $this->supportsStyles($partial) ) {
-                $controller = $this->partials_controllers[$partial] ?? false;
+                $className = $this->partials_controllers[$partial] ?? false;
 
-                if( !$controller ) {
+                if( !$className ) {
                     continue;
                 }
 
-                $style[] = ArrHelper::toCssStyles($controller::getStyles());
+                $controller = new $className;
+
+                if( !$controller || ! $controller instanceof BasePartial ) {
+                    continue;
+                }
+
+                $style[] = ArrHelper::toCssStyles($controller->getStyles());
             }
         }
 
@@ -131,14 +142,20 @@ abstract class BaseBlock extends Block
 
         foreach($this->styles_support as $partial) {
             if( $this->supportsStyles($partial) ) {
-                $controller = $this->partials_controllers[$partial] ?? false;
+                $className = $this->partials_controllers[$partial] ?? false;
 
-                if( !$controller ) {
+                if(! $className) {
+                    continue;
+                }
+
+                $controller = new $className();
+
+                if( !$controller || ! $controller instanceof BasePartial ) {
                     continue;
                 }
 
                 $builder
-                    ->addFields($controller::fields());
+                    ->addFields($controller->fields());
             }
         }
 
@@ -161,13 +178,19 @@ abstract class BaseBlock extends Block
 
         foreach($this->styles_support as $partial) {
             if( $this->supportsStyles($partial) ) {
-                $controller = $this->partials_controllers[$partial] ?? false;
+                $className = $this->partials_controllers[$partial] ?? false;
 
-                if( !$controller ) {
+                if( !$className ) {
                     continue;
                 }
 
-                $vars = array_merge($vars, $controller::getVariables());
+                $controller = new $className;
+
+                if( !$controller || ! $controller instanceof BasePartial ) {
+                    continue;
+                }
+
+                $vars = array_merge($vars, $controller->getVariables());
             }
         }
 
@@ -234,7 +257,6 @@ abstract class BaseBlock extends Block
     {
         return [
             'style' => $this->getStyle(),
-            'stylesSupport' => $this->styles_support,
             ...$this->getStylesVariables(),
             ...$this->getWith()
         ];

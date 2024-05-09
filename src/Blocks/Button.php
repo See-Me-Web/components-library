@@ -2,14 +2,27 @@
 
 namespace Seeme\Components\Blocks;
 
-use Seeme\Components\Blocks\Abstract\ComponentBlock;
-use Seeme\Components\Partials\Components\Button as ComponentsButton;
+use Log1x\AcfComposer\AcfComposer;
+use Seeme\Components\Blocks\Abstract\BaseBlock;
+use Seeme\Components\Partials\Button as PartialsButton;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Button extends ComponentBlock
+class Button extends BaseBlock
 {
-    public $component_partial = ComponentsButton::class;
+    /**
+     * Array of partials used by this block
+     */
+    public array $partials = [];
+
+    public function __construct(AcfComposer $composer)
+    {
+        $this->partials = [
+            'button' => new PartialsButton()
+        ];
+
+        parent::__construct($composer);
+    }
 
     /**
      * The block name.
@@ -58,10 +71,7 @@ class Button extends ComponentBlock
      *
      * @var array
      */
-    public $parent = [
-        'acf/buttons',
-        'acf/column-links-item',
-    ];
+    public $parent = [];
 
     /**
      * The default block mode.
@@ -125,7 +135,9 @@ class Button extends ComponentBlock
      */
     public function getWith(): array
     {
-        return [];
+        return [
+            ...$this->partials['button']->getVariables()
+        ];
     }
 
     /**
@@ -136,6 +148,9 @@ class Button extends ComponentBlock
     public function getBlockFields(): FieldsBuilder
     {
         $builder = new FieldsBuilder('button');
+
+        $builder
+            ->addFields($this->partials['button']->fields());
 
         return $builder;
     }

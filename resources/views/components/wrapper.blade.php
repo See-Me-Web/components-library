@@ -1,5 +1,5 @@
 @props([
-  'size' => 'xl'
+  'maxWidth' => 'md'
 ])
 
 <div {{ $attributes->class([

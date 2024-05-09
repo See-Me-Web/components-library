@@ -2,15 +2,24 @@
 
 namespace Seeme\Components\Blocks;
 
+use Log1x\AcfComposer\AcfComposer;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
 use Seeme\Components\Helpers\ViewHelper;
-use Seeme\Components\Partials\Utilities\Slider;
+use Seeme\Components\Partials\Slider;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class ImageSlider extends BaseBlock
 {
-    public $styles_support = ['border', 'background', 'shadow'];
+    public $styles_support = ['background', 'border', 'shadow'];
+
+    public $partial = null;
+
+    public function __construct(AcfComposer $composer)
+    {
+        $this->partial = new Slider(['parents' => ['slider-settings']]);
+        parent::__construct($composer);
+    }
 
     /**
      * The block name.
@@ -110,7 +119,7 @@ class ImageSlider extends BaseBlock
         ],
         'color' => [
           'text' => true,
-          'background' => true
+          'background' => false
         ],
     ];
 
@@ -144,26 +153,11 @@ class ImageSlider extends BaseBlock
 
     public function getSliderConfig(): array
     {
-      $variables = Slider::getVariables('slider-settings');
-      $config = [
-        'slidesPerView' => 2,
+      return [
+        'slidesPerView' => get_field('slidesPerView') ?: 4,
         'spaceBetween' => get_field('spaceBetween') ?: 20,
-        'breakpoints' => [
-          768 => [
-            'slidesPerView' => 4
-          ],
-          992 => [
-            'slidesPerView' => get_field('slidesPerView') ?: 8
-          ]
-        ]
+        'config' => get_field('slider-settings')
       ];
-
-      $variables['config'] = [
-        $variables['config'],
-        ...$config
-      ];
-
-      return $variables;
     }
 
     /**
@@ -196,7 +190,7 @@ class ImageSlider extends BaseBlock
               'max' => 100,
               'default_value' => 20
             ])
-            ->addFields(Slider::fields())
+            ->addFields($this->partial->fields())
           ->endGroup();
 
         return $builder;
@@ -220,9 +214,9 @@ class ImageSlider extends BaseBlock
     {
       $classes = [];
 
-      $classes = array_merge($classes, Slider::getClasses('slider-settings'));
+      $classes = array_merge($classes, $this->partial->getClasses());
 
-      return [];
+      return $classes;
     }
 
     public function getAdditionalStyles(): array

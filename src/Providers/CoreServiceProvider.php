@@ -6,6 +6,8 @@ use Seeme\Components\Services\BlocksService;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Seeme\Components\Services\AjaxListenerService;
+use Seeme\Components\Services\AjaxService;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,10 @@ class CoreServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(self::CONFIG_PATH, 'sm-components');
+
+        $this->app->bind('ajax', function () {
+            return new AjaxListenerService();
+        });
     }
 
     /**
@@ -34,6 +40,8 @@ class CoreServiceProvider extends ServiceProvider
         $this->handleViews();
         $this->handleBlocks();
         $this->handleComposers();
+        $this->handleAjax();
+        $this->handleFields();
     }
 
     /**
@@ -80,6 +88,26 @@ class CoreServiceProvider extends ServiceProvider
         foreach($composers as $composer) {
             $class = 'Seeme\\Components\\View\\Composers\\' . basename($composer, '.php');
             View::composer($class::views(), $class);
+        }
+    }
+
+    public function handleAjax(): void
+    {
+        $service = $this->app->make(AjaxService::class);
+
+        $service->init();
+        $service->execute();
+    }
+
+    public function handleFields(): void
+    {
+        $fields = glob(__DIR__ . '/../Fields/*.php');
+
+        foreach($fields as $field) {
+            $name = basename($field, '.php');
+
+            $class = 'Seeme\\Components\\Fields\\' . $name;
+            $this->app->make($class)->compose();
         }
     }
 }

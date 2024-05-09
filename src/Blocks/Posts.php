@@ -8,7 +8,7 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Posts extends BaseBlock
 {
-    public $styles_support = ['border', 'background', 'shadow'];
+    public $styles_support = ['background', 'text', 'border', 'shadow'];
 
     /**
      * The block name.
@@ -109,7 +109,7 @@ class Posts extends BaseBlock
         ],
         'color' => [
           'text' => true,
-          'background' => true
+          'background' => false
         ],
     ];
 
@@ -133,9 +133,7 @@ class Posts extends BaseBlock
           'columns' => get_field('columns') ?: 3,
           'mobileVertical' => $mobileVertical == null ? true : $mobileVertical,
           'mobileColumns' => get_field('mobile-columns') ?: 1,
-          'allowedBlocks' => [
-            'acf/post-card'
-          ]
+          'posts' => get_field('posts') ?: []
         ];
     }
 
@@ -149,34 +147,40 @@ class Posts extends BaseBlock
         $builder = new FieldsBuilder('posts');
 
         $builder
+          ->addAccordion('Posty')
+            ->addRelationship('posts', [
+              'label' => 'Posty',
+              'return_format' => 'id',
+              'multiple' => true
+            ])
           ->addAccordion('Ustawienia bloku')
-          ->addRange('columns', [
-            'label' => 'Liczba kolumn',
-            'min' => 1,
-            'max' => 6,
-            'step' => 1,
-            'default_value' => 3
-          ])
-          ->addTrueFalse('mobile-vertical', [
-            'label' => 'Zmień orientację na pionową dla urządzeń mobilnych',
-            'default_value' => true
-          ])
-          ->addRange('mobile-columns', [
-            'label' => 'Liczba kolumn dla urządzeń mobilnych',
-            'min' => 1,
-            'max' => 6,
-            'step' => 1,
-            'default_value' => 1,
-            'conditional_logic' => [
-              [
+            ->addRange('columns', [
+              'label' => 'Liczba kolumn',
+              'min' => 1,
+              'max' => 6,
+              'step' => 1,
+              'default_value' => 3
+            ])
+            ->addTrueFalse('mobile-vertical', [
+              'label' => 'Zmień orientację na pionową dla urządzeń mobilnych',
+              'default_value' => true
+            ])
+            ->addRange('mobile-columns', [
+              'label' => 'Liczba kolumn dla urządzeń mobilnych',
+              'min' => 1,
+              'max' => 6,
+              'step' => 1,
+              'default_value' => 1,
+              'conditional_logic' => [
                 [
-                  'field' => 'mobile-vertical',
-                  'operator' => '==',
-                  'value' => 1
+                  [
+                    'field' => 'mobile-vertical',
+                    'operator' => '==',
+                    'value' => 1
+                  ]
                 ]
               ]
-            ]
-          ]);
+            ]);
 
         return $builder;
     }

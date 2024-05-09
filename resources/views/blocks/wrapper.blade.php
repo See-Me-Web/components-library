@@ -1,5 +1,9 @@
+@props([
+  'maxWidth' => 'md'
+])
+
 <x-seeme::wrapper 
-  :size="$size ?? 'xl'"
+  :maxWidth="$maxWidth"
   style="{{ $style }}"
   @class([
     'w-full',

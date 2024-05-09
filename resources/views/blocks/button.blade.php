@@ -1,10 +1,19 @@
+@props([
+  'link' => [
+    'url' => '#',
+    'target' => '_self',
+    'title' => 'Button'
+  ],
+  'variant' => 'primary',
+  'size' => 'medium'
+])
+
 @if(isset($link) && is_array($link) && !empty($link))
   <x-seeme::button-link
     :href="$link['url'] ?? '#'"
     :target="$link['target'] ?? '_self'"
-    :variant="$variant ?? 'primary'"
-    :size="$size ?? 'medium'"
-    :styles="$style"
+    :variant="$variant"
+    :size="$size"
     :class="$block->classes"
   >
     @if( $iconLeft )

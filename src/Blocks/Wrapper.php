@@ -2,13 +2,28 @@
 
 namespace Seeme\Components\Blocks;
 
+use Log1x\AcfComposer\AcfComposer;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
-use Seeme\Components\Helpers\WrapperHelper;
+use Seeme\Components\Partials\Wrapper as PartialsWrapper;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Wrapper extends BaseBlock
 {
+    /**
+     * Array of partials used by this block
+     */
+    public array $partials = [];
+
+    public function __construct(AcfComposer $composer)
+    {
+        $this->partials = [
+            'wrapper' => new PartialsWrapper()
+        ];
+
+        parent::__construct($composer);
+    }
+
     /**
      * The block name.
      *
@@ -70,7 +85,7 @@ class Wrapper extends BaseBlock
      *
      * @var string
      */
-    public $align = '';
+    public $align = 'center';
 
     /**
      * The default block text alignment.
@@ -106,7 +121,7 @@ class Wrapper extends BaseBlock
         ],
         'color' => [
           'text' => true,
-          'background' => true
+          'background' => false
         ]
     ];
 
@@ -125,7 +140,7 @@ class Wrapper extends BaseBlock
     public function getWith(): array
     {
         return [
-          ...WrapperHelper::getCurrentSettings(),
+          ...$this->partials['wrapper']->getVariables()
         ];
     }
 
@@ -139,7 +154,7 @@ class Wrapper extends BaseBlock
         $builder = new FieldsBuilder('wrapper');
 
         $builder
-          ->addFields(WrapperHelper::getFields());
+          ->addFields($this->partials['wrapper']->fields());
 
         return $builder;
     }

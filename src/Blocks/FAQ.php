@@ -107,7 +107,7 @@ class Faq extends BaseBlock
         ],
         'color' => [
             'text' => true,
-            'background' => true
+            'background' => false
         ],
     ];
 

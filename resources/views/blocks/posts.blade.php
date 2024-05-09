@@ -15,6 +15,8 @@
     ]) 
     style="{{ $style }}"
   >
-    <InnerBlocks allowedBlocks="{{ wp_json_encode($allowedBlocks) }}" />
+    @foreach($posts as $postId)
+      @include('seeme::partials.post.tile', ['id' => $postId])
+    @endforeach
   </div>
 </div>

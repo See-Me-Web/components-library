@@ -8,7 +8,7 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Section extends BaseBlock
 {
-    public $styles_support = ['border', 'background', 'shadow'];
+    public $styles_support = ['background', 'text', 'border', 'shadow'];
 
     /**
      * The block name.
@@ -96,7 +96,7 @@ class Section extends BaseBlock
         'align' => false,
         'align_text' => false,
         'align_content' => true,
-        'full_height' => false,
+        'full_height' => true,
         'anchor' => true,
         'mode' => true,
         'multiple' => true,
@@ -107,7 +107,7 @@ class Section extends BaseBlock
         ],
         'color' => [
           'text' => true,
-          'background' => true
+          'background' => false
         ],
     ];
 

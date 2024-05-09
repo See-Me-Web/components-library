@@ -1,8 +1,15 @@
+@props([
+  'size' => '',
+  'weight' => '',
+  'text' => '',
+  'element' => ''
+])
+
 <x-seeme::heading
   id="{{ $block->block->anchor ?? $block->block->id }}"
-  :size="$size ?? 'md'"
-  :element="$element ?? 'h3'"
-  :weight="$weight ?? 'normal'"
+  :size="$size"
+  :element="$element"
+  :weight="$weight"
   :class="Arr::toCssClasses([
     $block->classes
   ])"

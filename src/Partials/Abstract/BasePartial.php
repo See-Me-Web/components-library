@@ -8,38 +8,109 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 abstract class BasePartial implements IBasePartial
 {
-  public static $slug = '';
-  public static $title = '';
-  public static $options = [];
-  public static $optionsClasses = [];
+  private const DEFAULT_ATTRIBUTES = [
+    'title' => '',
+    'style' => 'accordion',
+    'parents' => [],
+    'postId' => false,
+    'args' => []
+  ];
+
+  public string $slug = '';
+  public array $options = [];
+  public array $optionsClasses = [];
+
+  public array $attributes = [];
+
+  public function getFields(): ?FieldsBuilder { return null; }
+  public function getClasses(): array { return []; }
+  public function getStyles(): array { return []; }
+  public function getVariables(): array { return []; }
+
+  public function __construct(array $attributes = [])
+  {
+    $this->attributes = [
+      ...self::DEFAULT_ATTRIBUTES,
+      ...$this->attributes,
+      ...$attributes,
+    ];
+  }
+
+  public function getLocation(): string
+  {
+    $parents = $this->attributes['parents'] ?? [];
+
+    if(empty($parents)) {
+      return '';
+    }
+
+    array_shift($parents);
+
+    if(empty($parents)) {
+      return $this->slug;
+    }
+
+    return implode('.', $parents) . '.' . $this->slug;
+  }
+
+  public function getFieldName()
+  {
+    $parents = $this->attributes['parents'] ?? [];
+    return empty($parents) ? $this->slug : $parents[0];
+  }
+  
+  public function getSettings(): array
+  {
+    $fields = [];
+    $postId = $this->attributes['postId'] ?? false;
+    $location = $this->getLocation();
+
+    $fields = get_field($this->getFieldName(), $postId) ?: [];
+
+    if(!empty($location)) {
+      $fields = Arr::get($fields, $this->getLocation(), []);
+    }
+        
+    return [
+      ...$fields,
+      ...$this->attributes['args'] ?? []
+    ];
+  }
 
   /**
    * Return StoutLogic\AcfBuilder\FieldsBuilder with partial fields
    * 
    * @return FieldsBuilder|null
    */
-  public static function fields(array $args = []): ?FieldsBuilder
+  public function fields(array $args = []): ?FieldsBuilder
   {
-    $builder = new FieldsBuilder(static::$slug . '-partial');
+    $builder = new FieldsBuilder($this->slug . '-partial');
 
-    if(!empty(static::$title)) {
-      $builder->addAccordion(static::$title);
+    $title = $this->attributes['title'] ?? '';
+    $style = $this->attributes['style'] ?? 'accordion';
+
+    if(!empty($title) && $style === 'accordion') {
+      $builder->addAccordion($title);
+    }
+
+    if( !empty($title) && $style === 'tab' ) {
+      $builder->addTab($title);
     }
 
     $builder
-      ->addGroup(static::$slug, $args)
-      ->addFields(static::getOptionsFields())
-      ->addFields(static::getFields())
+      ->addGroup($this->slug, $args)
+      ->addFields($this->getOptionsFields())
+      ->addFields($this->getFields())
       ->endGroup();
 
     return $builder;
   }
 
-  public static function getOptionsFields(): FieldsBuilder
+  public function getOptionsFields(): FieldsBuilder
   {
-    $builder = new FieldsBuilder(static::$slug . '-options');
+    $builder = new FieldsBuilder($this->slug . '-options');
 
-    foreach(static::$options as $option => $settings) {
+    foreach($this->options as $option => $settings) {
       $builder
         ->addSelect($option, [
           'label' => $settings['label'] ?? $option,
@@ -51,18 +122,24 @@ abstract class BasePartial implements IBasePartial
     return $builder;
   }
 
-  public static function getChoices(string $option): array
+  public function getOptionsClasses(): array
   {
-    return Arr::get(static::$options, $option . '.choices', []);
+    $settings = $this->getSettings();
+    $classes = [];
+
+    foreach($settings as $setting => $value) {
+      if(! in_array($setting, array_keys($this->options))) {
+        continue;
+      }
+
+      $classes[] = $this->getOptionClasses($setting, $value);
+    }
+
+    return $classes;
   }
 
-  public static function getDefault(string $option): string
+  public function getOptionClasses(string $option, string $value): string
   {
-    return Arr::get(static::$options, $option . '.default_value', '');
-  }
-
-  public static function getOptionClasses(string $option, string $value): string
-  {
-    return Arr::toCssClasses(Arr::get(static::$optionsClasses, $option . '.' . $value, []));
+    return Arr::toCssClasses(Arr::get($this->optionsClasses, $option . '.' . $value, []));
   }
 }

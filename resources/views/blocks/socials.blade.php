@@ -15,8 +15,7 @@
             <x-dynamic-component 
               component="seeme::icon.socials.{{ $social['type'] }}" 
               @class([
-                'w-[--socials-size]',
-                'h-[--socials-size]',
+                'size-[--socials-size]',
               ]) 
             />
           </a>

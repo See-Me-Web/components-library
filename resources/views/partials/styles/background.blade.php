@@ -6,7 +6,6 @@
   $hasSlider = $background['hasSlider'] ?? false;
 @endphp
 
-
 @if($hasOverlay || $hasVideo || $hasSlider)
   <div class="inset-0 absolute -z-10">
     @if($hasVideo)

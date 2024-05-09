@@ -108,7 +108,7 @@ class Contact extends BaseBlock
         ],
         'color' => [
           'text' => true,
-          'background' => true
+          'background' => false
         ],
     ];
 

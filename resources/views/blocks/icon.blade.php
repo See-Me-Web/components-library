@@ -5,8 +5,7 @@
   @class([
     'inline-block',
     'align-middle',
-    'w-[--icon-size]',
-    'h-[--icon-size]',
+    'size-[--icon-size]',
     $block->classes,
   ]) 
 />
