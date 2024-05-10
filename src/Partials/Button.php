@@ -39,14 +39,16 @@ class Button extends BasePartial
         'btn-primary inline-flex items-center justify-center gap-4',
         'border bg-trasparent border-primary text-primary',
         'text-base whitespace-nowrap transition-colors',
-        'rounded-full no-underline hover:no-underline'
+        'rounded-full no-underline hover:no-underline',
+        'hover:bg-primary-500 hover:text-white',
+        '[&.is-active]:bg-primary-500'
       ],
       'secondary' => [
         'btn-secondary inline-flex items-center justify-center gap-4',
-        'outline outline-1 bg-trasparent outline-primary text-primary',
+        'border bg-primary border-primary text-white',
         'text-base whitespace-nowrap transition-colors',
         'rounded-full no-underline hover:no-underline'
-      ]
+      ],
     ],
     'size' => [
       'small' => 'btn-small p-4 text-sm',

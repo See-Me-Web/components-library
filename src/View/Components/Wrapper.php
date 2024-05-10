@@ -11,14 +11,18 @@ class Wrapper extends BaseComponent
 {
     protected string $name = 'wrapper';
     protected $maxWidth = 'md';
+    protected $align = 'center';
     protected $partial = null;
 
-    public function __construct(string $maxWidth = 'md')
+    public function __construct(string $maxWidth = 'md', string $align = 'center')
     {
       $this->maxWidth = $maxWidth;
+      $this->align = $align;
+
       $this->partial = new PartialsWrapper([
         'args' => [
-          'maxWidth' => $maxWidth
+          'maxWidth' => $maxWidth,
+          'align' => $align
         ]
       ]);
     }
@@ -26,7 +30,6 @@ class Wrapper extends BaseComponent
     public function with(): array
     {
         return [
-          'maxWidth' => $this->maxWidth,
           'styles' => ArrHelper::toCssStyles($this->partial->getStyles()),
           'classes' => Arr::toCssClasses($this->partial->getClasses())
         ];

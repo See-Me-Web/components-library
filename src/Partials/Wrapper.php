@@ -26,6 +26,14 @@ class Wrapper extends BasePartial
         'custom' => 'Inna'
       ],
       'default_value' => 'md'
+    ],
+    'align' => [
+      'label' => 'Położenie',
+      'choices' => [
+        'left' => 'Lewo',
+        'center' => 'Środek',
+        'right' => 'Prawo'
+      ]
     ]
   ];
 
@@ -37,6 +45,11 @@ class Wrapper extends BasePartial
       'xl' => 'max-w-screen-xl',
       '2xl' => 'max-w-screen-2xl',
       'full' => 'max-w-full'
+    ],
+    'align' => [
+      'left' => 'ml-0 mr-auto',
+      'center' => 'mx-auto',
+      'right' => 'mr-0 ml-auto'
     ]
   ];
 

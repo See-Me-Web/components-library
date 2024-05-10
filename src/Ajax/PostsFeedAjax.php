@@ -89,6 +89,7 @@ class PostsFeedAjax extends AjaxAction
         $query = static::getPosts($params);
 
         return [
+            'maxPages' => ceil($query->found_posts / $params->perPage),
             'posts' => array_map(fn($post) => $this->preparePost($post), $query->posts)
         ];
     }

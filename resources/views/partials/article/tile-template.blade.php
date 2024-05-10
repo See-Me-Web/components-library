@@ -1,7 +1,10 @@
-<div class="p-4" x-bind:class="post.classes" x-bind:style="post.styles">
+<div class="p-8" x-bind:class="post.classes" x-bind:style="post.styles">
   <div x-text="post.date" class="text-sm mb-4"></div>
 
-  <a x-bind:href="post.permalink" x-bind:title="post.title">
+  <a 
+    x-bind:href="post.permalink" 
+    x-bind:title="post.title"
+  >
     <img 
       x-bind:src="post.thumbnail.url"
       x-bind:width="post.thumbnail.width"
@@ -12,7 +15,11 @@
     />
   </a>
 
-  <a x-bind:href="post.permalink" x-bind:title="post.title">
+  <a 
+    x-bind:href="post.permalink" 
+    x-bind:title="post.title"
+    class="hover:no-underline"
+  >
     <h3 class="text-current text-lg mb-4 font-bold" x-html="post.title"></h3>
   </a>
 

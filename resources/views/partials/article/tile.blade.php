@@ -1,6 +1,6 @@
 <div @class([
   $classes,
-  'p-4'
+  'p-8'
 ]) @style([$styles])>
   @if(isset($date) && $date)
     <div class="text-sm mb-4">{{ $date }}</div>
@@ -26,6 +26,7 @@
     <a 
       href="{{ isset($permalink) && $permalink ? $permalink : '#' }}" 
       title="{{ isset($title) && $title ? $title : '' }}"
+      class="hover:no-underline"
     >
       <h3 class="text-current text-lg mb-4 font-bold">{!! $title !!}</h3>
     </a>

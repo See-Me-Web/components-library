@@ -2,53 +2,40 @@
 
 namespace Seeme\Components\Blocks;
 
-use Log1x\AcfComposer\AcfComposer;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
-use Seeme\Components\Partials\Wrapper as PartialsWrapper;
+use Seeme\Components\Helpers\PostsHelper;
+use Seeme\Components\Helpers\ViewHelper;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Wrapper extends BaseBlock
+class PostHero extends BaseBlock
 {
-    /**
-     * Array of partials used by this block
-     */
-    public array $partials = [];
-
-    public function __construct(AcfComposer $composer)
-    {
-        $this->partials = [
-            'wrapper' => new PartialsWrapper()
-        ];
-
-        parent::__construct($composer);
-    }
-
+    public $styles_support = ['background'];
     /**
      * The block name.
      *
      * @var string
      */
-    public $name = 'Wrapper';
+    public $name = 'Post hero';
 
     /**
      * The block view.
      */
-    public $view = CoreServiceProvider::NAMESPACE . '::blocks.wrapper';
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.post-hero';
 
     /**
      * The block description.
      *
      * @var string
      */
-    public $description = 'Wrapper';
+    public $description = 'Post hero';
 
     /**
      * The block icon.
      *
      * @var string|array
      */
-    public $icon = 'editor-code';
+    public $icon = 'tagcloud';
 
     /**
      * The block keywords.
@@ -56,7 +43,7 @@ class Wrapper extends BaseBlock
      * @var array
      */
     public $keywords = [
-        'wrapper'
+        'post-hero'
     ];
 
     /**
@@ -64,7 +51,11 @@ class Wrapper extends BaseBlock
      *
      * @var array
      */
-    public $post_types = [];
+    public $post_types = [
+      'post',
+      'portfolio',
+      'offer'
+    ];
 
     /**
      * The parent block type allow list.
@@ -85,7 +76,7 @@ class Wrapper extends BaseBlock
      *
      * @var string
      */
-    public $align = 'center';
+    public $align = '';
 
     /**
      * The default block text alignment.
@@ -108,21 +99,22 @@ class Wrapper extends BaseBlock
      */
     public $supports = [
         'align' => false,
-        'align_text' => false,
+        'align_text' => true,
         'align_content' => false,
-        'full_height' => true,
+        'full_height' => false,
         'anchor' => true,
         'mode' => true,
         'multiple' => true,
         'jsx' => true,
         'spacing' => [
           'padding' => true,
-          'margin' => ['top', 'bottom']
+          'margin' => true,
+          'blockGap' => true
         ],
         'color' => [
+          'background' => false,
           'text' => true,
-          'background' => false
-        ]
+        ],
     ];
 
     /**
@@ -139,8 +131,12 @@ class Wrapper extends BaseBlock
      */
     public function getWith(): array
     {
+        $postId = get_the_ID();
+
         return [
-          ...$this->partials['wrapper']->getVariables()
+          'title' => get_the_title(),
+          'thumbnail' => PostsHelper::getThumbnail($postId),
+          'categories' => ViewHelper::listCategories(PostsHelper::getTopLevelCategories($postId))
         ];
     }
 
@@ -151,10 +147,7 @@ class Wrapper extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('wrapper');
-
-        $builder
-          ->addFields($this->partials['wrapper']->fields());
+        $builder = new FieldsBuilder('post-hero');
 
         return $builder;
     }

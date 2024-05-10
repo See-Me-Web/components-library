@@ -145,9 +145,26 @@ class PostsSlider extends BaseBlock
     public function getSliderConfig(): array
     {
       return [
-        'slidesPerView' => get_field('slidesPerView') ?: 4,
         'spaceBetween' => get_field('spaceBetween') ?: 20,
-        'config' => get_field('slider-settings')
+        'config' => [
+          ...get_field('slider-settings') ?: [],
+          'slidesPerView' => 1.2,
+          'slidesOffsetBefore' => 16,
+          'spaceBetween' => 10,
+          'breakpoints' => [
+            586 => [
+              'slidesPerView' => 2.2
+            ],
+            768 => [
+              'slidesOffsetBefore' => 32,
+              'slidesPerView' => 3.2
+            ],
+            992 => [
+              'slidesOffsetBefore' => 128,
+              'slidesPerView' => get_field('slidesPerView') ?: 4,
+            ]
+          ]
+        ]
       ];
     }
 

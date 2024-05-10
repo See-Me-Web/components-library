@@ -129,7 +129,7 @@ class DynamicPosts extends BaseBlock
     public function getWith(): array
     {
         $mobileVertical = get_field('mobile-vertical');
-        $withFilters = get_field('withFilters') ?: true;
+        $withFilters = get_field('withFilters');
         $postType = get_field('postType') ?: 'post';
 
         $settings = [
@@ -147,7 +147,7 @@ class DynamicPosts extends BaseBlock
           'mobileVertical' => $mobileVertical == null ? true : $mobileVertical,
           'mobileColumns' => get_field('mobile-columns') ?: 1,
           'posts' => $initialQuery->posts,
-          'categories' => PostsFeedAjax::getCategories($postType),
+          'categories' => $withFilters === true ? PostsFeedAjax::getCategories($postType) : [],
           'action' => PostsFeedAjax::ACTION,
           'nonce' => wp_create_nonce(PostsFeedAjax::ACTION),
           'settings' => [

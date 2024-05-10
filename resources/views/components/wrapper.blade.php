@@ -1,5 +1,6 @@
 @props([
-  'maxWidth' => 'md'
+  'maxWidth' => 'md',
+  'align' => 'center'
 ])
 
 <div {{ $attributes->class([

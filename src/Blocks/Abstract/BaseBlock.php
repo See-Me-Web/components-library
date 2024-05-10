@@ -35,9 +35,9 @@ abstract class BaseBlock extends Block
         'align-text-center' => 'text-center',
         'align-text-right' => 'text-right',
         'full-height' => 'min-h-[80vh]',
-        'alignleft' => 'mr-auto',
-        'aligncenter' => '!mx-auto',
-        'alignright' => 'ml-auto',
+        'alignleft' => 'ml-0 mr-auto',
+        'aligncenter' => 'mx-auto',
+        'alignright' => 'mr-0 ml-auto',
         'is-position-top' => 'flex flex-col justify-start',
         'is-position-center' => 'flex flex-col justify-center',
         'is-position-bottom' => 'flex flex-col justify-end'
