@@ -4,130 +4,67 @@ namespace Seeme\Components\Blocks;
 
 use Log1x\AcfComposer\AcfComposer;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
+use Seeme\Components\Helpers\ViewHelper;
 use Seeme\Components\Partials\Slider;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class PostsSlider extends BaseBlock
 {
+    /**
+     * The block styles.
+     */
     public $styles_support = ['border', 'background', 'shadow'];
 
     public $partial = null;
 
-    public function __construct(AcfComposer $composer)
-    {
-        $this->partial = new Slider(['parents' => ['slider-settings']]);
-        parent::__construct($composer);
-    }
-
     /**
-     * The block name.
-     *
-     * @var string
-     */
-    public $name = 'Posts slider';
-
-    /**
-     * The block view.
+     * The block view path.
      */
     public $view = CoreServiceProvider::NAMESPACE . '::blocks.posts-slider';
 
     /**
-     * The block description.
-     *
-     * @var string
+     * The block constructor.
      */
-    public $description = 'Posts slider';
+    public function __construct(AcfComposer $composer)
+    {
+        $this->partial = new Slider(['parents' => ['slider-settings'], 'excluded' => ['effect', 'loop']]);
+        parent::__construct($composer);
+    }
 
     /**
-     * The block icon.
-     *
-     * @var string|array
+     * The block attributes.
      */
-    public $icon = 'tagcloud';
-
-    /**
-     * The block keywords.
-     *
-     * @var array
-     */
-    public $keywords = [
-        'post',
-        'posts'
-    ];
-
-    /**
-     * The block post type allow list.
-     *
-     * @var array
-     */
-    public $post_types = [];
-
-    /**
-     * The parent block type allow list.
-     *
-     * @var array
-     */
-    public $parent = [];
-
-    /**
-     * The default block mode.
-     *
-     * @var string
-     */
-    public $mode = 'preview';
-
-    /**
-     * The default block alignment.
-     *
-     * @var string
-     */
-    public $align = '';
-
-    /**
-     * The default block text alignment.
-     *
-     * @var string
-     */
-    public $align_text = '';
-
-    /**
-     * The default block content alignment.
-     *
-     * @var string
-     */
-    public $align_content = '';
-
-    /**
-     * The supported block features.
-     *
-     * @var array
-     */
-    public $supports = [
-        'align' => false,
-        'align_text' => false,
-        'align_content' => false,
-        'full_height' => false,
-        'anchor' => true,
-        'mode' => true,
-        'multiple' => true,
-        'jsx' => true,
-        'spacing' => [
-          'padding' => true,
-          'margin' => true,
-        ],
-        'color' => [
-          'text' => true,
-          'background' => false
-        ],
-    ];
-
-    /**
-     * The block styles.
-     *
-     * @var array
-     */
-    public $styles = [];
+    public function attributes(): array
+    {
+      return [
+        'name' => __('Posts slider', 'sm-components'),
+        'description' => __('Posts slider block', 'sm-components'),
+        'icon' => 'tagcloud',
+        'keywords' => ['slider', 'posts'],
+        'post_types' => [],
+        'parent' => [],
+        'mode' => 'preview',
+        'supports' => [
+          'align' => false,
+          'align_text' => false,
+          'align_content' => false,
+          'full_height' => false,
+          'anchor' => true,
+          'mode' => true,
+          'multiple' => true,
+          'jsx' => true,
+          'spacing' => [
+            'padding' => true,
+            'margin' => true,
+          ],
+          'color' => [
+            'text' => true,
+            'background' => false
+          ],
+        ]
+      ];
+    }
 
     /**
      * Data to be passed to the block before rendering.
@@ -137,17 +74,18 @@ class PostsSlider extends BaseBlock
     public function getWith(): array
     {
         return [
-          'posts' => $this->getPosts(),
+          'slides' => $this->getSlides(),
           'sliderConfig' => $this->getSliderConfig(),
+          'cardVariant' => 'outline'
         ];
     }
 
     public function getSliderConfig(): array
     {
       return [
-        'spaceBetween' => get_field('spaceBetween') ?: 20,
+        ...$this->partial->getVariables(),
         'config' => [
-          ...get_field('slider-settings') ?: [],
+          ...$this->partial->getConfig(),
           'slidesPerView' => 1.2,
           'slidesOffsetBefore' => 16,
           'spaceBetween' => 10,
@@ -161,7 +99,7 @@ class PostsSlider extends BaseBlock
             ],
             992 => [
               'slidesOffsetBefore' => 128,
-              'slidesPerView' => get_field('slidesPerView') ?: 4,
+              'slidesPerView' => 4.5
             ]
           ]
         ]
@@ -179,26 +117,14 @@ class PostsSlider extends BaseBlock
 
         $builder
           ->addAccordion('Posty')
-            ->addFlexibleContent('posts')
-              ->addLayout($this->getSlideLayout())
+            ->addFlexibleContent('slides')
+              ->addLayout($this->getPostLayout())
+              ->addLayout($this->getImageLayout())
+              ->addLayout($this->getGalleryLayout())
+              ->addLayout($this->getPageLayout())
             ->endFlexibleContent()
           ->addAccordion('Ustawienia bloku')
             ->addGroup('slider-settings')
-              ->addRange('slidesPerView', [
-                'label' => 'Liczba slajdów na widok',
-                'min' => 1,
-                'step' => 0.1,
-                'max' => 10,
-                'default_value'
-              ])
-              ->addRange('spaceBetween', [
-                'label' => 'Odstęp pomiędzy slajdami',
-                'append' => 'px',
-                'min' => 0,
-                'step' => 1,
-                'max' => 100,
-                'default_value' => 20
-              ])
               ->addFields($this->partial->fields())
             ->endGroup();
 
@@ -206,10 +132,10 @@ class PostsSlider extends BaseBlock
         return $builder;
     }
 
-    public function getSlideLayout(): FieldsBuilder
+    public function getPostLayout(): FieldsBuilder
     {
       $builder = new FieldsBuilder('post-layout', [
-        'label' => 'Kafelek wpisu'
+        'label' => 'Kafelek - wpis'
       ]);
 
       $builder
@@ -221,9 +147,84 @@ class PostsSlider extends BaseBlock
       return $builder;
     }
 
-    public function getPosts(): array
+    public function getImageLayout(): FieldsBuilder
     {
-      return array_map(fn($post) => $post['post-id'], get_field('posts') ?: []);
+      $builder = new FieldsBuilder('image-layout', [
+        'label' => 'Kafelek - zdjęcie',
+      ]);
+
+      $builder
+        ->addImage('image', [
+          'label' => 'Zdjęcie',
+          'return_format' => 'id'
+        ]);
+
+      return $builder;
+    }
+
+    public function getGalleryLayout(): FieldsBuilder
+    {
+      $builder = new FieldsBuilder('gallery-layout', [
+        'label' => 'Kafelek - galeria'
+      ]);
+
+      $builder
+        ->addGallery('gallery', [
+          'label' => 'Galeria',
+          'return_format' => 'id'
+        ]);
+
+      return $builder;
+    }
+
+    public function getPageLayout(): FieldsBuilder
+    {
+      $builder = new FieldsBuilder('page-layout', [
+        'label' => 'Kafelek - strona'
+      ]);
+
+      $builder
+        ->addPostObject('page', [
+          'post_type' => 'page',
+          'return_format' => 'id'
+        ])
+        ->addText('title');
+
+      return $builder;
+    }
+
+    public function getSlides(): array
+    {
+      return array_map(function($slide) {
+        return [
+          'type' => $slide['acf_fc_layout'],
+          ...$this->prepareSlide($slide)
+        ];
+      }, get_field('slides') ?: []);
+    }
+
+    public function prepareSlide($slide): array
+    {
+      switch($slide['acf_fc_layout'] ?? 'post-layout') {
+        case 'image-layout':
+          return [
+            'image' => ViewHelper::prepareImage($slide['image'], 'large')
+          ];
+        case 'gallery-layout':
+          return [
+            'images' => array_map(fn ($image) => ViewHelper::prepareImage($image, 'large'), $slide['gallery'])
+          ];
+        case 'page-layout':
+          $pageId = $slide['page'] ?? false;
+
+          return [
+            'permalink' => $pageId ? get_the_permalink($pageId) : false,
+            'title' => $pageId ? get_the_title($pageId) : false,
+            'thumbnail' => $pageId ? ViewHelper::prepareImage(get_post_thumbnail_id($pageId), 'large') : false
+          ];
+        default:
+          return $slide;
+      }
     }
 
     public function getAdditionalClasses(): array

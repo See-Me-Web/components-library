@@ -55,14 +55,20 @@ class Border extends BasePartial
         ]
       ])
       ->addColorPicker('color', [
-        'label' => 'Kolor ramki'
+        'label' => 'Kolor ramki',
+        'wrapper' => [
+          'width' => '50%'
+        ]
       ])
       ->addRange('width', [
         'label' => 'Grubość ramki',
         'step' => 1,
         'min' => 0,
         'append' => 'px',
-        'default_value' => '0'
+        'default_value' => '0',
+        'wrapper' => [
+          'width' => '50%'
+        ]
       ]);
 
     return $builder;

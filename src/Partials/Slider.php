@@ -25,9 +25,23 @@ class Slider extends BasePartial
     $builder = new FieldsBuilder($this->slug);
 
     $builder
+      ->addNumber('speed', [
+        'label' => 'Czas przejścia',
+        'append' => 'ms',
+        'step' => 100,
+        'min' => 100,
+        'max' => 2000,
+        'default_value' => 500,
+        'wrapper' => [
+          'width' => '50%'
+        ]
+      ])
       ->addTrueFalse('autoplay', [
         'label' => 'Przełączaj slajdy automatycznie',
-        'default_value' => true
+        'default_value' => true,
+        'wrapper' => [
+          'width' => '50%'
+        ]
       ])
       ->addNumber('autoplaySpeed', [
         'label' => 'Czas do zmiany slajdu',
@@ -44,27 +58,38 @@ class Slider extends BasePartial
               'value' => 1
             ]
           ]
+        ],
+        'wrapper' => [
+          'width' => '50%'
         ]
-      ])
-      ->addNumber('speed', [
-        'label' => 'Czas przejścia',
-        'append' => 'ms',
-        'step' => 100,
-        'min' => 100,
-        'max' => 2000,
-        'default_value' => 500,
-      ])
-      ->addTrueFalse('loop', [
-        'label' => 'Zapętlenie slajdów',
-        'default_value' => false
-      ])
+      ]);
+
+
+    if( !in_array('loop', $this->attributes['excluded']) ) {
+      $builder
+        ->addTrueFalse('loop', [
+          'label' => 'Zapętlenie slajdów',
+          'default_value' => false,
+          'wrapper' => [
+            'width' => '50%'
+          ]
+        ]);
+    }
+
+    $builder
       ->addTrueFalse('showArrows', [
         'label' => 'Pokaż strzałki',
-        'default_value' => false
+        'default_value' => false,
+        'wrapper' => [
+          'width' => '50%'
+        ]
       ])
       ->addTrueFalse('showArrowsMobile', [
         'label' => 'Pokaż strzałki (mobile)',
-        'default_value' => false
+        'default_value' => false,
+        'wrapper' => [
+          'width' => '50%'
+        ]
       ]);
 
     return $builder;
@@ -88,6 +113,22 @@ class Slider extends BasePartial
     return $classes;
   }
 
+  public function getConfig(): array 
+  {
+    $settings = $this->getSettings();
+
+    $config = [
+      'autoplay' => ($settings['autoplay'] ?? true) == true ? [
+        'delay' => $settings['autoplaySpeed'] ?? 5000
+      ] : false,
+      'loop' => boolval($settings['loop'] ?? false),
+      'effect' => $settings['effect'] ?? 'fade',
+      'speed' => $settings['speed'] ?? 500,
+      ];
+
+    return array_filter($config, fn ($key) => !in_array($key, $this->attributes['excluded']), ARRAY_FILTER_USE_KEY);
+  }
+
   public function getVariables(): array
   {
     $settings = $this->getSettings();
@@ -95,14 +136,6 @@ class Slider extends BasePartial
     return [
       'showArrows' => $settings['showArrows'] ?? false,
       'showArrowsMobile' => $settings['showArrowsMobile'] ?? false,
-      'config' => [
-        'autoplay' => ($settings['autoplay'] ?? true) == true ? [
-          'delay' => $settings['autoplaySpeed'] ?? 5000
-        ] : false,
-        'loop' => boolval($settings['loop'] ?? false),
-        'effect' => $settings['effect'] ?? 'fade',
-        'speed' => $settings['speed'] ?? 500,
-      ]
     ];
   }
 }

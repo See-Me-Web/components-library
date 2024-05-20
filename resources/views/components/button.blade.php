@@ -1,6 +1,7 @@
 @props([
   'variant' => 'primary',
   'size' => 'medium',
+  'weight' => 'regular',
   'label' => '',
   'iconLeft' => '',
   'iconRight' => '',

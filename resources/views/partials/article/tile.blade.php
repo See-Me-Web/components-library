@@ -1,7 +1,4 @@
-<div @class([
-  $classes,
-  'p-8'
-]) @style([$styles])>
+<div>
   @if(isset($date) && $date)
     <div class="text-sm mb-4">{{ $date }}</div>
   @endif

@@ -17,8 +17,9 @@ class Button extends BasePartial
     'variant' => [
       'label' => 'Wariant',
       'choices' => [
+        'basic' => 'Basic',
         'primary' => 'Primary',
-        'secondary' => 'Secondary'
+        'outline' => 'Outline'
       ],
       'default_value' => 'primary'
     ],
@@ -30,30 +31,69 @@ class Button extends BasePartial
         'large' => 'Duży'
       ],
       'default_value' => 'medium'
+    ],
+    'weight' => [
+      'label' => 'Grubość',
+      'choices' => [
+        'regular' => 'Normalna',
+        'bold' => 'Pogrubiony'
+      ],
+      'default_value' => 'regular'
+    ],
+    'rounded' => [
+      'label' => 'Zaokrąglenie',
+      'choices' => [
+        'none' => 'Brak',
+        'sm' => 'Małe',
+        'lg' => 'Duże',
+        'full' => 'Pełne'
+      ],
+      'default_value' => 'full'
     ]
   ];
 
+
   public array $optionsClasses = [
     'variant' => [
-      'primary' => [
-        'btn-primary inline-flex items-center justify-center gap-4',
-        'border bg-trasparent border-primary text-primary',
-        'text-base whitespace-nowrap transition-colors',
-        'rounded-full no-underline hover:no-underline',
-        'hover:bg-primary-500 hover:text-white',
-        '[&.is-active]:bg-primary-500'
+      'basic' => [
+        'btn-basic bg-transparent',
+        'border-transparent',
+        '[&.is-active]:bg-primary-400 hover:bg-primary-400 focus-visible:bg-primary-400',
+        '[&.is-active]:border-primary-400 hover:border-primary-400 focus-visible:border-primary-400',
+        'inline-flex items-center justify-center gap-4',
+        'whitespace-nowrap transition-colors no-underline hover:no-underline',
       ],
-      'secondary' => [
-        'btn-secondary inline-flex items-center justify-center gap-4',
-        'border bg-primary border-primary text-white',
-        'text-base whitespace-nowrap transition-colors',
-        'rounded-full no-underline hover:no-underline'
+      'primary' => [
+        'btn-primary bg-primary-400 text-primary-accent',
+        'border-primary-400',
+        '[&.is-active]:bg-primary-600 hover:bg-primary-600 focus-visible:bg-primary-600',
+        '[&.is-active]:border-primary-600 hover:border-primary-600 focus-visible:border-primary-600',
+        '[&_svg]:fill-primary-50',
+        'inline-flex items-center justify-center gap-4',
+        'whitespace-nowrap transition-colors no-underline hover:no-underline',
+      ],
+      'outline' => [
+        'btn-outline bg-transparent',
+        'border',
+        '[&.is-active]:bg-primary-400 hover:bg-primary-400 focus-visible:bg-primary-400',
+        'inline-flex items-center justify-center gap-4',
+        'whitespace-nowrap transition-colors no-underline hover:no-underline',
       ],
     ],
     'size' => [
       'small' => 'btn-small p-4 text-sm',
       'medium' => 'btn-medium p-6 text-sm md:text-base',
       'large' => 'btn-large p-8 text-base md:text-lg'
+    ],
+    'weight' => [
+      'regular' => 'border w[&_path]:stroke-2 font-normal',
+      'bold' => 'border-2 [&_path]:stroke-2 font-semibold'
+    ],
+    'rounded' => [
+      'none' => 'rounded-none',
+      'sm' => 'rounded-md',
+      'lg' => 'rounded-2xl',
+      'full' => 'rounded-full'
     ]
   ];
 

@@ -9,12 +9,25 @@ use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Heading extends BaseBlock
-{   
+{
     /**
-     * Array of partials used by this block
+     * The block styles.
+     */
+    public $styles_support = ['text'];
+
+    /**
+     * Array of partials used by this block.
      */
     public array $partials = [];
 
+    /**
+     * The block view path.
+     */
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.heading';
+
+    /**
+     * The block constructor.
+     */
     public function __construct(AcfComposer $composer)
     {
         $this->partials = [
@@ -25,113 +38,39 @@ class Heading extends BaseBlock
     }
 
     /**
-     * The block name.
-     *
-     * @var string
+     * The block attributes.
      */
-    public $name = 'Heading';
-
-    /**
-     * The block view.
-     */
-    public $view = CoreServiceProvider::NAMESPACE . '::blocks.heading';
-
-    /**
-     * The block description.
-     *
-     * @var string
-     */
-    public $description = 'Heading block';
-
-    /**
-     * The block icon.
-     *
-     * @var string|array
-     */
-    public $icon = 'heading';
-
-    /**
-     * The block keywords.
-     *
-     * @var array
-     */
-    public $keywords = [
-        'heading'
-    ];
-
-    /**
-     * The block post type allow list.
-     *
-     * @var array
-     */
-    public $post_types = [];
-
-    /**
-     * The parent block type allow list.
-     *
-     * @var array
-     */
-    public $parent = [];
-
-    /**
-     * The default block mode.
-     *
-     * @var string
-     */
-    public $mode = 'preview';
-
-    /**
-     * The default block alignment.
-     *
-     * @var string
-     */
-    public $align = '';
-
-    /**
-     * The default block text alignment.
-     *
-     * @var string
-     */
-    public $align_text = '';
-
-    /**
-     * The default block content alignment.
-     *
-     * @var string
-     */
-    public $align_content = '';
-
-    /**
-     * The supported block features.
-     *
-     * @var array
-     */
-    public $supports = [
-        'align' => false,
-        'align_text' => true,
-        'align_content' => false,
-        'full_height' => false,
-        'anchor' => true,
-        'mode' => false,
-        'multiple' => true,
-        'jsx' => true,
-        'spacing' => [
-            'padding' => true,
-            'margin' => true,
-        ],
-        'color' => [
-            'text' => true,
-            'link' => false,
-            'background' => false,
-        ],
-    ];
-
-    /**
-     * The block styles.
-     *
-     * @var array
-     */
-    public $styles = [];
+    public function attributes(): array
+    {
+        return [
+            'name' => __('Heading', 'sm-components'),
+            'description' => __('Heading block', 'sm-components'),
+            'icon' => 'heading',
+            'keywords' => ['heading'],
+            'post_types' => [],
+            'parent' => [],
+            'mode' => 'preview',
+            'supports' => [
+                'align' => false,
+                'align_text' => true,
+                'align_content' => false,
+                'full_height' => false,
+                'anchor' => true,
+                'mode' => false,
+                'multiple' => true,
+                'jsx' => true,
+                'spacing' => [
+                    'padding' => true,
+                    'margin' => true,
+                ],
+                'color' => [
+                    'text' => true,
+                    'link' => false,
+                    'background' => false,
+                ],
+            ]
+        ];
+    }
 
     /**
      * Data to be passed to the block before rendering.

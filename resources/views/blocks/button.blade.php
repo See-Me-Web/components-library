@@ -5,7 +5,9 @@
     'title' => 'Button'
   ],
   'variant' => 'primary',
-  'size' => 'medium'
+  'size' => 'medium',
+  'weight' => 'regular',
+  'rounded' => 'full'
 ])
 
 @if(isset($link) && is_array($link) && !empty($link))
@@ -14,6 +16,8 @@
     :target="$link['target'] ?? '_self'"
     :variant="$variant"
     :size="$size"
+    :weight="$weight"
+    :rounded="$rounded"
     :class="$block->classes"
   >
     @if( $iconLeft )

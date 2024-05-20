@@ -8,117 +8,50 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Posts extends BaseBlock
 {
+    /**
+     * The block styles.
+     */
     public $styles_support = ['background', 'text', 'border', 'shadow'];
 
     /**
-     * The block name.
-     *
-     * @var string
-     */
-    public $name = 'Posts';
-
-    /**
-     * The block view.
+     * The block view path.
      */
     public $view = CoreServiceProvider::NAMESPACE . '::blocks.posts';
 
     /**
-     * The block description.
-     *
-     * @var string
+     * The block attributes.
      */
-    public $description = 'Posts';
-
-    /**
-     * The block icon.
-     *
-     * @var string|array
-     */
-    public $icon = 'tagcloud';
-
-    /**
-     * The block keywords.
-     *
-     * @var array
-     */
-    public $keywords = [
-        'post',
-        'posts'
-    ];
-
-    /**
-     * The block post type allow list.
-     *
-     * @var array
-     */
-    public $post_types = [];
-
-    /**
-     * The parent block type allow list.
-     *
-     * @var array
-     */
-    public $parent = [];
-
-    /**
-     * The default block mode.
-     *
-     * @var string
-     */
-    public $mode = 'preview';
-
-    /**
-     * The default block alignment.
-     *
-     * @var string
-     */
-    public $align = '';
-
-    /**
-     * The default block text alignment.
-     *
-     * @var string
-     */
-    public $align_text = '';
-
-    /**
-     * The default block content alignment.
-     *
-     * @var string
-     */
-    public $align_content = '';
-
-    /**
-     * The supported block features.
-     *
-     * @var array
-     */
-    public $supports = [
-        'align' => false,
-        'align_text' => false,
-        'align_content' => false,
-        'full_height' => false,
-        'anchor' => true,
-        'mode' => true,
-        'multiple' => true,
-        'jsx' => true,
-        'spacing' => [
-          'padding' => true,
-          'margin' => true,
-          'blockGap' => true
-        ],
-        'color' => [
-          'text' => true,
-          'background' => false
-        ],
-    ];
-
-    /**
-     * The block styles.
-     *
-     * @var array
-     */
-    public $styles = [];
+    public function attributes(): array
+    {
+      return [
+        'name' => __('Posts', 'sm-components'),
+        'description' => __('Posts block', 'sm-components'),
+        'icon' => 'tagcloud',
+        'keywords' => ['posts'],
+        'post_types' => [],
+        'parent' => [],
+        'mode' => 'preview',
+        'supports' => [
+          'align' => false,
+          'align_text' => false,
+          'align_content' => false,
+          'full_height' => false,
+          'anchor' => true,
+          'mode' => true,
+          'multiple' => true,
+          'jsx' => true,
+          'spacing' => [
+            'padding' => true,
+            'margin' => true,
+            'blockGap' => true
+          ],
+          'color' => [
+            'text' => true,
+            'background' => false
+          ],
+        ]
+      ];
+    }
 
     /**
      * Data to be passed to the block before rendering.
@@ -133,7 +66,7 @@ class Posts extends BaseBlock
           'columns' => get_field('columns') ?: 3,
           'mobileVertical' => $mobileVertical == null ? true : $mobileVertical,
           'mobileColumns' => get_field('mobile-columns') ?: 1,
-          'posts' => get_field('posts') ?: []
+          'posts' => get_field('posts') ?: [],
         ];
     }
 
@@ -148,8 +81,9 @@ class Posts extends BaseBlock
 
         $builder
           ->addAccordion('Posty')
-            ->addRelationship('posts', [
+            ->addPostObject('posts', [
               'label' => 'Posty',
+              'post_type' => ['portfolio', 'post', 'offer'],
               'return_format' => 'id',
               'multiple' => true
             ])

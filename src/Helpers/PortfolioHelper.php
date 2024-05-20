@@ -2,9 +2,6 @@
 
 namespace Seeme\Components\Helpers;
 
-use Illuminate\Support\Arr;
-use Seeme\Components\Partials\PostCard;
-
 class PortfolioHelper
 {
   public const POST_TYPE = 'portfolio'; 
@@ -20,19 +17,6 @@ class PortfolioHelper
       'thumbnail' => PostsHelper::getThumbnail($postId),
       'categories' => PostsHelper::getTopLevelCategories($postId),
       'listedCategories' => ViewHelper::listCategories(PostsHelper::getTopLevelCategories($postId)),
-      ...static::getStyling($postId)
-    ];
-  }
-
-  public static function getStyling(int $postId): array
-  {
-    $partial = new PostCard([
-      'postId' => $postId
-    ]);
-
-    return [
-      'classes' => Arr::toCssClasses($partial->getClasses()),
-      'styles' => ArrHelper::toCssStyles($partial->getStyles())
     ];
   }
 }

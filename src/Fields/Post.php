@@ -3,7 +3,7 @@
 namespace Seeme\Components\Fields;
 
 use Log1x\AcfComposer\Field;
-use Seeme\Components\Partials\PostCard;
+use Seeme\Components\Partials\Card;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 /**
@@ -17,11 +17,13 @@ class Post extends Field
      */
     public function fields()
     {
-        $builder = new FieldsBuilder('post', [
-          'position' => 'side'
-        ]);
-        $builder->setLocation('post_type', '==', 'post');
-        $builder->addFields((new PostCard([
+        $builder = new FieldsBuilder('post');
+        $builder
+          ->setLocation('post_type', '==', 'post')
+          ->or('post_type', '==', 'portfolio')
+          ->or('post_type', '==', 'offer');
+
+        $builder->addFields((new Card([
           'style' => 'tab'
         ]))->fields(['label' => '']));
 

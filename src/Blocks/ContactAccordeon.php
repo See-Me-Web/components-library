@@ -3,22 +3,15 @@
 namespace Seeme\Components\Blocks;
 
 use Seeme\Components\Blocks\Abstract\BaseBlock;
-use Seeme\Components\Helpers\PostsHelper;
-use Seeme\Components\Helpers\ViewHelper;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class PostHero extends BaseBlock
+class ContactAccordeon extends BaseBlock
 {
-    /**
-     * The block styles.
-     */
-    public $styles_support = ['background'];
-
     /**
      * The block view path.
      */
-    public $view = CoreServiceProvider::NAMESPACE . '::blocks.post-hero';
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.contact-accordeon';
 
     /**
      * The block attributes.
@@ -26,16 +19,16 @@ class PostHero extends BaseBlock
     public function attributes(): array
     {
       return [
-        'name' => __('Post hero', 'sm-components'),
-        'description' => __('Post hero block', 'sm-components'),
-        'icon' => 'tagcloud',
-        'keywords' => ['hero'],
-        'post_types' => ['post', 'portfolio', 'offer'],
+        'name' => __('Contact accordeon', 'sm-components'),
+        'description' => '',
+        'icon' => 'arrow-down-alt2',
+        'keywords' => ['accordeon'],
+        'post_types' => [],
         'parent' => [],
         'mode' => 'preview',
         'supports' => [
           'align' => false,
-          'align_text' => true,
+          'align_text' => false,
           'align_content' => false,
           'full_height' => false,
           'anchor' => true,
@@ -45,10 +38,8 @@ class PostHero extends BaseBlock
           'spacing' => [
             'padding' => true,
             'margin' => true,
-            'blockGap' => true
           ],
           'color' => [
-            'background' => false,
             'text' => true,
           ],
         ]
@@ -62,12 +53,14 @@ class PostHero extends BaseBlock
      */
     public function getWith(): array
     {
-        $postId = get_the_ID();
-
         return [
-          'title' => get_the_title(),
-          'thumbnail' => PostsHelper::getThumbnail($postId),
-          'categories' => ViewHelper::listCategories(PostsHelper::getTopLevelCategories($postId))
+          'open' => get_field('open'),
+          'title' => get_field('title') ?: '',
+          'allowedBlocks' => [
+            'core/paragraph',
+            'acf/icon',
+            'acf/icons'
+          ]
         ];
     }
 
@@ -78,8 +71,28 @@ class PostHero extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('post-hero');
+        $builder = new FieldsBuilder('contact-accordeon');
+
+        $builder
+          ->addAccordion('Ustawienia bloku')
+          ->addText('title', [
+            'label' => 'Tytuł'
+          ])
+          ->addTrueFalse('open', [
+            'label' => 'Domyślnie otwarte',
+            'default_value' => false
+          ]);
 
         return $builder;
+    }
+
+    public function getAdditionalClasses(): array
+    {
+      return [];
+    }
+
+    public function getAdditionalStyles(): array
+    {
+      return [];
     }
 }

@@ -33,7 +33,8 @@ class Wrapper extends BasePartial
         'left' => 'Lewo',
         'center' => 'Środek',
         'right' => 'Prawo'
-      ]
+      ],
+      'default_value' => 'center'
     ]
   ];
 
@@ -86,7 +87,7 @@ class Wrapper extends BasePartial
     $classes = array_merge($classes, $this->getOptionsClasses());
 
     if(isset($settings['maxWidth']) && $settings['maxWidth'] === 'custom' && isset($settings['customMaxWidth'])) {
-      $classes[] = "max-w-[length:--max-width]";
+      $classes[] = "max-w-[--max-width]";
     }
 
     return $classes;

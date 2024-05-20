@@ -45,7 +45,10 @@ class Shadow extends BasePartial
 
     $builder
       ->addTrueFalse('customShadowColor', [
-        'label' => 'Inny kolor cienia'
+        'label' => 'Inny kolor cienia',
+        'wrapper' => [
+          'width' => '50%'
+        ]
       ])
       ->addColorPicker('shadowColor', [
         'label' => 'Kolor cienia',
@@ -57,6 +60,9 @@ class Shadow extends BasePartial
               'value' => 1
             ]
           ]
+        ],
+        'wrapper' => [
+          'width' => '50%'
         ]
       ]);
 

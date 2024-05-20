@@ -1,7 +1,4 @@
-<div @class([
-  $classes,
-  'p-8'
-]) @style([$styles])>
+<div>
   @if(isset($thumbnail) && $thumbnail)
     <a 
       href="{{ isset($permalink) && $permalink ? $permalink : '#' }}" 
@@ -19,7 +16,9 @@
   @endif
 
   @if(!empty($categories))
-    {!! $listedCategories !!}
+    <div class="uppercase">
+      {!! $listedCategories !!}
+    </div>
   @endif
 
   @if(isset($title) && $title)
@@ -28,7 +27,7 @@
       title="{{ isset($title) && $title ? $title : '' }}"
       class="hover:no-underline"
     >
-      <h3 class="text-current text-lg mb-4 font-bold">{!! $title !!}</h3>
+      <h3 class="text-current text-base mb-4 font-bold">{!! $title !!}</h3>
     </a>
   @endif
 

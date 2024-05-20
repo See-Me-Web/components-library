@@ -16,7 +16,10 @@ class BackgroundOverlay extends BasePartial
     $builder
       ->addTrueFalse('overlay', [
         'label' => 'Nakładka',
-        'default_value' => false
+        'default_value' => false,
+        'wrapper' => [
+          'width' => '50%'
+        ]
       ])
       ->addColorPicker('overlayColor', [
         'label' => 'Kolor nakładki',
@@ -29,6 +32,9 @@ class BackgroundOverlay extends BasePartial
               'value' => 1
             ]
           ]
+        ],
+        'wrapper' => [
+          'width' => '50%'
         ]
       ]);
 

@@ -1,4 +1,4 @@
-<div class="p-8" x-bind:class="post.classes" x-bind:style="post.styles">
+<div>
   <div x-text="post.date" class="text-sm mb-4"></div>
 
   <a 

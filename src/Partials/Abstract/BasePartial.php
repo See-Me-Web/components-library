@@ -13,7 +13,8 @@ abstract class BasePartial implements IBasePartial
     'style' => 'accordion',
     'parents' => [],
     'postId' => false,
-    'args' => []
+    'args' => [],
+    'excluded' => []
   ];
 
   public string $slug = '';
@@ -73,7 +74,7 @@ abstract class BasePartial implements IBasePartial
         
     return [
       ...$fields,
-      ...$this->attributes['args'] ?? []
+      ...$this->attributes['args'] ?? [],
     ];
   }
 
@@ -111,6 +112,10 @@ abstract class BasePartial implements IBasePartial
     $builder = new FieldsBuilder($this->slug . '-options');
 
     foreach($this->options as $option => $settings) {
+      if( in_array($option, $this->attributes['excluded'] ?? []) ) {
+        continue;
+      }
+
       $builder
         ->addSelect($option, [
           'label' => $settings['label'] ?? $option,
@@ -128,7 +133,10 @@ abstract class BasePartial implements IBasePartial
     $classes = [];
 
     foreach($settings as $setting => $value) {
-      if(! in_array($setting, array_keys($this->options))) {
+      if(
+        ! in_array($setting, array_keys($this->options)) || 
+        in_array($setting, $this->attributes['excluded'] ?? [])
+      ) {
         continue;
       }
 

@@ -11,10 +11,18 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 class Button extends BaseBlock
 {
     /**
-     * Array of partials used by this block
+     * Array of partials used by this block.
      */
     public array $partials = [];
 
+    /**
+     * The block view path.
+     */
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.button';
+
+    /**
+     * The block constructor.
+     */
     public function __construct(AcfComposer $composer)
     {
         $this->partials = [
@@ -25,108 +33,34 @@ class Button extends BaseBlock
     }
 
     /**
-     * The block name.
-     *
-     * @var string
+     * The block attributes.
      */
-    public $name = 'Button';
-
-    /**
-     * The block view.
-     */
-    public $view = CoreServiceProvider::NAMESPACE . '::blocks.button';
-
-    /**
-     * The block description.
-     *
-     * @var string
-     */
-    public $description = 'Button';
-
-    /**
-     * The block icon.
-     *
-     * @var string|array
-     */
-    public $icon = 'button';
-
-    /**
-     * The block keywords.
-     *
-     * @var array
-     */
-    public $keywords = [
-        'button'
-    ];
-
-    /**
-     * The block post type allow list.
-     *
-     * @var array
-     */
-    public $post_types = [];
-
-    /**
-     * The parent block type allow list.
-     *
-     * @var array
-     */
-    public $parent = [];
-
-    /**
-     * The default block mode.
-     *
-     * @var string
-     */
-    public $mode = 'preview';
-
-    /**
-     * The default block alignment.
-     *
-     * @var string
-     */
-    public $align = '';
-
-    /**
-     * The default block text alignment.
-     *
-     * @var string
-     */
-    public $align_text = '';
-
-    /**
-     * The default block content alignment.
-     *
-     * @var string
-     */
-    public $align_content = '';
-
-    /**
-     * The supported block features.
-     *
-     * @var array
-     */
-    public $supports = [
-        'align' => false,
-        'align_text' => false,
-        'align_content' => false,
-        'full_height' => false,
-        'anchor' => true,
-        'mode' => true,
-        'multiple' => true,
-        'jsx' => false,
-        'spacing' => [
-            'padding' => ['top', 'bottom'],
-            'margin' => ['top', 'bottom'],
-        ]
-    ];
-
-    /**
-     * The block styles.
-     *
-     * @var array
-     */
-    public $styles = [];
+    public function attributes(): array
+    {
+        return [
+            'name' => __('Button', 'sm-components'),
+            'description' => '',
+            'icon' => 'button',
+            'keywords' => ['button'],
+            'post_types' => [],
+            'parent' => [],
+            'mode' => 'preview',
+            'supports' => [
+                'align' => false,
+                'align_text' => false,
+                'align_content' => false,
+                'full_height' => false,
+                'anchor' => true,
+                'mode' => true,
+                'multiple' => true,
+                'jsx' => false,
+                'spacing' => [
+                    'padding' => ['top', 'bottom'],
+                    'margin' => ['top', 'bottom'],
+                ]
+            ]
+        ];
+    }
 
     /**
      * Data to be passed to the block before rendering.

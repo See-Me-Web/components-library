@@ -10,13 +10,9 @@
 <div 
   ax-load="idle"
   x-data="slider(@Js($name), @Js($config))" 
-  x-on:resize.window.debounce="showNav = !(swiper.isBeginning && swiper.isEnd)"
   @class([
-    'flex',
     'swiper mx-auto relative',
     'swiper-full' => $fullWidth,
-    'xl:px-7' => $showArrows && ! $fullWidth,
-    'px-5' => $showArrows && $showArrowsMobile && ! $fullWidth,
     $attributes->get('class')
   ])>
   <div @class([
@@ -27,30 +23,9 @@
     </div>
   </div>
 
-  <div class="swiper-arrows" x-show="showNav && ((isMobile && @Js($showArrowsMobile)) || (! isMobile &&  @Js($showArrows)))">
-    <div 
-      x-show="! isBeginning" 
-      @class([
-        'cursor-pointer absolute top-1/2 -translate-y-1/2 z-10',
-        'left-0' => ! $fullWidth,
-        'left-4' => $fullWidth
-      ])
-      x-on:click="swiper.slidePrev()"
-    >
-      <x-seeme::icon.chevron-left class="text-green"/>
-    </div>
-
-    <div 
-      x-show="! isEnd" 
-      @class([
-        'cursor-pointer absolute top-1/2 -translate-y-1/2 z-10',
-        'right-0' => ! $fullWidth,
-        'right-4' => $fullWidth
-      ])
-      x-on:click="swiper.slideNext()"
-    >
-      <x-seeme::icon.chevron-right class="text-green"/>
-    </div>
+  <div class="text-center space-x-2 mt-4 md:mt-8 swiper-arrows" x-show="(isMobile && @Js($showArrowsMobile)) || (! isMobile &&  @Js($showArrows))">
+    <x-seeme::button-icon x-on:click="swiper.slidePrev()" icon="chevron-left" />
+    <x-seeme::button-icon x-on:click="swiper.slideNext()" icon="chevron-right" />
   </div>
 
   @if($showDots)

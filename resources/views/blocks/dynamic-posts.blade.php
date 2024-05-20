@@ -14,7 +14,7 @@
     </div>
 
     @if(!empty($categories))
-      <div class="flex flex-wrap gap-2 items-center">
+      <div class="flex flex-wrap gap-2 items-center mb-4">
         <x-seeme::button-link
           href="#all"
           x-on:click="setCategory(0)"
@@ -58,14 +58,22 @@
     }"
     style="{{ $style }}"
   >
-    @foreach($posts as $post)
-      <div class="initial dynamic-posts__item dynamic-posts__item--initial">
+    @foreach($posts as $key => $post)
+      <div 
+        class="initial dynamic-posts__item dynamic-posts__item--initial" 
+        data-aos="zoom-in" 
+        data-aos-delay="{{ $key * 50 }}"
+      >
         @include('seeme::partials.post.tile', ['id' => $post->ID])
       </div>
     @endforeach
 
-    <template x-for="post in posts">
-      <div class="appended dynamic-posts__item dynamic-posts__item--appended">
+    <template x-for="(post, index) in posts">
+      <div 
+        class="appended dynamic-posts__item dynamic-posts__item--appended" 
+        data-aos="zoom-in" 
+        x-bind:data-aos-delay="index * 50"
+      >
         @include('seeme::partials.post.tile-template')
       </div>
     </template>

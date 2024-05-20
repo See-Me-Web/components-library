@@ -14,11 +14,21 @@ class Text extends BasePartial
   public string $slug = 'text';
 
   public array $options = [
-    
+    'family' => [
+      'label' => 'Czcionka',
+      'choices' => [
+        'main' => 'Główna',
+        'alt' => 'Alternatywna',
+      ],
+      'default_value' => 'main'
+    ]
   ];
 
   public array $optionsClasses = [
-
+    'family' => [
+      'main' => 'font-main',
+      'alt' => 'font-alt'
+    ]
   ];
 
   public function getFields(): ?FieldsBuilder
@@ -28,9 +38,17 @@ class Text extends BasePartial
     $builder
       ->addField('text-color', 'editor_palette', [
         'label' => 'Kolor tekstu',
+        'return_format' => 'color',
+        'wrapper' => [
+          'width' => '50%'
+        ]
       ])
       ->addColorPicker('custom-text-color', [
-        'label' => 'Własny kolor tekstu'
+        'instructions' => 'Ustawienie tego koloru powoduje nadpisanie koloru z palety',
+        'label' => 'Własny kolor tekstu',
+        'wrapper' => [
+          'width' => '50%'
+        ]
       ]);
 
     return $builder;

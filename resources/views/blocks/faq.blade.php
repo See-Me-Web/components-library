@@ -8,7 +8,7 @@
       active: @Js($groups[0]['slug'])
     }"
   >
-    <div class="grid md:grid-cols-2 grid-cols-1 gap-4" style="{{ $style }}">
+    <div class="grid md:grid-cols-2 grid-cols-1 gap-8" style="{{ $style }}">
       <div class="max-w-sm">
         <InnerBlocks allowedBlocks="{{ wp_json_encode($allowedBlocks) }}" />
 

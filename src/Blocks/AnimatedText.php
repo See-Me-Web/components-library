@@ -9,109 +9,40 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 class AnimatedText extends BaseBlock
 {
     /**
-     * The block name.
-     *
-     * @var string
-     */
-    public $name = 'AnimatedText';
-
-    /**
-     * The block view.
+     * The block view path.
      */
     public $view = CoreServiceProvider::NAMESPACE . '::blocks.animated-text';
 
     /**
-     * The block description.
-     *
-     * @var string
+     * The block attributes.
      */
-    public $description = 'Text animated with scroll of the page';
-
-    /**
-     * The block icon.
-     *
-     * @var string|array
-     */
-    public $icon = 'heading';
-
-    /**
-     * The block keywords.
-     *
-     * @var array
-     */
-    public $keywords = [
-        'animated'
-    ];
-
-    /**
-     * The block post type allow list.
-     *
-     * @var array
-     */
-    public $post_types = [];
-
-    /**
-     * The parent block type allow list.
-     *
-     * @var array
-     */
-    public $parent = [];
-
-    /**
-     * The default block mode.
-     *
-     * @var string
-     */
-    public $mode = 'preview';
-
-    /**
-     * The default block alignment.
-     *
-     * @var string
-     */
-    public $align = '';
-
-    /**
-     * The default block text alignment.
-     *
-     * @var string
-     */
-    public $align_text = '';
-
-    /**
-     * The default block content alignment.
-     *
-     * @var string
-     */
-    public $align_content = '';
-
-    /**
-     * The supported block features.
-     *
-     * @var array
-     */
-    public $supports = [
-        'align' => false,
-        'align_text' => false,
-        'align_content' => false,
-        'full_height' => false,
-        'anchor' => true,
-        'mode' => true,
-        'multiple' => true,
-        'jsx' => false,
-        'spacing' => [
-            'padding' => ['top', 'bottom'],
-            'margin' => ['top', 'bottom'],
-        ],
-    ];
-
-    /**
-     * The block styles.
-     *
-     * @var array
-     */
-    public $styles = [];
-
+    public function attributes(): array
+    {
+        return [
+            'name' => __('Animated text', 'sm-components'),
+            'description' => __('Text animated on page scroll', 'sm-components'),
+            'icon' => 'heading',
+            'keywords' => ['animated'],
+            'post_types' => [],
+            'parent' => [],
+            'mode' => 'preview',
+            'supports' => [
+                'align' => false,
+                'align_text' => false,
+                'align_content' => false,
+                'full_height' => false,
+                'anchor' => true,
+                'mode' => true,
+                'multiple' => true,
+                'jsx' => false,
+                'spacing' => [
+                    'padding' => ['top', 'bottom'],
+                    'margin' => ['top', 'bottom'],
+                ],
+            ]
+        ];
+    }
+    
     /**
      * Data to be passed to the block before rendering.
      *

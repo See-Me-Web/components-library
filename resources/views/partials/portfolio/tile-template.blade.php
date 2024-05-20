@@ -1,4 +1,4 @@
-<div class="p-8" x-bind:class="post.classes" x-bind:style="post.styles">
+<div>
   <a 
     x-bind:href="post.permalink" 
     x-bind:title="post.title"
@@ -13,12 +13,14 @@
     />
   </a>
 
+  <div class="uppercase" x-html="post.listedCategories"></div>
+
   <a 
     x-bind:href="post.permalink" 
     x-bind:title="post.title"
     class="hover:no-underline"
   >
-    <h3 class="text-current text-lg mb-4 font-bold" x-html="post.title"></h3>
+    <h3 class="text-current text-base mb-4 font-bold" x-html="post.title"></h3>
   </a>
 
   <div class="text-current line-clamp-4" x-html="post.excerpt"></div>

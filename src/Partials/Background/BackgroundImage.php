@@ -78,9 +78,15 @@ class BackgroundImage extends BasePartial
     $builder
         ->addImage('desktopImage', [
           'label' => 'Obraz tła (desktop)',
+          'wrapper' => [
+            'width' => '50%'
+          ]
         ])
         ->addImage('mobileImage', [
           'label' => 'Obraz tła (mobile)',
+          'wrapper' => [
+            'width' => '50%'
+          ]
         ])
         ->addTrueFalse('fixed', [
           'label' => 'Podążające tło',

@@ -11,10 +11,18 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 class Wrapper extends BaseBlock
 {
     /**
-     * Array of partials used by this block
+     * Array of partials used by this block.
      */
     public array $partials = [];
 
+    /**
+     * The block view path.
+     */
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.wrapper';
+
+    /**
+     * The block constructor.
+     */
     public function __construct(AcfComposer $composer)
     {
         $this->partials = [
@@ -25,112 +33,38 @@ class Wrapper extends BaseBlock
     }
 
     /**
-     * The block name.
-     *
-     * @var string
+     * The block attributes.
      */
-    public $name = 'Wrapper';
-
-    /**
-     * The block view.
-     */
-    public $view = CoreServiceProvider::NAMESPACE . '::blocks.wrapper';
-
-    /**
-     * The block description.
-     *
-     * @var string
-     */
-    public $description = 'Wrapper';
-
-    /**
-     * The block icon.
-     *
-     * @var string|array
-     */
-    public $icon = 'editor-code';
-
-    /**
-     * The block keywords.
-     *
-     * @var array
-     */
-    public $keywords = [
-        'wrapper'
-    ];
-
-    /**
-     * The block post type allow list.
-     *
-     * @var array
-     */
-    public $post_types = [];
-
-    /**
-     * The parent block type allow list.
-     *
-     * @var array
-     */
-    public $parent = [];
-
-    /**
-     * The default block mode.
-     *
-     * @var string
-     */
-    public $mode = 'preview';
-
-    /**
-     * The default block alignment.
-     *
-     * @var string
-     */
-    public $align = 'center';
-
-    /**
-     * The default block text alignment.
-     *
-     * @var string
-     */
-    public $align_text = '';
-
-    /**
-     * The default block content alignment.
-     *
-     * @var string
-     */
-    public $align_content = '';
-
-    /**
-     * The supported block features.
-     *
-     * @var array
-     */
-    public $supports = [
-        'align' => false,
-        'align_text' => false,
-        'align_content' => false,
-        'full_height' => true,
-        'anchor' => true,
-        'mode' => true,
-        'multiple' => true,
-        'jsx' => true,
-        'spacing' => [
-          'padding' => true,
-          'margin' => ['top', 'bottom']
-        ],
-        'color' => [
-          'text' => true,
-          'background' => false
+    public function attributes(): array
+    {
+      return [
+        'name' => __('Wrapper', 'sm-components'),
+        'description' => __('Wrapper block', 'sm-components'),
+        'icon' => 'editor-code',
+        'keywords' => ['wrapper'],
+        'post_types' => [],
+        'parent' => [],
+        'mode' => 'preview',
+        'supports' => [
+          'align' => false,
+          'align_text' => false,
+          'align_content' => false,
+          'full_height' => true,
+          'anchor' => true,
+          'mode' => true,
+          'multiple' => true,
+          'jsx' => true,
+          'spacing' => [
+            'padding' => true,
+            'margin' => ['top', 'bottom']
+          ],
+          'color' => [
+            'text' => true,
+            'background' => false
+          ]
         ]
-    ];
-
-    /**
-     * The block styles.
-     *
-     * @var array
-     */
-    public $styles = [];
+      ];
+    }
 
     /**
      * Data to be passed to the block before rendering.

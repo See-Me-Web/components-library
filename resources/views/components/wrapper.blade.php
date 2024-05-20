@@ -4,7 +4,10 @@
 ])
 
 <div {{ $attributes->class([
-  $classes
-]) }}>
+    $classes ?? ''
+  ])->merge([
+    'style' => $styles ?? ''
+  ]) }}
+>
   {!! $slot !!}
 </div>

@@ -16,10 +16,17 @@ class BackgroundColor extends BasePartial
     $builder
       ->addField('background-color', 'editor_palette', [
         'label' => 'Kolor tła',
-        'return_format' => 'color'
+        'return_format' => 'color',
+        'wrapper' => [
+          'width' => '50%'
+        ]
       ])
       ->addColorPicker('custom-background-color', [
-        'label' => 'Własny kolor tła'
+        'instructions' => 'Ustawienie tego koloru powoduje nadpisanie koloru z palety',
+        'label' => 'Własny kolor tła',
+        'wrapper' => [
+          'width' => '50%'
+        ]
       ]);
 
     return $builder;

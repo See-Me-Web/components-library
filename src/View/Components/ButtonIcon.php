@@ -4,12 +4,12 @@ namespace Seeme\Components\View\Components;
 
 use Illuminate\Support\Arr;
 use Seeme\Components\Helpers\ArrHelper;
-use Seeme\Components\Partials\ButtonLink as PartialsButtonLink;
+use Seeme\Components\Partials\ButtonIcon as PartialsButtonIcon;
 use Seeme\Components\View\Components\Abstract\BaseComponent;
 
-class ButtonLink extends BaseComponent
+class ButtonIcon extends BaseComponent
 {
-    protected string $name = 'button-link';
+    protected string $name = 'button-icon';
     protected $variant = 'primary';
     protected $size = 'medium';
     protected $weight = 'regular';
@@ -27,7 +27,7 @@ class ButtonLink extends BaseComponent
         $this->size = $size;
         $this->weight = $weight;
         $this->rounded = $rounded;
-        $this->partial = new PartialsButtonLink([
+        $this->partial = new PartialsButtonIcon([
             'args' => [
                 'variant' => $variant,
                 'size' => $size,

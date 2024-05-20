@@ -1,0 +1,1 @@
+@include('seeme::partials.post.tile', ['id' => $slide['post-id']])

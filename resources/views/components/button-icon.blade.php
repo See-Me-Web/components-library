@@ -1,11 +1,15 @@
 @props([
-  'icon' => ''
-  'size' => 'medium'
+  'variant' => 'primary',
+  'size' => 'medium',
+  'weight' => 'regular',
+  'styles' => '',
+  'icon' => '',
 ])
 
 <a 
   {{ 
     $attributes->class([
+      'cursor-pointer',
       $classes ?? ''
     ])->merge([
       'style' => $styles

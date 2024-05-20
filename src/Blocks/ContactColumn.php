@@ -9,114 +9,43 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 class ContactColumn extends BaseBlock
 {
     /**
-     * The block name.
-     *
-     * @var string
-     */
-    public $name = 'Contact column';
-
-    /**
-     * The block view.
+     * The block view path.
      */
     public $view = CoreServiceProvider::NAMESPACE . '::blocks.contact-column';
 
     /**
-     * The block description.
-     *
-     * @var string
+     * The block attributes.
      */
-    public $description = 'Contact column';
-
-    /**
-     * The block icon.
-     *
-     * @var string|array
-     */
-    public $icon = 'tagcloud';
-
-    /**
-     * The block keywords.
-     *
-     * @var array
-     */
-    public $keywords = [
-        'contact',
-    ];
-
-    /**
-     * The block post type allow list.
-     *
-     * @var array
-     */
-    public $post_types = [];
-
-    /**
-     * The parent block type allow list.
-     *
-     * @var array
-     */
-    public $parent = [
-      'acf/contact'
-    ];
-
-    /**
-     * The default block mode.
-     *
-     * @var string
-     */
-    public $mode = 'preview';
-
-    /**
-     * The default block alignment.
-     *
-     * @var string
-     */
-    public $align = '';
-
-    /**
-     * The default block text alignment.
-     *
-     * @var string
-     */
-    public $align_text = '';
-
-    /**
-     * The default block content alignment.
-     *
-     * @var string
-     */
-    public $align_content = '';
-
-    /**
-     * The supported block features.
-     *
-     * @var array
-     */
-    public $supports = [
-        'align' => false,
-        'align_text' => false,
-        'align_content' => true,
-        'full_height' => false,
-        'anchor' => true,
-        'mode' => true,
-        'multiple' => true,
-        'jsx' => true,
-        'spacing' => [
-          'padding' => true,
-          'margin' => true,
-        ],
-        'color' => [
-          'text' => true,
-          'background' => false
-        ],
-    ];
-
-    /**
-     * The block styles.
-     *
-     * @var array
-     */
-    public $styles = [];
+    public function attributes(): array
+    {
+      return [
+        'name' => __('Contact column', 'sm-components'),
+        'description' => '',
+        'icon' => 'tagcloud',
+        'keywords' => ['contact'],
+        'post_types' => [],
+        'parent' => ['acf/contact'],
+        'mode' => 'preview',
+        'supports' => [
+          'align' => false,
+          'align_text' => false,
+          'align_content' => false,
+          'full_height' => false,
+          'anchor' => true,
+          'mode' => true,
+          'multiple' => true,
+          'jsx' => true,
+          'spacing' => [
+            'padding' => true,
+            'margin' => true,
+          ],
+          'color' => [
+            'text' => true,
+            'background' => false
+          ],
+        ]
+      ];
+    }
 
     /**
      * Data to be passed to the block before rendering.
@@ -131,7 +60,7 @@ class ContactColumn extends BaseBlock
             'acf/heading',
             'core/paragraph',
             'acf/buttons',
-            'acf/accordeon',
+            'acf/contact-accordeon',
             'acf/map',
             'acf/socials',
             'acf/icon'
