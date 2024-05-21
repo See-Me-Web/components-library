@@ -1,5 +1,5 @@
 <div {{ $attributes->class([
-  'card overflow-hidden',
+  'overflow-hidden',
   $classes ?? ''
 ])->merge([
   'style' => $styles ?? ''

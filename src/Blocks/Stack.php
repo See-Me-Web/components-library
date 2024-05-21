@@ -6,12 +6,12 @@ use Seeme\Components\Blocks\Abstract\BaseBlock;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Accordeon extends BaseBlock
+class Stack extends BaseBlock
 {
     /**
      * The block view path.
      */
-    public $view = CoreServiceProvider::NAMESPACE . '::blocks.accordeon';
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.stack';
 
     /**
      * The block attributes.
@@ -19,10 +19,10 @@ class Accordeon extends BaseBlock
     public function attributes(): array
     {
         return [
-            'name' => __('Accordeon', 'sm-components'),
-            'description' => __('Accordeon block', 'sm-components'),
-            'icon' => 'arrow-down-alt2',
-            'keywords' => ['accordeon'],
+            'name' => __('Stack', 'sm-components'),
+            'description' => __('Stack block', 'sm-components'),
+            'icon' => 'columns',
+            'keywords' => ['stack'],
             'post_types' => [],
             'parent' => [],
             'mode' => 'preview',
@@ -36,9 +36,14 @@ class Accordeon extends BaseBlock
                 'multiple' => true,
                 'jsx' => true,
                 'color' => [
-                    'background' => true,
-                    'text' => true,
+                    'background' => false,
+                    'text' => false,
                 ],
+                'spacing' => [
+                  'margin' => true,
+                  'padding' => true,
+                  'blockGap' => true
+                ]
             ],
         ];
     }
@@ -48,14 +53,10 @@ class Accordeon extends BaseBlock
      */
     public function getWith(): array
     {
+        $vertical = get_field('vertical');
+
         return [
-            'open' => get_field('open'),
-            'title' => get_field('title') ?: '',
-            'allowedBlocks' => [
-                'acf/download',
-                'acf/paragraph',
-                'acf/icon',
-            ],
+          'vertical' => $vertical === null ? false : $vertical
         ];
     }
 
@@ -64,18 +65,16 @@ class Accordeon extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-      $builder = new FieldsBuilder('accordeon');
+      $builder = new FieldsBuilder('stack');
 
       $builder
         ->addAccordion('Ustawienia bloku')
-        ->addText('title', [
-          'label' => 'Tytuł'
-        ])
-        ->addTrueFalse('open', [
-          'label' => 'Domyślnie otwarte',
-          'default_value' => false
+        ->addTrueFalse('vertical', [
+          'label' => 'Kierunek',
+          'ui_on_text' => 'Pionowo',
+          'ui_off_text' => 'Poziomo',
         ]);
-
+        
         return $builder;
     }
 }

@@ -73,7 +73,7 @@ abstract class BasePartial implements IBasePartial
     }
         
     return [
-      ...$fields,
+      ...(is_array($fields) ? $fields : []),
       ...$this->attributes['args'] ?? [],
     ];
   }

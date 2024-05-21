@@ -72,7 +72,22 @@ class Icon extends BaseBlock
             ->addSelect('icon', [
               'label' => 'Ikona',
               'choices' => [
-                'close' => 'Close'
+                'close' => 'Close',
+                'chevron-down' => 'Chevron down',
+                'chevron-up' => 'Chevron up',
+                'chevron-left' => 'Chevron left',
+                'chevron-right' => 'Chevron right',
+                'download' => 'Download',
+                'hamburger' => 'Hamburger',
+                'map-marker' => 'Map marker',
+                'envelope' => 'Envelope',
+                'phone' => 'Phone',
+                'socials.facebook' => 'Facebook',
+                'socials.instagram' => 'Instagram',
+                'socials.linkedin' => 'LinkedIn',
+                'socials.tiktok' =>' TikTok',
+                'socials.twitter' => 'Twitter',
+                'socials.youtube' => 'YouTube'
               ]
             ])
             ->addRange('size', [

@@ -6,21 +6,12 @@ use Seeme\Components\Blocks\Abstract\BaseBlock;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Buttons extends BaseBlock
+class Download extends BaseBlock
 {
-    /**
-     * The block classes map.
-     */
-    public $classes_map = [
-        'align-text-left' => 'justify-start',
-        'align-text-center' => 'justify-center',
-        'align-text-right' => 'justify-end',
-    ];
-
     /**
      * The block view path.
      */
-    public $view = CoreServiceProvider::NAMESPACE . '::blocks.buttons';
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.download';
 
     /**
      * The block attributes.
@@ -28,31 +19,30 @@ class Buttons extends BaseBlock
     public function attributes(): array
     {
         return [
-            'name' => __('Buttons', 'sm-components'),
-            'description' => '',
-            'icon' => 'button',
-            'keywords' => ['buttons'],
+            'name' => __('Download', 'sm-components'),
+            'description' => __('File to download', 'sm-components'),
+            'icon' => 'download',
+            'keywords' => ['file', 'download'],
             'post_types' => [],
             'parent' => [],
             'mode' => 'preview',
             'supports' => [
                 'align' => false,
-                'align_text' => true,
+                'align_text' => false,
                 'align_content' => false,
                 'full_height' => false,
                 'anchor' => true,
                 'mode' => true,
                 'multiple' => true,
-                'jsx' => true,
+                'jsx' => false,
                 'spacing' => [
                     'padding' => ['top', 'bottom'],
                     'margin' => ['top', 'bottom'],
-                    'blockGap' => true
-                ]
+                ],
             ]
-        ];  
+        ];
     }
-
+    
     /**
      * Data to be passed to the block before rendering.
      *
@@ -61,9 +51,7 @@ class Buttons extends BaseBlock
     public function getWith(): array
     {
         return [
-            'allowedBlocks' => [
-                'acf/button'
-            ],
+          'file' => get_field('file')
         ];
     }
 
@@ -74,7 +62,13 @@ class Buttons extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('buttons');
+        $builder = new FieldsBuilder('download');
+
+        $builder
+          ->addAccordion('Ustawienia bloku')
+          ->addFile('file', [
+            'label' => 'Plik'
+          ]);
         
         return $builder;
     }

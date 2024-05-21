@@ -1,4 +1,4 @@
-<x-seeme::accordeon
+<x-seeme::preview-accordeon
   :title="$title"
   :openByDefault="$open"
   id="{{ $block->block->anchor ?? $block->block->id }}"
@@ -8,4 +8,4 @@
   style="{{ $style ?? '' }}"
 >
   <InnerBlocks allowedBlocks="{{ wp_json_encode($allowedBlocks) }}" />
-</x-seeme::accordeon>
+</x-seeme::preview-accordeon>

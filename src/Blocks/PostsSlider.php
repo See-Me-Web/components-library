@@ -197,7 +197,7 @@ class PostsSlider extends BaseBlock
     {
       return array_map(function($slide) {
         return [
-          'type' => $slide['acf_fc_layout'],
+          'type' => $slide['acf_fc_layout'] ?? 'post-layout',
           ...$this->prepareSlide($slide)
         ];
       }, get_field('slides') ?: []);

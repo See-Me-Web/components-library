@@ -6,12 +6,12 @@ use Seeme\Components\Blocks\Abstract\BaseBlock;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Accordeon extends BaseBlock
+class Column extends BaseBlock
 {
     /**
      * The block view path.
      */
-    public $view = CoreServiceProvider::NAMESPACE . '::blocks.accordeon';
+    public $view = CoreServiceProvider::NAMESPACE . '::blocks.column';
 
     /**
      * The block attributes.
@@ -19,12 +19,12 @@ class Accordeon extends BaseBlock
     public function attributes(): array
     {
         return [
-            'name' => __('Accordeon', 'sm-components'),
-            'description' => __('Accordeon block', 'sm-components'),
-            'icon' => 'arrow-down-alt2',
-            'keywords' => ['accordeon'],
+            'name' => __('Column', 'sm-components'),
+            'description' => __('Column block', 'sm-components'),
+            'icon' => 'columns',
+            'keywords' => ['columns'],
             'post_types' => [],
-            'parent' => [],
+            'parent' => ['acf/columns'],
             'mode' => 'preview',
             'supports' => [
                 'align' => false,
@@ -36,9 +36,13 @@ class Accordeon extends BaseBlock
                 'multiple' => true,
                 'jsx' => true,
                 'color' => [
-                    'background' => true,
-                    'text' => true,
+                    'background' => false,
+                    'text' => false,
                 ],
+                'spacing' => [
+                  'margin' => false,
+                  'padding' => true,
+                ]
             ],
         ];
     }
@@ -48,15 +52,7 @@ class Accordeon extends BaseBlock
      */
     public function getWith(): array
     {
-        return [
-            'open' => get_field('open'),
-            'title' => get_field('title') ?: '',
-            'allowedBlocks' => [
-                'acf/download',
-                'acf/paragraph',
-                'acf/icon',
-            ],
-        ];
+        return [];
     }
 
     /**
@@ -64,18 +60,8 @@ class Accordeon extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-      $builder = new FieldsBuilder('accordeon');
-
-      $builder
-        ->addAccordion('Ustawienia bloku')
-        ->addText('title', [
-          'label' => 'Tytuł'
-        ])
-        ->addTrueFalse('open', [
-          'label' => 'Domyślnie otwarte',
-          'default_value' => false
-        ]);
-
+        $builder = new FieldsBuilder('column');
         return $builder;
     }
+
 }

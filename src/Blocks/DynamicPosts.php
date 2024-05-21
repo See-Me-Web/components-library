@@ -154,11 +154,6 @@ class DynamicPosts extends BaseBlock
         return $builder;
     }
 
-    public function getAdditionalClasses(): array
-    {
-      return [];
-    }
-
     public function getAdditionalStyles(): array
     {
       $columns = get_field('columns') ?: 3;

@@ -8,5 +8,5 @@
 >
   @include('seeme::partials.blockStyles')
   
-  <InnerBlocks />
+  <InnerBlocks template="{{ wp_json_encode($template) }}" />
 </section>
