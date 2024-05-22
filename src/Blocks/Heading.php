@@ -43,6 +43,7 @@ class Heading extends BaseBlock
     public function attributes(): array
     {
         return [
+            'slug' => 'heading',
             'name' => __('Heading', 'sm-components'),
             'description' => __('Heading block', 'sm-components'),
             'icon' => 'heading',

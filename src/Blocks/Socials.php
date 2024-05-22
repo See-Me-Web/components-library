@@ -19,9 +19,10 @@ class Socials extends BaseBlock
     public function attributes(): array
     {
       return [
+        'slug' => 'socials',
         'name' => __('Socials', 'sm-components'),
         'description' => __('Socials block', 'sm-components'),
-        'icon' => 'tagcloud',
+        'icon' => 'share',
         'keywords' => ['socials'],
         'post_types' => [],
         'parent' => [],

@@ -38,6 +38,7 @@ class Button extends BaseBlock
     public function attributes(): array
     {
         return [
+            'slug' => 'button',
             'name' => __('Button', 'sm-components'),
             'description' => '',
             'icon' => 'button',

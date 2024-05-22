@@ -6,17 +6,19 @@
 >
   @include('seeme::partials.blockStyles')
 
-  <div class="flex flex-wrap gap-4 justify-between">
+  <div class="flex flex-wrap gap-4 justify-between items-center">
     <div>
       <InnerBlocks allowedBlocks="{{ wp_json_encode($allowedBlocks) }}" />
     </div>
 
     @if(!empty($categories))
-      <div class="flex flex-wrap gap-2">
+      <div class="flex flex-wrap gap-2 items-center mb-4">
         <x-seeme::button-link
           href="#all"
-          variant="primary"
+          variant="{{ $blockVariant ?? 'primary' }}"
           size="small"
+          rounded="lg"
+          class="is-active"
         >
           {{ __('All', 'sm-components') }}
         </x-seeme::button-link>
@@ -24,8 +26,9 @@
         @foreach($categories as $category)
           <x-seeme::button-link
             href="#{{ $category->slug ?? '' }}"
-            variant="primary"
+            variant="{{ $blockVariant ?? 'primary' }}"
             size="small"
+            rounded="lg"
           >
             {{ $category->name ?? '' }}
           </x-seeme::button-link>
@@ -36,6 +39,7 @@
 
   <div
     @class([
+      'relative',
       'grid',
       'grid-cols-[--mobile-columns]' => $mobileVertical,
       'md:grid-cols-[--columns]' => $mobileVertical,
@@ -43,15 +47,17 @@
     ])
     style="{{ $style }}"
   >
-    @foreach($posts as $post)
-      <div class="initial dynamic-posts__item dynamic-posts__item--initial">
+    @foreach($posts as $key => $post)
+      <div 
+        class="initial dynamic-posts__item dynamic-posts__item--initial" 
+      >
         @include('seeme::partials.post.tile', ['id' => $post->ID])
       </div>
     @endforeach
   </div>
   
   <div class="text-center mt-8">
-    <x-seeme::button>
+    <x-seeme::button variant="{{ $blockVariant ?? 'primary' }}">
       {{ __('ZOBACZ WIĘCEJ', 'sm-components') }}
     </x-seeme::button>
   </div>

@@ -20,6 +20,7 @@ class GalleryItem extends BaseBlock
     public function attributes(): array
     {
         return [
+            'slug' => 'gallery-item',
             'name' => __('Gallery item', 'sm-components'),
             'description' => __('Gallery item', 'sm-components'),
             'icon' => 'format-gallery',
@@ -63,7 +64,8 @@ class GalleryItem extends BaseBlock
         return [
           'image' => ViewHelper::prepareImage($image, 'large'),
           'parentAnchor' => $parentData['anchor'] ?? '',
-          'width' => get_field('width') ?: 1
+          'width' => get_field('width') ?: 1,
+          'blockVariant' => $parentData['variant'] ?? 'primary'
         ];
     }
 

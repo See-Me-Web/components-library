@@ -38,6 +38,7 @@ class Wrapper extends BaseBlock
     public function attributes(): array
     {
       return [
+        'slug' => 'wrapper',
         'name' => __('Wrapper', 'sm-components'),
         'description' => __('Wrapper block', 'sm-components'),
         'icon' => 'editor-code',

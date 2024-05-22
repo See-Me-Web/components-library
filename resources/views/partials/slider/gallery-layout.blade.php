@@ -3,11 +3,11 @@
 @endphp
 
 @if(!empty($slide['images']))
-  <x-seeme::card variant="{{ $cardVariant ?? 'primary' }}" class="!p-0 h-full">
+  <x-seeme::card variant="{{ $blockVariant ?? '' }}" class="!p-0 h-full">
     @foreach($slide['images'] as $key => $image)
       <a data-fancybox="{{ $slideId }}" href="{{ $image->url ?? '#' }}">
         <x-seeme::image :image="$image" @class([
-          'w-full h-full object-cover object-center',
+          '!w-full !h-full object-cover object-center',
           'hidden' => $key > 0
         ]) />
       </a>

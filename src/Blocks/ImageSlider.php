@@ -16,7 +16,7 @@ class ImageSlider extends BaseBlock
      */
     public $styles_support = ['background', 'border', 'shadow'];
 
-    public $partial = null;
+    public $partials = [];
 
     /**
      * The block view path.
@@ -28,7 +28,9 @@ class ImageSlider extends BaseBlock
      */
     public function __construct(AcfComposer $composer)
     {
-        $this->partial = new Slider(['parents' => ['slider-settings']]);
+        $this->partials = [
+          'slider' => new Slider(['parents' => ['slider-settings'], 'excluded' => ['effect']])
+        ];
         parent::__construct($composer);
     }
 
@@ -38,6 +40,7 @@ class ImageSlider extends BaseBlock
     public function attributes(): array
     {
       return [
+        'slug' => 'image-slider',
         'name' => __('Image slider', 'sm-components'),
         'description' => __('Slider with images', 'sm-components'),
         'icon' => 'slides',
@@ -90,9 +93,20 @@ class ImageSlider extends BaseBlock
     public function getSliderConfig(): array
     {
       return [
-        'slidesPerView' => get_field('slidesPerView') ?: 4,
-        'spaceBetween' => get_field('spaceBetween') ?: 20,
-        'config' => get_field('slider-settings')
+        ...$this->partials['slider']->getVariables(),
+        'config' => [
+          ...$this->partials['slider']->getConfig(),
+          'slidesPerView' => 2,
+          'spaceBetween' => 10,
+          'breakpoints' => [
+            768 => [
+              'slidesPerView' => 4
+            ],
+            992 => [
+              'slidesPerView' => 8
+            ]
+          ]
+        ]
       ];
     }
 
@@ -111,22 +125,7 @@ class ImageSlider extends BaseBlock
             ->addLayout($this->getSlideLayout())
           ->endFlexibleContent()
           ->addGroup('slider-settings')
-            ->addNumber('slidesPerView', [
-              'label' => 'Liczba slajdów na widok',
-              'min' => 1,
-              'step' => 1,
-              'max' => 8,
-              'default_value' => 8
-            ])
-            ->addRange('spaceBetween', [
-              'label' => 'Odstęp pomiędzy slajdami',
-              'append' => 'px',
-              'min' => 0,
-              'step' => 1,
-              'max' => 100,
-              'default_value' => 20
-            ])
-            ->addFields($this->partial->fields())
+            ->addFields($this->partials['slider']->fields())
           ->endGroup();
 
         return $builder;
@@ -150,7 +149,7 @@ class ImageSlider extends BaseBlock
     {
       $classes = [];
 
-      $classes = array_merge($classes, $this->partial->getClasses());
+      $classes = array_merge($classes, $this->partials['slider']->getClasses());
 
       return $classes;
     }
@@ -161,11 +160,11 @@ class ImageSlider extends BaseBlock
       $sliderSettings = get_field('slider-settings') ?: [];
 
       if(isset($sliderSettings['slidesPerView'])) {
-        $styles[] = "--slides-per-view: {$sliderSettings['slidesPerView']}";
+        $styles[] = "--slides-per-view: 8";
       }
 
       if(isset($sliderSettings['spaceBetween'])) {
-        $styles[] = "--space-between: {$sliderSettings['spaceBetween']}px";
+        $styles[] = "--space-between: 20px";
       }
 
       return $styles;

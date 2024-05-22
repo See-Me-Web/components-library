@@ -98,11 +98,20 @@ abstract class BasePartial implements IBasePartial
       $builder->addTab($title);
     }
 
-    $builder
-      ->addGroup($this->slug, $args)
-      ->addFields($this->getOptionsFields())
-      ->addFields($this->getFields())
-      ->endGroup();
+    $fields = $this->getFields();
+
+    if( $fields ) {
+      $builder
+        ->addGroup($this->slug, $args)
+        ->addFields($this->getOptionsFields())
+        ->addFields($fields)
+        ->endGroup();
+    } else {
+      $builder
+        ->addGroup($this->slug, $args)
+        ->addFields($this->getOptionsFields())
+        ->endGroup();
+    }
 
     return $builder;
   }
@@ -133,9 +142,13 @@ abstract class BasePartial implements IBasePartial
     $classes = [];
 
     foreach($settings as $setting => $value) {
-      if(
-        ! in_array($setting, array_keys($this->options)) || 
-        in_array($setting, $this->attributes['excluded'] ?? [])
+      if( in_array($setting, $this->attributes['excluded']) ) {
+        continue;
+      }
+
+      if( 
+        !in_array($setting, array_keys($this->options)) && 
+        !in_array($setting, array_keys($this->attributes['args'])) 
       ) {
         continue;
       }

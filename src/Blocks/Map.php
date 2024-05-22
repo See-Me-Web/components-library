@@ -19,9 +19,10 @@ class Map extends BaseBlock
     public function attributes(): array
     {
       return [
+        'slug' => 'map',
         'name' => __('Map', 'sm-components'),
         'description' => __('Map block', 'sm-components'),
-        'icon' => 'tagcloud',
+        'icon' => 'location-alt',
         'keywords' => ['map'],
         'post_types' => [],
         'parent' => [],

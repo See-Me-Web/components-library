@@ -3,8 +3,6 @@
   'size' => 'medium',
   'weight' => 'regular',
   'label' => '',
-  'iconLeft' => '',
-  'iconRight' => '',
   'styles' => ''
 ])
 
@@ -17,13 +15,5 @@
     ])
   }}
 >
-  @if( $iconLeft )
-    {{ $iconLeft }}
-  @endif
-
   {{ $slot ?? $label }}
-
-  @if( $iconRight )
-    {{ $iconRight }}
-  @endif
 </a>

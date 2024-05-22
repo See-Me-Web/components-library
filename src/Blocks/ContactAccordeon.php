@@ -19,6 +19,7 @@ class ContactAccordeon extends BaseBlock
     public function attributes(): array
     {
       return [
+        'slug' => 'contact-accordeon',
         'name' => __('Contact accordeon', 'sm-components'),
         'description' => '',
         'icon' => 'arrow-down-alt2',

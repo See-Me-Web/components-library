@@ -4,7 +4,8 @@
   'showArrows' => true,
   'showArrowsMobile' => true,
   'showDots' => true,
-  'fullWidth' => false
+  'fullWidth' => false,
+  'variant' => 'primary'
 ])
 
 <div 
@@ -24,8 +25,8 @@
   </div>
 
   <div class="text-center space-x-2 mt-4 md:mt-8 swiper-arrows" x-show="(isMobile && @Js($showArrowsMobile)) || (! isMobile &&  @Js($showArrows))">
-    <x-seeme::button-icon x-on:click="swiper.slidePrev()" icon="chevron-left" />
-    <x-seeme::button-icon x-on:click="swiper.slideNext()" icon="chevron-right" />
+    <x-seeme::button-icon x-on:click="swiper.slidePrev()" icon="chevron-left" variant="{{ $variant }}" />
+    <x-seeme::button-icon x-on:click="swiper.slideNext()" icon="chevron-right" variant="{{ $variant }}" />
   </div>
 
   @if($showDots)

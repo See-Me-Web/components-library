@@ -11,25 +11,20 @@ class Card extends BaseComponent
 {
     protected string $name = 'card';
     protected string $variant = 'primary';
-    protected int | bool $post = false;
+    protected string $width = '1';
     protected $partial = null;
 
-    public function __construct(string $variant = '', int | bool $post = false)
+    public function __construct(string $variant = 'primary', string $width = '1')
     {
       $this->variant = $variant;
-      $this->post = $post;
+      $this->width = $width;
 
-      $attributes = [];
-      
-      if( $variant ) {
-        $attributes['args'] = [
-          'variant' => $variant
-        ];
-      }
-
-      if( $post ) {
-        $attributes['postId'] = $post;
-      }
+      $attributes = [
+        'args' => [
+          'variant' => $variant,
+          'cardWidth' => $width
+        ]
+      ];
 
       $this->partial = new PartialsCard($attributes);
     }
@@ -39,6 +34,7 @@ class Card extends BaseComponent
         return [
           'classes' => Arr::toCssClasses($this->partial->getClasses()),
           'styles' => ArrHelper::toCssStyles($this->partial->getStyles()),
+          'cardWidth' => $this->width
         ];
     }
 }

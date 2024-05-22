@@ -18,8 +18,9 @@
         <x-seeme::button-link
           href="#all"
           x-on:click="setCategory(0)"
-          variant="primary"
+          variant="{{ $blockVariant ?? 'primary' }}"
           size="small"
+          rounded="lg"
           ::class="{
             'is-active' : category === 0
           }"
@@ -31,8 +32,9 @@
           <x-seeme::button-link
             href="#{{ $category->slug ?? '' }}"
             x-on:click="setCategory({{ $category->term_id ?? 0 }})"
-            variant="primary"
+            variant="{{ $blockVariant ?? 'primary' }}"
             size="small"
+            rounded="lg"
             ::class="{
               'is-active': category === {{ $category->term_id ?? 0 }}
             }"
@@ -60,9 +62,7 @@
   >
     @foreach($posts as $key => $post)
       <div 
-        class="initial dynamic-posts__item dynamic-posts__item--initial" 
-        data-aos="zoom-in" 
-        data-aos-delay="{{ $key * 50 }}"
+        class="initial dynamic-posts__item dynamic-posts__item--initial"
       >
         @include('seeme::partials.post.tile', ['id' => $post->ID])
       </div>
@@ -71,8 +71,6 @@
     <template x-for="(post, index) in posts">
       <div 
         class="appended dynamic-posts__item dynamic-posts__item--appended" 
-        data-aos="zoom-in" 
-        x-bind:data-aos-delay="index * 50"
       >
         @include('seeme::partials.post.tile-template')
       </div>
@@ -80,8 +78,8 @@
   </div>
   
   <div class="text-center mt-8" x-show="loading || page < settings.maxPages" x-transition>
-    <x-seeme::button x-on:click="fetchNextPage()">
-      {{ __('ZOBACZ WIĘCEJ', 'sm-components') }}
+    <x-seeme::button variant="{{ $blockVariant ?? 'primary' }}" x-on:click="fetchNextPage()">
+      <span x-show="! loading">{{ __('ZOBACZ WIĘCEJ', 'sm-components') }}</span>
       <x-seeme::loader x-show="loading" style="display: none" />
     </x-seeme::button>
   </div>

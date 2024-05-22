@@ -1,4 +1,4 @@
-<x-seeme::card variant="{{ $cardVariant ?? '' }}" x-bind:post="post.id">
+<x-seeme::card variant="{{ $blockVariant ?? '' }}" x-bind:data-card-width="post.cardWidth">
   <template x-if="post.type === 'post'">
     @include('seeme::partials.article.tile-template')
   </template>

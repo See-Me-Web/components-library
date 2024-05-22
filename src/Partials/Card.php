@@ -8,19 +8,6 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 class Card extends BasePartial
 {
   public string $slug = 'card';
-  public array $partials = [];
-
-  public array $options = [
-    'variant' => [
-      'label' => 'Wariant',
-      'choices' => [
-        'primary' => 'Primary',
-        'outline' => 'Outline',
-        'custom' => 'Własny styl'
-      ],
-      'default_value' => 'primary'
-    ]
-  ];
 
   public array $optionsClasses = [
     'variant' => [
@@ -29,29 +16,13 @@ class Card extends BasePartial
     ]
   ];
 
-  public function __construct(array $attributes = [])
-  {
-    $childAtts = [...$attributes, 'parents' => [$this->slug]];
-
-    $this->partials = [
-      'background' => new Background($childAtts),
-      'border' => new Border($childAtts),
-      'shadow' => new Shadow($childAtts),
-    ];
-
-    parent::__construct($attributes);
-  }
-
   public function getFields(): ?FieldsBuilder
   {
     $builder = new FieldsBuilder($this->slug);
 
     $builder
-      ->addFields($this->partials['background']->fields(['label' => '']))
-      ->addFields($this->partials['border']->fields(['label' => '']))
-      ->addFields($this->partials['shadow']->fields(['label' => '']))
       ->addTab('Ustawienia kafelka')
-      ->addRange('card-width', [
+      ->addRange('cardWidth', [
         'label' => 'Szerokość kafelka',
         'min' => 1,
         'default_value' => 1,
@@ -64,25 +35,13 @@ class Card extends BasePartial
 
   public function getClasses(): array
   {
-    $settings = $this->getSettings();
     $classes = [];
+    $settings = $this->getSettings();
 
     $classes = array_merge($classes, $this->getOptionsClasses());
 
-    $classes = array_merge($classes, $this->partials['background']->getClasses());
-    $classes = array_merge($classes, $this->partials['border']->getClasses());
-    $classes = array_merge($classes, $this->partials['shadow']->getClasses());
-
-    if(isset($settings['card-width']) && $settings['card-width'] == 1) {
-      $classes[] = "col-span-1";
-    }
-
-    if(isset($settings['card-width']) && $settings['card-width'] == 2) {
-      $classes[] = "col-span-2";
-    }
-
-    if(isset($settings['card-width']) && $settings['card-width'] == 3) {
-      $classes[] = "col-span-3";
+    if(isset($settings['cardWidth'])) {
+      $classes[] = "col-[--card-width]";
     }
 
     return $classes;
@@ -90,13 +49,19 @@ class Card extends BasePartial
 
   public function getStyles(): array
   {
-    $settings = $this->getSettings();
     $styles = [];
+    $settings = $this->getSettings();
 
-    $styles = array_merge($styles, $this->partials['background']->getStyles());
-    $styles = array_merge($styles, $this->partials['border']->getStyles());
-    $styles = array_merge($styles, $this->partials['shadow']->getStyles());
+    if(isset($settings['cardWidth'])) {
+      $styles[] = "--card-width: span {$settings['cardWidth']}";
+    }
 
     return $styles;
+  }
+
+  public static function getCardWidth(int $id)
+  {
+    $settings = get_field('card', $id);
+    return $settings['cardWidth'] ?? 1;
   }
 }

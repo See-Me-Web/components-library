@@ -19,6 +19,7 @@ class Columns extends BaseBlock
     public function attributes(): array
     {
         return [
+            'slug' => 'columns',
             'name' => __('Columns', 'sm-components'),
             'description' => __('Columns block', 'sm-components'),
             'icon' => 'columns',

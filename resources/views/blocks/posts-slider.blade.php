@@ -13,6 +13,7 @@
       :showArrows="$sliderConfig['showArrows'] ?? false"
       :showArrowsMobile="$sliderConfig['showArrowsMobile'] ?? false"
       :config="$sliderConfig['config']"
+      variant="{{ $blockVariant ?? 'primary' }}"
     >
       @foreach($slides as $slide)
         <x-seeme::slider.item>

@@ -19,6 +19,7 @@ class Download extends BaseBlock
     public function attributes(): array
     {
         return [
+            'slug' => 'download',
             'name' => __('Download', 'sm-components'),
             'description' => __('File to download', 'sm-components'),
             'icon' => 'download',

@@ -2,6 +2,8 @@
 
 namespace Seeme\Components\Helpers;
 
+use Seeme\Components\Partials\Card;
+
 class ArticleHelper
 {
   public static function prepareForTile(int $articleId)
@@ -13,6 +15,7 @@ class ArticleHelper
       'title' => get_the_title($articleId),
       'excerpt' => apply_filters('orphan_replace', get_the_excerpt($articleId)),
       'thumbnail' => static::getThumbnail($articleId),
+      'cardWidth' => Card::getCardWidth($articleId)
     ];
   }
 

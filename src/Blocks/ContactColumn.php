@@ -19,6 +19,7 @@ class ContactColumn extends BaseBlock
     public function attributes(): array
     {
       return [
+        'slug' => 'contact-column',
         'name' => __('Contact column', 'sm-components'),
         'description' => '',
         'icon' => 'tagcloud',

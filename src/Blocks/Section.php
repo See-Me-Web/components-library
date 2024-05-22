@@ -25,7 +25,9 @@ class Section extends BaseBlock
     public function attributes(): array
     {
         return [
+            'slug' => 'section',
             'name' => __('Section', 'sm-components'),
+            'title' => __('Section', 'sm-components'),
             'description' => __('Section block', 'sm-components'),
             'icon' => 'tagcloud',
             'keywords' => ['section'],

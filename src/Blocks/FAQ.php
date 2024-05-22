@@ -20,6 +20,7 @@ class Faq extends BaseBlock
     public function attributes(): array
     {
         return [
+            'slug' => 'faq',
             'name' => __('Faq', 'sm-components'),
             'description' => __('FAQ section with questions and anserws grouped in topics', 'sm-components'),
             'icon' => 'info',

@@ -19,6 +19,7 @@ class Accordeon extends BaseBlock
     public function attributes(): array
     {
         return [
+            'slug' => 'accordeon',
             'name' => __('Accordeon', 'sm-components'),
             'description' => __('Accordeon block', 'sm-components'),
             'icon' => 'arrow-down-alt2',
@@ -36,9 +37,13 @@ class Accordeon extends BaseBlock
                 'multiple' => true,
                 'jsx' => true,
                 'color' => [
-                    'background' => true,
+                    'background' => false,
                     'text' => true,
                 ],
+                'spacing' => [
+                    'padding' => ['top', 'bottom'],
+                    'margin' => ['top', 'bottom'],
+                ]
             ],
         ];
     }
@@ -52,9 +57,16 @@ class Accordeon extends BaseBlock
             'open' => get_field('open'),
             'title' => get_field('title') ?: '',
             'allowedBlocks' => [
+                'core/paragraph',
+                'core/list',
+                'core/table',
+                'core/image',
                 'acf/download',
-                'acf/paragraph',
                 'acf/icon',
+                'acf/stack',
+                'acf/button',
+                'acf/heading',
+                'acf/socials'
             ],
         ];
     }

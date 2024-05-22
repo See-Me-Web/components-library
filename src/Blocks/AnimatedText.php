@@ -19,6 +19,7 @@ class AnimatedText extends BaseBlock
     public function attributes(): array
     {
         return [
+            'slug' => 'animated-text',
             'name' => __('Animated text', 'sm-components'),
             'description' => __('Text animated on page scroll', 'sm-components'),
             'icon' => 'heading',

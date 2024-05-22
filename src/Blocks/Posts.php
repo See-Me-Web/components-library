@@ -2,7 +2,9 @@
 
 namespace Seeme\Components\Blocks;
 
+use Log1x\AcfComposer\AcfComposer;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
+use Seeme\Components\Partials\Variant;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
@@ -13,10 +15,24 @@ class Posts extends BaseBlock
      */
     public $styles_support = ['background', 'text', 'border', 'shadow'];
 
+    public $partials = [];
+
     /**
      * The block view path.
      */
     public $view = CoreServiceProvider::NAMESPACE . '::blocks.posts';
+
+    /**
+     * The block constructor.
+     */
+    public function __construct(AcfComposer $composer)
+    {
+        $this->partials = [
+          'variant' => new Variant()
+        ];
+
+        parent::__construct($composer);
+    }
 
     /**
      * The block attributes.
@@ -24,6 +40,7 @@ class Posts extends BaseBlock
     public function attributes(): array
     {
       return [
+        'slug' => 'posts',
         'name' => __('Posts', 'sm-components'),
         'description' => __('Posts block', 'sm-components'),
         'icon' => 'tagcloud',
@@ -67,6 +84,7 @@ class Posts extends BaseBlock
           'mobileVertical' => $mobileVertical == null ? true : $mobileVertical,
           'mobileColumns' => get_field('mobile-columns') ?: 1,
           'posts' => get_field('posts') ?: [],
+          'blockVariant' => $this->partials['variant']->getVariant()
         ];
     }
 
@@ -80,6 +98,7 @@ class Posts extends BaseBlock
         $builder = new FieldsBuilder('posts');
 
         $builder
+          ->addFields($this->partials['variant']->fields())
           ->addAccordion('Posty')
             ->addPostObject('posts', [
               'label' => 'Posty',
@@ -117,11 +136,6 @@ class Posts extends BaseBlock
             ]);
 
         return $builder;
-    }
-
-    public function getAdditionalClasses(): array
-    {
-      return [];
     }
 
     public function getAdditionalStyles(): array

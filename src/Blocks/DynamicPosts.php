@@ -2,8 +2,10 @@
 
 namespace Seeme\Components\Blocks;
 
+use Log1x\AcfComposer\AcfComposer;
 use Seeme\Components\Ajax\PostsFeedAjax;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
+use Seeme\Components\Partials\Variant;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
@@ -14,10 +16,24 @@ class DynamicPosts extends BaseBlock
      */
     public $styles_support = ['background', 'text', 'border', 'shadow'];
 
+    public $partials = [];
+
     /**
      * The block view path.
      */
     public $view = CoreServiceProvider::NAMESPACE . '::blocks.dynamic-posts';
+
+    /**
+     * The block constructor.
+     */
+    public function __construct(AcfComposer $composer)
+    {
+        $this->partials = [
+          'variant' => new Variant()
+        ];
+
+        parent::__construct($composer);
+    }
 
     /**
      * The block attributes.
@@ -25,6 +41,7 @@ class DynamicPosts extends BaseBlock
     public function attributes(): array
     {
       return [
+        'slug' => 'dynamic-posts',
         'name' => __('Dynamic posts', 'sm-components'),
         'description' => __('Dynamic posts loaded via AJAX without page refresh', 'sm-components'),
         'icon' => 'welcome-write-blog',
@@ -89,7 +106,8 @@ class DynamicPosts extends BaseBlock
           ],
           'allowedBlocks' => [
             'acf/heading'
-          ]
+          ],
+          'blockVariant' => $this->partials['variant']->getVariant()
         ];
     }
 
@@ -103,6 +121,7 @@ class DynamicPosts extends BaseBlock
         $builder = new FieldsBuilder('dynamic-posts');
 
         $builder
+          ->addFields($this->partials['variant']->fields())
           ->addAccordion('Ustawienia bloku')
             ->addRange('perPage', [
               'label' => 'Liczba postów na stronę',

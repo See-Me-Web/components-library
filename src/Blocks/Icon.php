@@ -19,9 +19,10 @@ class Icon extends BaseBlock
     public function attributes(): array
     {
       return [
+        'slug' => 'icon',
         'name' => __('Icon', 'sm-components'),
         'description' => __('Icon block', 'sm-components'),
-        'icon' => 'tagcloud',
+        'icon' => 'twitter',
         'keywords' => ['icon'],
         'post_types' => [],
         'parent' => [],

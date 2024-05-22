@@ -24,6 +24,7 @@ class Contact extends BaseBlock
     public function attributes(): array
     {
       return [
+        'slug' => 'contact',
         'name' => __('Contact', 'sm-components'),
         'description' => '',
         'icon' => 'tagcloud',

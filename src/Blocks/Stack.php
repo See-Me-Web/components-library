@@ -19,9 +19,10 @@ class Stack extends BaseBlock
     public function attributes(): array
     {
         return [
+            'slug' => 'stack',
             'name' => __('Stack', 'sm-components'),
             'description' => __('Stack block', 'sm-components'),
-            'icon' => 'columns',
+            'icon' => 'screenoptions',
             'keywords' => ['stack'],
             'post_types' => [],
             'parent' => [],

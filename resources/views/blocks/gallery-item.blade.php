@@ -7,7 +7,7 @@
     ])
     style="{{ $style ?? '' }}"
   >
-    <x-seeme::card variant="{{ $cardVariant ?? 'primary' }}" class="!p-0 h-full">
+    <x-seeme::card variant="{{ $blockVariant ?? 'primary' }}" class="!p-0 h-full">
       <a href="{{ $image->url ?? '' }}" data-fancybox="{{ $parentAnchor }}" data-caption="{{ $image->caption ?? '' }}">
         <x-seeme::image :image="$image" class="object-cover object-center w-full h-full" />
       </a>

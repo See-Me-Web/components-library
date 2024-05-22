@@ -3,6 +3,7 @@
 namespace Seeme\Components\View\Composers;
 
 use Roots\Acorn\View\Composer;
+use Seeme\Components\Partials\Card;
 
 class PostTile extends Composer
 {
@@ -26,6 +27,7 @@ class PostTile extends Composer
       
       return [
         'postType' => get_post_type($id),
+        'cardWidth' => Card::getCardWidth($id)
       ];
     }
 }

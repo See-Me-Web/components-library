@@ -102,13 +102,7 @@ class Button extends BasePartial
     $builder = new FieldsBuilder($this->slug);
 
     $builder
-      ->addLink('link')
-      ->addImage('iconLeft', [
-        'label' => 'Icon before text',
-      ])
-      ->addImage('iconRight', [
-        'label' => 'Icon after text',
-      ]);
+      ->addLink('link');
 
     return $builder;
   }

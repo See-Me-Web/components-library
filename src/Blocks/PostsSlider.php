@@ -6,6 +6,7 @@ use Log1x\AcfComposer\AcfComposer;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
 use Seeme\Components\Helpers\ViewHelper;
 use Seeme\Components\Partials\Slider;
+use Seeme\Components\Partials\Variant;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
@@ -16,7 +17,7 @@ class PostsSlider extends BaseBlock
      */
     public $styles_support = ['border', 'background', 'shadow'];
 
-    public $partial = null;
+    public $partials = [];
 
     /**
      * The block view path.
@@ -28,7 +29,11 @@ class PostsSlider extends BaseBlock
      */
     public function __construct(AcfComposer $composer)
     {
-        $this->partial = new Slider(['parents' => ['slider-settings'], 'excluded' => ['effect', 'loop']]);
+        $this->partials = [
+          'slider' =>  new Slider(['parents' => ['slider-settings'], 'excluded' => ['effect', 'loop']]),
+          'variant' => new Variant()
+        ];
+
         parent::__construct($composer);
     }
 
@@ -38,6 +43,7 @@ class PostsSlider extends BaseBlock
     public function attributes(): array
     {
       return [
+        'slug' => 'posts-slider',
         'name' => __('Posts slider', 'sm-components'),
         'description' => __('Posts slider block', 'sm-components'),
         'icon' => 'tagcloud',
@@ -72,20 +78,20 @@ class PostsSlider extends BaseBlock
      * @return array
      */
     public function getWith(): array
-    {
+    {      
         return [
           'slides' => $this->getSlides(),
           'sliderConfig' => $this->getSliderConfig(),
-          'cardVariant' => 'outline'
+          'blockVariant' => $this->partials['variant']->getVariant()
         ];
     }
 
     public function getSliderConfig(): array
     {
       return [
-        ...$this->partial->getVariables(),
+        ...$this->partials['slider']->getVariables(),
         'config' => [
-          ...$this->partial->getConfig(),
+          ...$this->partials['slider']->getConfig(),
           'slidesPerView' => 1.2,
           'slidesOffsetBefore' => 16,
           'spaceBetween' => 10,
@@ -116,6 +122,7 @@ class PostsSlider extends BaseBlock
         $builder = new FieldsBuilder('posts-slider');
 
         $builder
+          ->addFields($this->partials['variant']->fields())
           ->addAccordion('Posty')
             ->addFlexibleContent('slides')
               ->addLayout($this->getPostLayout())
@@ -125,7 +132,7 @@ class PostsSlider extends BaseBlock
             ->endFlexibleContent()
           ->addAccordion('Ustawienia bloku')
             ->addGroup('slider-settings')
-              ->addFields($this->partial->fields())
+              ->addFields($this->partials['slider']->fields())
             ->endGroup();
 
 
@@ -231,7 +238,7 @@ class PostsSlider extends BaseBlock
     {
       $classes = [];
 
-      $classes = array_merge($classes, $this->partial->getClasses());
+      $classes = array_merge($classes, $this->partials['slider']->getClasses());
 
       return $classes;
     }
@@ -240,7 +247,7 @@ class PostsSlider extends BaseBlock
     {
       $styles = [];
 
-      $styles = array_merge($styles, $this->partial->getStyles());
+      $styles = array_merge($styles, $this->partials['slider']->getStyles());
 
       return $styles;
     }

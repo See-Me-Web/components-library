@@ -27,6 +27,8 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind('ajax', function () {
             return new AjaxListenerService();
         });
+        
+        $this->handleLocalization();
     }
 
     /**
@@ -109,5 +111,10 @@ class CoreServiceProvider extends ServiceProvider
             $class = 'Seeme\\Components\\Fields\\' . $name;
             $this->app->make($class)->compose();
         }
+    }
+
+    public function handleLocalization(): void
+    {
+        load_theme_textdomain('sm-components', __DIR__ . '/../../lang');
     }
 }

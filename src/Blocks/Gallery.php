@@ -19,6 +19,7 @@ class Gallery extends BaseBlock
     public function attributes(): array
     {
         return [
+            'slug' => 'gallery',
             'name' => __('Gallery', 'sm-components'),
             'description' => __('Grid gallery', 'sm-components'),
             'icon' => 'format-gallery',

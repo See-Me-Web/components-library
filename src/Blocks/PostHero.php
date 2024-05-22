@@ -26,6 +26,7 @@ class PostHero extends BaseBlock
     public function attributes(): array
     {
       return [
+        'slug' => 'post-hero',
         'name' => __('Post hero', 'sm-components'),
         'description' => __('Post hero block', 'sm-components'),
         'icon' => 'tagcloud',

@@ -1,7 +1,4 @@
-<x-seeme::card 
-  :variant="$cardVariant ?? ''"
-  :post="$id"
->
+<x-seeme::card :variant="$blockVariant ?? ''" :width="$cardWidth ?? 1">
   @switch($postType ?? 'post')
     @case('portfolio')
       @include('seeme::partials.portfolio.tile', ['id' => $id])
