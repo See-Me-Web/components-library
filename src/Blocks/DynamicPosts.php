@@ -17,11 +17,6 @@ class DynamicPosts extends BaseBlock
     public $styles_support = ['background', 'text', 'border', 'shadow'];
 
     public $partials = [];
-    public $postTypes = [
-      'post' => 'Wpis',
-      'portfolio' => 'Realizacje',
-      'offer' => 'Oferta',
-    ];
 
     /**
      * The block view path.
@@ -38,6 +33,18 @@ class DynamicPosts extends BaseBlock
         ];
 
         parent::__construct($composer);
+    }
+
+    public function getPostTypes(): array
+    {
+      $types = config('sm-components.postTypes');
+
+      return [
+        'post' => 'Wpis',
+        'portfolio' => 'Realizacje',
+        'offer' => 'Oferta',
+        ...(is_array($types) ? $types : [])
+      ];
     }
 
     /**
@@ -136,7 +143,7 @@ class DynamicPosts extends BaseBlock
             ])
             ->addSelect('postType', [
               'label' => 'Rodzaj postów',
-              'choices' => $this->postTypes,
+              'choices' => $this->getPostTypes(),
               'default_value' => 'post'
             ])
             ->addTrueFalse('withFilters', [

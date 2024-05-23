@@ -16,16 +16,22 @@ class PostsFeedAjax extends AjaxAction
         'ID' => 'DESC'
     ];
 
-    const POST_TYPES_CATEGORIES = [
-        'post' => 'category',
-        'portfolio' => 'portfolio_category',
-        'offer' => 'offer_category'
-    ];
-
     const POST_TYPE_HELPERS = [
         'portfolio' => PortfolioHelper::class,
         'post' => ArticleHelper::class
     ];
+
+    public static function getPostTypeCategories(): array
+    {
+        $categories = config('sm-components.postTaxonomies');
+
+        return [
+            'post' => 'category',
+            'portfolio' => 'portfolio_category',
+            'offer' => 'offer_category',
+            ...(is_array($categories) ? $categories : [])
+        ];
+    }
 
     public static function getPosts($params): \WP_Query
     {
@@ -50,7 +56,7 @@ class PostsFeedAjax extends AjaxAction
 
         if ( ! empty($params->categories)) {
             $taxQuery[] = [
-                'taxonomy' => static::POST_TYPES_CATEGORIES[$params->postType ?? 'post'],
+                'taxonomy' => Arr::get(static::getPostTypeCategories(), $params->postType, 'category'),
                 'field'    => 'term_id',
                 'terms'    => $params->categories,
             ];
@@ -85,7 +91,7 @@ class PostsFeedAjax extends AjaxAction
     public static function getCategories(string $postType): array
     {
         return get_terms([
-            'taxonomy' => static::POST_TYPES_CATEGORIES[$postType] ?? 'category'
+            'taxonomy' => Arr::get(static::getPostTypeCategories(), $postType, 'category'),
         ]);
     }
 
@@ -102,7 +108,7 @@ class PostsFeedAjax extends AjaxAction
 
     public function preparePost(\WP_Post $post)
     {
-        $helper = Arr::get(self::POST_TYPE_HELPERS, $post->post_type, null);
+        $helper = Arr::get(self::POST_TYPE_HELPERS, $post->post_type, ArticleHelper::class);
 
         if( ! $helper ) {
             return false;

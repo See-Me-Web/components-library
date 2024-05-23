@@ -6,5 +6,16 @@ return [
         // 'Button'
         // 'Buttons'
         // 'Heading
-    ] 
+    ] ,
+    'postTypes' => [
+        'post' => 'Wpis',
+        'portfolio' => 'Realizacje',
+        'offer' => 'Oferta',
+        'attraction' => 'Atrakcje'
+    ],
+    'postTaxonomies' => [
+        'post' => 'category',
+        'portfolio' => 'portfolio_category',
+        'offer' => 'offer_category'
+    ]
 ];
