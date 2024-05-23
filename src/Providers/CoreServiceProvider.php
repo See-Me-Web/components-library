@@ -58,7 +58,7 @@ class CoreServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->publishes([
-            self::VIEWS_PATH => $this->app->resourcePath('views/vendor/sm-components')
+            self::VIEWS_PATH => $this->app->resourcePath('views/vendor/' . self::NAMESPACE)
         ], 'views');
     }
 
