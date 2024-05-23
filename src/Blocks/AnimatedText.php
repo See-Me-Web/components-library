@@ -65,7 +65,7 @@ class AnimatedText extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('animated-text');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
           ->addAccordion('Ustawienia bloku')

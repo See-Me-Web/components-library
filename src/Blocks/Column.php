@@ -61,7 +61,7 @@ class Column extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('column');
+        $builder = new FieldsBuilder($this->getSlug());
         return $builder;
     }
 

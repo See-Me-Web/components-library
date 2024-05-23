@@ -123,7 +123,7 @@ class DynamicPosts extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('dynamic-posts');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
           ->addFields($this->partials['variant']->fields())

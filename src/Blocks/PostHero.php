@@ -79,8 +79,7 @@ class PostHero extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('post-hero');
-
+        $builder = new FieldsBuilder($this->getSlug());
         return $builder;
     }
 }

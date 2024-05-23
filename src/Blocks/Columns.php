@@ -71,7 +71,7 @@ class Columns extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-      $builder = new FieldsBuilder('columns');
+      $builder = new FieldsBuilder($this->getSlug());
 
       $builder
         ->addAccordion('Ustawienia bloku')

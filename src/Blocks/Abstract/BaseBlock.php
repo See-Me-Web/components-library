@@ -271,4 +271,9 @@ abstract class BaseBlock extends Block
 
         return $builder->build();
     }
+
+    public function getSlug(): string
+    {
+        return Arr::get($this->attributes(), 'slug', '');
+    }
 }

@@ -68,7 +68,7 @@ class Map extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('map');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
           ->addAccordion('Ustawienia bloku')
@@ -84,15 +84,5 @@ class Map extends BaseBlock
           ]);
 
         return $builder;
-    }
-
-    public function getAdditionalClasses(): array
-    {
-      return [];
-    }
-
-    public function getAdditionalStyles(): array
-    {
-      return [];
     }
 }

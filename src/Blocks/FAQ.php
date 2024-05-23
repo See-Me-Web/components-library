@@ -81,7 +81,7 @@ class Faq extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('faq');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
             ->addAccordion('Ustawienia bloku')

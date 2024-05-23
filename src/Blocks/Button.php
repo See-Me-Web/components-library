@@ -82,7 +82,7 @@ class Button extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('button');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
             ->addFields($this->partials['button']->fields());

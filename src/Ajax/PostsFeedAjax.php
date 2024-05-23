@@ -2,6 +2,7 @@
 
 namespace Seeme\Components\Ajax;
 
+use Illuminate\Support\Arr;
 use Seeme\Components\Ajax\Abstract\AjaxAction;
 use Seeme\Components\Helpers\ArticleHelper;
 use Seeme\Components\Helpers\PortfolioHelper;
@@ -19,6 +20,11 @@ class PostsFeedAjax extends AjaxAction
         'post' => 'category',
         'portfolio' => 'portfolio_category',
         'offer' => 'offer_category'
+    ];
+
+    const POST_TYPE_HELPERS = [
+        'portfolio' => PortfolioHelper::class,
+        'post' => ArticleHelper::class
     ];
 
     public static function getPosts($params): \WP_Query
@@ -96,12 +102,17 @@ class PostsFeedAjax extends AjaxAction
 
     public function preparePost(\WP_Post $post)
     {
-        switch($post->post_type) {
-            case 'portfolio':
-                return PortfolioHelper::prepareForTile($post->ID);
-            default: 
-                return ArticleHelper::prepareForTile($post->ID);
+        $helper = Arr::get(self::POST_TYPE_HELPERS, $post->post_type, null);
+
+        if( ! $helper ) {
+            return false;
         }
+
+        if( ! method_exists($helper, 'prepareForTile') ) {
+            return false;
+        }
+
+        return $helper::prepareForTile($post->ID);
     }
 
     private function getParams()

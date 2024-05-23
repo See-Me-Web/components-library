@@ -72,7 +72,7 @@ class ContactAccordeon extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('contact-accordeon');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
           ->addAccordion('Ustawienia bloku')
@@ -85,15 +85,5 @@ class ContactAccordeon extends BaseBlock
           ]);
 
         return $builder;
-    }
-
-    public function getAdditionalClasses(): array
-    {
-      return [];
-    }
-
-    public function getAdditionalStyles(): array
-    {
-      return [];
     }
 }

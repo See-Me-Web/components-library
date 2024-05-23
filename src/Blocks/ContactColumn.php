@@ -76,7 +76,7 @@ class ContactColumn extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('contact-column');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
           ->addAccordion('Ustawienia bloku')
@@ -90,11 +90,6 @@ class ContactColumn extends BaseBlock
             ]);
 
         return $builder;
-    }
-
-    public function getAdditionalClasses(): array
-    {
-      return [];
     }
 
     public function getAdditionalStyles(): array

@@ -68,7 +68,7 @@ class Gallery extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('gallery');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
           ->addAccordion('Ustawienia bloku')

@@ -66,7 +66,7 @@ class Icon extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('icon');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
           ->addAccordion('Ustawienia bloku')
@@ -101,11 +101,6 @@ class Icon extends BaseBlock
             ]);
 
         return $builder;
-    }
-
-    public function getAdditionalClasses(): array
-    {
-      return [];
     }
 
     public function getAdditionalStyles(): array

@@ -75,18 +75,7 @@ class Contact extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('contact');
-
+        $builder = new FieldsBuilder($this->getSlug());
         return $builder;
-    }
-
-    public function getAdditionalClasses(): array
-    {
-      return [];
-    }
-
-    public function getAdditionalStyles(): array
-    {
-      return [];
     }
 }

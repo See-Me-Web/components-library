@@ -95,7 +95,7 @@ class Posts extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('posts');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
           ->addFields($this->partials['variant']->fields())

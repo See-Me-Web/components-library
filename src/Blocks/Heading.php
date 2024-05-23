@@ -92,7 +92,7 @@ class Heading extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('heading');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
             ->addFields($this->partials['heading']->fields());

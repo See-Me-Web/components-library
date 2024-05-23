@@ -86,7 +86,7 @@ class Wrapper extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('wrapper');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
           ->addFields($this->partials['wrapper']->fields());

@@ -89,7 +89,7 @@ class Socials extends BaseBlock
 
     public function getSocialLayout(): FieldsBuilder
     {
-      $builder = new FieldsBuilder('social');
+      $builder = new FieldsBuilder($this->getSlug());
 
       $builder
         ->addSelect('type', [

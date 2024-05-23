@@ -119,7 +119,7 @@ class PostsSlider extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('posts-slider');
+        $builder = new FieldsBuilder($this->getSlug());
 
         $builder
           ->addFields($this->partials['variant']->fields())

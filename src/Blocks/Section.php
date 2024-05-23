@@ -129,8 +129,7 @@ class Section extends BaseBlock
      */
     public function getBlockFields(): FieldsBuilder
     {
-        $builder = new FieldsBuilder('section');
-
+        $builder = new FieldsBuilder($this->getSlug());
         return $builder;
     }
 }
