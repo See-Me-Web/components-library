@@ -5,6 +5,7 @@ namespace Seeme\Components\Ajax;
 use Illuminate\Support\Arr;
 use Seeme\Components\Ajax\Abstract\AjaxAction;
 use Seeme\Components\Helpers\ArticleHelper;
+use Seeme\Components\Helpers\ConfigHelper;
 use Seeme\Components\Helpers\PortfolioHelper;
 
 class PostsFeedAjax extends AjaxAction
@@ -21,18 +22,6 @@ class PostsFeedAjax extends AjaxAction
         'post' => ArticleHelper::class
     ];
 
-    public static function getPostTypeCategories(): array
-    {
-        $categories = config('sm-components.postTaxonomies');
-
-        return [
-            'post' => 'category',
-            'portfolio' => 'portfolio_category',
-            'offer' => 'offer_category',
-            ...(is_array($categories) ? $categories : [])
-        ];
-    }
-
     public static function getPosts($params): \WP_Query
     {
         if(is_array($params)) {
@@ -43,7 +32,7 @@ class PostsFeedAjax extends AjaxAction
             'post_type'             => $params->postType ?? 'post',
             'posts_per_page'        => $params->perPage ?? static::DEFAULT_POSTS_PER_PAGE,
             'post_status'           => 'publish',
-            'paged'                 => $params->page,
+            'paged'                 => $params->page ?? 1,
             'tax_query'             => [],
             'meta_query'            => [],
             'ignore_sticky_posts'   => true,
@@ -56,7 +45,7 @@ class PostsFeedAjax extends AjaxAction
 
         if ( ! empty($params->categories)) {
             $taxQuery[] = [
-                'taxonomy' => Arr::get(static::getPostTypeCategories(), $params->postType, 'category'),
+                'taxonomy' => ConfigHelper::getPostTypeTaxonomy($params->postType),
                 'field'    => 'term_id',
                 'terms'    => $params->categories,
             ];
@@ -91,7 +80,7 @@ class PostsFeedAjax extends AjaxAction
     public static function getCategories(string $postType): array
     {
         return get_terms([
-            'taxonomy' => Arr::get(static::getPostTypeCategories(), $postType, 'category'),
+            'taxonomy' => ConfigHelper::getPostTypeTaxonomy($postType)
         ]);
     }
 

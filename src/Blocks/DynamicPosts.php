@@ -5,6 +5,7 @@ namespace Seeme\Components\Blocks;
 use Log1x\AcfComposer\AcfComposer;
 use Seeme\Components\Ajax\PostsFeedAjax;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
+use Seeme\Components\Helpers\ConfigHelper;
 use Seeme\Components\Partials\Variant;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
@@ -33,18 +34,6 @@ class DynamicPosts extends BaseBlock
         ];
 
         parent::__construct($composer);
-    }
-
-    public function getPostTypes(): array
-    {
-      $types = config('sm-components.postTypes');
-
-      return [
-        'post' => 'Wpis',
-        'portfolio' => 'Realizacje',
-        'offer' => 'Oferta',
-        ...(is_array($types) ? $types : [])
-      ];
     }
 
     /**
@@ -143,7 +132,7 @@ class DynamicPosts extends BaseBlock
             ])
             ->addSelect('postType', [
               'label' => 'Rodzaj postów',
-              'choices' => $this->getPostTypes(),
+              'choices' => ConfigHelper::getPostTypes(),
               'default_value' => 'post'
             ])
             ->addTrueFalse('withFilters', [

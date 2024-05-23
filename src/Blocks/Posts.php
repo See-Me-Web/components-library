@@ -3,7 +3,9 @@
 namespace Seeme\Components\Blocks;
 
 use Log1x\AcfComposer\AcfComposer;
+use Seeme\Components\Ajax\PostsFeedAjax;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
+use Seeme\Components\Helpers\ConfigHelper;
 use Seeme\Components\Partials\Variant;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
@@ -83,9 +85,25 @@ class Posts extends BaseBlock
           'columns' => get_field('columns') ?: 3,
           'mobileVertical' => $mobileVertical == null ? true : $mobileVertical,
           'mobileColumns' => get_field('mobile-columns') ?: 1,
-          'posts' => get_field('posts') ?: [],
+          'posts' => $this->getPosts(),
           'blockVariant' => $this->partials['variant']->getVariant()
         ];
+    }
+
+    public function getPosts(): array
+    {
+      $mode = get_field('mode') ?: 'all';
+
+      if( $mode === 'chosen' ) {
+        return get_field('posts') ?: [];
+      }
+
+      $query = PostsFeedAjax::getPosts([
+        'postType' => get_field('postType') ?: 'post',
+        'perPage' => -1
+      ]);
+
+      return array_map(fn ($post) => $post->ID, $query->posts);
     }
 
     /**
@@ -100,11 +118,42 @@ class Posts extends BaseBlock
         $builder
           ->addFields($this->partials['variant']->fields())
           ->addAccordion('Posty')
+            ->addSelect('mode', [
+              'label' => 'Tryb bloku',
+              'choices' => [
+                'chosen' => 'Wybrane posty',
+                'all' => 'Wszystkie posty'
+              ],
+              'default_value' => 'all'
+            ])
             ->addPostObject('posts', [
               'label' => 'Posty',
-              'post_type' => ['portfolio', 'post', 'offer'],
+              'post_type' => ConfigHelper::getPostTypes(true),
               'return_format' => 'id',
-              'multiple' => true
+              'multiple' => true,
+              'conditional_logic' => [
+                [
+                  [
+                    'field' => 'mode',
+                    'operator' => '==',
+                    'value' => 'chosen'
+                  ]
+                ]
+              ]
+            ])
+            ->addSelect('postType', [
+              'label' => 'Typ treści',
+              'choices' => ConfigHelper::getPostTypes(),
+              'default_value' => 'post',
+              'conditional_logic' => [
+                [
+                  [
+                    'field' => 'mode',
+                    'operator' => '==',
+                    'value' => 'all'
+                  ]
+                ]
+              ]
             ])
           ->addAccordion('Ustawienia bloku')
             ->addRange('columns', [

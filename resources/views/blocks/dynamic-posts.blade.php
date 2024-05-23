@@ -50,6 +50,7 @@
     @class([
       'relative',
       'grid',
+      'grid-flow-row-dense',
       'grid-cols-[--mobile-columns]' => $mobileVertical,
       'md:grid-cols-[--columns]' => $mobileVertical,
       'grid-cols-[--columns]' => ! $mobileVertical 
