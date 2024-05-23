@@ -1,4 +1,4 @@
-<div>
+<x-seeme::card :variant="$blockVariant ?? ''" :width="$cardWidth ?? 1">
   @if(isset($thumbnail) && $thumbnail)
     <a 
       href="{{ isset($permalink) && $permalink ? $permalink : '#' }}" 
@@ -36,4 +36,4 @@
       {!! $excerpt !!}
     </div>
   @endif
-</div>
+</x-seeme::card>

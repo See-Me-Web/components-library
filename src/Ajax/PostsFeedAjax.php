@@ -7,6 +7,7 @@ use Seeme\Components\Ajax\Abstract\AjaxAction;
 use Seeme\Components\Helpers\ArticleHelper;
 use Seeme\Components\Helpers\ConfigHelper;
 use Seeme\Components\Helpers\PortfolioHelper;
+use Seeme\Components\Helpers\PostsHelper;
 
 class PostsFeedAjax extends AjaxAction
 {
@@ -97,7 +98,7 @@ class PostsFeedAjax extends AjaxAction
 
     public function preparePost(\WP_Post $post)
     {
-        $helper = Arr::get(self::POST_TYPE_HELPERS, $post->post_type, ArticleHelper::class);
+        $helper = Arr::get(self::POST_TYPE_HELPERS, $post->post_type, PostsHelper::class);
 
         if( ! $helper ) {
             return false;

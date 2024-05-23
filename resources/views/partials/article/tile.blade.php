@@ -1,4 +1,4 @@
-<div>
+<x-seeme::card :variant="$blockVariant ?? ''" :width="$cardWidth ?? 1">
   @if(isset($date) && $date)
     <div class="text-sm mb-4">{{ $date }}</div>
   @endif
@@ -34,4 +34,4 @@
       {!! $excerpt !!}
     </div>
   @endif
-</div>
+</x-seeme::card>

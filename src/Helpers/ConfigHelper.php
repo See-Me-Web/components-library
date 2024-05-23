@@ -36,7 +36,7 @@ class ConfigHelper
       ];
 
       if( $onlySlug ) {
-        return array_keys($taxonomies);
+        return array_values($taxonomies);
       }
 
       return $taxonomies;

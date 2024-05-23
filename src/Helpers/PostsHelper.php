@@ -2,6 +2,8 @@
 
 namespace Seeme\Components\Helpers;
 
+use Seeme\Components\Partials\Card;
+
 class PostsHelper
 {
   public const CATEGORIES_MAP = [
@@ -9,6 +11,18 @@ class PostsHelper
     'portfolio' => 'portfolio_category',
     'offer' => 'offer_category'
   ];
+
+  public static function prepareForTile(int $postId)
+  {
+    return [
+      'type' => get_post_type($postId),
+      'permalink' => get_the_permalink($articleId),
+      'title' => get_the_title($articleId),
+      'excerpt' => apply_filters('orphan_replace', get_the_excerpt($articleId)),
+      'thumbnail' => PostsHelper::getThumbnail($articleId),
+      'cardWidth' => Card::getCardWidth($articleId)
+    ];
+  }
 
   public static function getCategoryTaxonomy(string $postType = 'post'): string
   {

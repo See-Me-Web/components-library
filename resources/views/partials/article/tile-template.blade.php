@@ -1,4 +1,4 @@
-<div>
+<x-seeme::card variant="{{ $blockVariant ?? '' }}" x-bind:data-card-width="post.cardWidth">
   <div x-text="post.date" class="text-sm mb-4"></div>
 
   <a 
@@ -24,4 +24,4 @@
   </a>
 
   <div class="text-current line-clamp-4" x-html="post.excerpt"></div>
-</div>
+</x-seeme::card>
