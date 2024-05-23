@@ -17,6 +17,11 @@ class DynamicPosts extends BaseBlock
     public $styles_support = ['background', 'text', 'border', 'shadow'];
 
     public $partials = [];
+    public $postTypes = [
+      'post' => 'Wpis',
+      'portfolio' => 'Realizacje',
+      'offer' => 'Oferta',
+    ];
 
     /**
      * The block view path.
@@ -131,11 +136,7 @@ class DynamicPosts extends BaseBlock
             ])
             ->addSelect('postType', [
               'label' => 'Rodzaj postów',
-              'choices' => [
-                'post' => 'Wpis',
-                'portfolio' => 'Realizacje',
-                'offer' => 'Oferta'
-              ],
+              'choices' => $this->postTypes,
               'default_value' => 'post'
             ])
             ->addTrueFalse('withFilters', [
