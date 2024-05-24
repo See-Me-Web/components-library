@@ -194,8 +194,7 @@ class PostsSlider extends BaseBlock
         ->addPostObject('page', [
           'post_type' => 'page',
           'return_format' => 'id'
-        ])
-        ->addText('title');
+        ]);
 
       return $builder;
     }

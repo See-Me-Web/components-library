@@ -16,11 +16,11 @@ class PostsHelper
   {
     return [
       'type' => get_post_type($postId),
-      'permalink' => get_the_permalink($articleId),
-      'title' => get_the_title($articleId),
-      'excerpt' => apply_filters('orphan_replace', get_the_excerpt($articleId)),
-      'thumbnail' => PostsHelper::getThumbnail($articleId),
-      'cardWidth' => Card::getCardWidth($articleId)
+      'permalink' => get_the_permalink($postId),
+      'title' => get_the_title($postId),
+      'excerpt' => apply_filters('orphan_replace', get_the_excerpt($postId)),
+      'thumbnail' => PostsHelper::getThumbnail($postId),
+      'cardWidth' => Card::getCardWidth($postId)
     ];
   }
 

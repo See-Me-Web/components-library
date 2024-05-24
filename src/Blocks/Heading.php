@@ -99,4 +99,9 @@ class Heading extends BaseBlock
 
         return $builder;
     }
+
+    public function getAdditionalStyles(): array
+    {
+        return $this->partials['heading']->getStyles();
+    }
 }

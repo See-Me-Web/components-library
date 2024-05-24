@@ -81,6 +81,7 @@ class DynamicPosts extends BaseBlock
     {
         $mobileVertical = get_field('mobile-vertical');
         $withFilters = get_field('withFilters');
+        $withFilters = $withFilters === null ? true : $withFilters;
         $postType = get_field('postType') ?: 'post';
 
         $settings = [
