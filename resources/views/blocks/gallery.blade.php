@@ -1,7 +1,7 @@
 <div 
   id="{{ $block->block->anchor ?? $block->block->id }}"
   @class([
-    'grid gap-2',
+    'grid gap-4',
     'has-nested-images',
     $block->classes,
   ])

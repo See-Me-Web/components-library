@@ -209,12 +209,20 @@ abstract class BaseBlock extends Block
         $properties = Arr::dot($setting);
 
         $styles = array_map(
-            fn ($value, $property) => str_replace('.', '-', $property) . ":" . $this->getPropertyValue(($value)),
+            fn ($value, $property) => $this->getPropertyStyle($property, $value),
             array_values($properties),
             array_keys($properties)
         );
 
         return implode(';', $styles);
+    }
+
+    protected function getPropertyStyle(string $property, string $value): string
+    {
+        return implode(';', [
+            str_replace('.', '-', $property) . ":" . $this->getPropertyValue(($value)),
+            "--block-" . str_replace('.', '-', $property)  . ":" . $this->getPropertyValue(($value))
+        ]);
     }
 
     /**

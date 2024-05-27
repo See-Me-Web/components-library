@@ -21,7 +21,7 @@ class ViewHelper
    * 
    * @return object
    */
-  public static function prepareImage(int $imageId = 0, string $size = 'default'): object
+  public static function prepareImage(int $imageId = 0, string $size = 'default', array $dataToPass = []): object
   {
     $imageSrc = wp_get_attachment_image_src($imageId, $size);
 
@@ -30,7 +30,8 @@ class ViewHelper
       'alt' => get_post_meta($imageId, '_wp_attachment_image_alt', true),
       'width' => $imageSrc[1] ?? '',
       'height' => $imageSrc[2] ?? '',
-      'caption' => wp_get_attachment_caption($imageId)
+      'caption' => wp_get_attachment_caption($imageId),
+      ...$dataToPass
     ];
   }
 

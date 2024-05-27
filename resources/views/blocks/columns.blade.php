@@ -9,5 +9,5 @@
   ])
   style="{{ $style ?? '' }}"
 >
-  <InnerBlocks allowedBlocks="{{ wp_json_encode($allowedBlocks) }}" />
+  <InnerBlocks template="{{ wp_json_encode($template) }}" allowedBlocks="{{ wp_json_encode($allowedBlocks) }}" />
 </div>

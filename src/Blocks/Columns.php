@@ -60,9 +60,17 @@ class Columns extends BaseBlock
           'columns' => get_field('columns') ?: 2,
           'mobileVertical' => $mobileVertical == null ? true : $mobileVertical,
           'mobileColumns' => get_field('mobile-columns') ?: 1,
-            'allowedBlocks' => [
+          'allowedBlocks' => [
+            'acf/column'
+          ],
+          'template' => [
+            [
+              'acf/column'
+            ],
+            [
               'acf/column'
             ]
+          ]
         ];
     }
 

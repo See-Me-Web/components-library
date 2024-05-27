@@ -61,7 +61,7 @@ class Button extends BasePartial
         '[&.is-active]:bg-primary-400 hover:bg-primary-400 focus-visible:bg-primary-400',
         '[&.is-active]:border-primary-400 hover:border-primary-400 focus-visible:border-primary-400',
         'inline-flex items-center justify-center gap-4',
-        'whitespace-nowrap transition-colors no-underline hover:no-underline',
+        'whitespace-nowrap transition-colors !no-underline !hover:no-underline',
       ],
       'primary' => [
         'btn-primary bg-primary-400 text-primary-accent',
@@ -70,14 +70,14 @@ class Button extends BasePartial
         '[&.is-active]:border-primary-600 hover:border-primary-600 focus-visible:border-primary-600',
         '[&_svg]:fill-primary-50',
         'inline-flex items-center justify-center gap-4',
-        'whitespace-nowrap transition-colors no-underline hover:no-underline',
+        'whitespace-nowrap transition-colors !no-underline !hover:no-underline',
       ],
       'outline' => [
         'btn-outline bg-transparent',
         'border',
         '[&.is-active]:bg-primary-400 hover:bg-primary-400 focus-visible:bg-primary-400',
         'inline-flex items-center justify-center gap-4',
-        'whitespace-nowrap transition-colors no-underline hover:no-underline',
+        'whitespace-nowrap transition-colors !no-underline !hover:no-underline',
       ],
     ],
     'size' => [

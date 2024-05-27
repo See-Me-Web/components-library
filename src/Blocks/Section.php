@@ -110,12 +110,6 @@ class Section extends BaseBlock
                                 ]
                             ]
                         ],
-                        [
-                            'core/paragraph',
-                            [
-                                'content' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error laudantium voluptas tempora eveniet. Quos labore ex dolores molestiae neque delectus quibusdam perspiciatis rem odit, aperiam placeat nostrum dolore nesciunt saepe harum suscipit voluptate est? Voluptates ab molestias sed, nulla aspernatur voluptas minima et architecto assumenda saepe repellendus ullam. Velit, sit!'
-                            ]
-                        ]
                     ]
                 ],
             ]
