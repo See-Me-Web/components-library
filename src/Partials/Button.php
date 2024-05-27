@@ -56,7 +56,7 @@ class Button extends BasePartial
   public array $optionsClasses = [
     'variant' => [
       'basic' => [
-        'btn-basic bg-transparent',
+        'btn-basic bg-transparent font-main',
         'border-transparent',
         '[&.is-active]:bg-primary-400 hover:bg-primary-400 focus-visible:bg-primary-400',
         '[&.is-active]:border-primary-400 hover:border-primary-400 focus-visible:border-primary-400',
@@ -64,7 +64,7 @@ class Button extends BasePartial
         'whitespace-nowrap transition-colors !no-underline !hover:no-underline',
       ],
       'primary' => [
-        'btn-primary bg-primary-400 text-primary-accent',
+        'btn-primary bg-primary-400 text-primary-accent font-main',
         'border-primary-400',
         '[&.is-active]:bg-primary-600 hover:bg-primary-600 focus-visible:bg-primary-600',
         '[&.is-active]:border-primary-600 hover:border-primary-600 focus-visible:border-primary-600',
@@ -73,7 +73,7 @@ class Button extends BasePartial
         'whitespace-nowrap transition-colors !no-underline !hover:no-underline',
       ],
       'outline' => [
-        'btn-outline bg-transparent',
+        'btn-outline bg-transparent font-main',
         'border',
         '[&.is-active]:bg-primary-400 hover:bg-primary-400 focus-visible:bg-primary-400',
         'inline-flex items-center justify-center gap-4',
