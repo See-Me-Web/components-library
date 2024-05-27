@@ -50,6 +50,7 @@
           <a 
             href="{{ $image->url ?? '' }}"
             data-fancybox="{{ $block->block->anchor ?? $block->block->id }}"
+            class="pointer-events-none"
           >
             <x-seeme::image 
               :image="$image"
