@@ -30,6 +30,7 @@
   <div
     @class([
       '-mx-[--block-gap]',
+      'flex flex-wrap !gap-0',
     ])
     style="{{ $style }}"
   >

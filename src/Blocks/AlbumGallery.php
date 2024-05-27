@@ -180,11 +180,15 @@ class AlbumGallery extends BaseBlock
       foreach($albums as $album) {
         $images = Arr::get($album, 'images', []);
 
-        $a = new Album(Arr::get($album, 'title', ''));
-        $a->setImages($images);
-        $allImages = array_merge($allImages, $images);
 
-        $this->albums[] = $a;
+        if(is_array($images) && !empty($images)) {
+          $a = new Album(Arr::get($album, 'title', ''));
+
+          $a->setImages($images);
+          $allImages = array_merge($allImages, $images);
+  
+          $this->albums[] = $a;
+        }
       }
 
       $mainAlbum = new Album(__('All', 'sm-components'));
