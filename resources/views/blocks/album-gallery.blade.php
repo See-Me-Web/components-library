@@ -34,7 +34,7 @@
   <div
     @class([
       '-mx-[var(--block-gap,0.5rem)]',
-      'flex flex-wrap'
+      'flex flex-wrap !gap-0'
     ])
     x-ref="list"
     style="{{ $style }}"
