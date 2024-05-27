@@ -8,7 +8,7 @@ class PortfolioHelper
 {
   public const POST_TYPE = 'portfolio'; 
 
-  public static function prepareForTile(int $postId): array
+  public static function prepareForTile(int $postId, array $override = []): array
   {
     return [
       'id' => $postId,
@@ -20,6 +20,7 @@ class PortfolioHelper
       'thumbnail' => PostsHelper::getThumbnail($postId),
       'categories' => PostsHelper::getTopLevelCategories($postId),
       'listedCategories' => ViewHelper::listCategories(PostsHelper::getTopLevelCategories($postId)),
+      ...$override
     ];
   }
 }

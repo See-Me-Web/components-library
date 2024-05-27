@@ -6,7 +6,7 @@ use Seeme\Components\Partials\Card;
 
 class ArticleHelper
 {
-  public static function prepareForTile(int $articleId)
+  public static function prepareForTile(int $articleId, array $override = []): array
   {
     return [
       'type' => 'post',
@@ -15,7 +15,8 @@ class ArticleHelper
       'title' => get_the_title($articleId),
       'excerpt' => apply_filters('orphan_replace', get_the_excerpt($articleId)),
       'thumbnail' => PostsHelper::getThumbnail($articleId),
-      'cardWidth' => Card::getCardWidth($articleId)
+      'cardWidth' => Card::getCardWidth($articleId),
+      ...$override
     ];
   }
 }

@@ -24,7 +24,8 @@ class PortfolioTile extends Composer
     public function with()
     {
       $id = $this->data->get('id');
+      $override = $this->data->get('override', []);
 
-      return PortfolioHelper::prepareForTile($id);
+      return PortfolioHelper::prepareForTile($id, $override);
     }
 }

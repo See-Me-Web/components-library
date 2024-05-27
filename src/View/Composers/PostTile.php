@@ -27,6 +27,7 @@ class PostTile extends Composer
       
       return [
         'postType' => get_post_type($id),
+        'override' => $this->data->get('override', []),
         'cardWidth' => Card::getCardWidth($id)
       ];
     }

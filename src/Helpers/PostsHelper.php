@@ -12,7 +12,7 @@ class PostsHelper
     'offer' => 'offer_category'
   ];
 
-  public static function prepareForTile(int $postId)
+  public static function prepareForTile(int $postId, array $override = []): array
   {
     return [
       'type' => get_post_type($postId),
@@ -20,7 +20,8 @@ class PostsHelper
       'title' => get_the_title($postId),
       'excerpt' => apply_filters('orphan_replace', get_the_excerpt($postId)),
       'thumbnail' => PostsHelper::getThumbnail($postId),
-      'cardWidth' => Card::getCardWidth($postId)
+      'cardWidth' => Card::getCardWidth($postId),
+      ...$override
     ];
   }
 

@@ -24,7 +24,8 @@ class ArticleTile extends Composer
     public function with()
     {
       $id = $this->data->get('id');
+      $override = $this->data->get('override', []);
 
-      return ArticleHelper::prepareForTile($id);
+      return ArticleHelper::prepareForTile($id, $override);
     }
 }
