@@ -58,7 +58,7 @@
             <x-seeme::image 
               :image="$image"
               class="object-cover object-center !w-full !h-full"
-              x-on:load="shuffle.filter()"
+              x-on:load="shuffle.filter(group)"
             />
           </a>
         </x-seeme::card>
