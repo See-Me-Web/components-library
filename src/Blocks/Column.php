@@ -8,6 +8,8 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Column extends BaseBlock
 {
+    public $category = 'sm-blocks-layout';
+    
     /**
      * The block view path.
      */
@@ -53,7 +55,9 @@ class Column extends BaseBlock
      */
     public function getWith(): array
     {
-        return [];
+        return [
+            'colSpan' => get_field('col-span') ?: 1
+        ];
     }
 
     /**
@@ -62,7 +66,33 @@ class Column extends BaseBlock
     public function getBlockFields(): FieldsBuilder
     {
         $builder = new FieldsBuilder($this->getSlug());
+
+        $builder
+            ->addAccordion('Ustawienia bloku')
+            ->addRange('col-span', [
+                'label' => 'Szerokość kolumny',
+                'min' => 1,
+                'step' => 1,
+                'max' => 10
+            ]);
+
         return $builder;
+    }
+
+    public function getAdditionalClasses(): array
+    {
+        return [
+            "col-[--col-span]"
+        ];
+    }
+
+    public function getAdditionalStyles(): array
+    {
+        $colSpan = get_field('col-span') ?: 1;
+        
+        return [
+            "--col-span: span {$colSpan}"
+        ];
     }
 
 }

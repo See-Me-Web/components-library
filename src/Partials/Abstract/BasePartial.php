@@ -161,6 +161,12 @@ abstract class BasePartial implements IBasePartial
 
   public function getOptionClasses(string $option, string $value): string
   {
-    return Arr::toCssClasses(Arr::get($this->optionsClasses, $option . '.' . $value, []));
+    $classes = $this->getFilteredClasses();
+    return Arr::toCssClasses(Arr::get($classes, $option . '.' . $value, []));
+  }
+
+  public function getFilteredClasses()
+  { 
+    return apply_filters("sm/components/{$this->slug}/classes", $this->optionsClasses);
   }
 }

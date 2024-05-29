@@ -82,8 +82,8 @@ abstract class BaseBlock extends Block
         ]);
 
         return str_replace(
-            array_keys($this->classes_map),
-            array_values($this->classes_map),
+            [...array_keys($this->classes_map), "wp-block-{$this->slug}"],
+            [...array_values($this->classes_map), "wp-block-sm-{$this->slug}"],
             $classes
         );
     }

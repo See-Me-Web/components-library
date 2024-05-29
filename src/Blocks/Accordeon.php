@@ -56,6 +56,7 @@ class Accordeon extends BaseBlock
         return [
             'open' => get_field('open'),
             'title' => get_field('title') ?: '',
+            'simple' => get_field('simple') ?: false,
             'allowedBlocks' => [
                 'core/paragraph',
                 'core/list',
@@ -86,6 +87,10 @@ class Accordeon extends BaseBlock
         ->addTrueFalse('open', [
           'label' => 'Domyślnie otwarte',
           'default_value' => false
+        ])
+        ->addTrueFalse('simple', [
+            'label' => 'Minimalistyczny wygląd',
+            'default_value' => false
         ]);
 
         return $builder;

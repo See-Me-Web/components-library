@@ -41,6 +41,7 @@
     @class([
       'relative',
       'grid',
+      'gap-2',
       'grid-cols-[--mobile-columns]' => $mobileVertical,
       'md:grid-cols-[--columns]' => $mobileVertical,
       'grid-cols-[--columns]' => ! $mobileVertical 
@@ -58,7 +59,7 @@
   
   <div class="text-center mt-8">
     <x-seeme::button variant="{{ $blockVariant ?? 'primary' }}">
-      {{ __('ZOBACZ WIĘCEJ', 'sm-components') }}
+      {{ __('MORE', 'sm-components') }}
     </x-seeme::button>
   </div>
 </div>

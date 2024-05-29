@@ -11,176 +11,165 @@ msgstr ""
 "PO-Revision-Date: 2024-05-22T11:59:38+00:00\n"
 "Language: \n"
 
-#: components-library/src/Blocks/Accordeon.php:22
-msgid "Accordeon"
-msgstr "Akordon"
-
 #: components-library/src/Blocks/Accordeon.php:23
+msgid "Accordeon"
+msgstr "Akordeon"
+
+#: components-library/src/Blocks/Accordeon.php:24
 msgid "Accordeon block"
 msgstr "Blok akordeon"
 
-#: components-library/src/Blocks/AnimatedText.php:22
+#: components-library/src/Blocks/AnimatedText.php:23
 msgid "Animated text"
 msgstr "Animowany tekst"
 
-#: components-library/src/Blocks/AnimatedText.php:23
+#: components-library/src/Blocks/AnimatedText.php:24
 msgid "Text animated on page scroll"
 msgstr "Tekst animowany podczas przewijania strony"
 
-#: components-library/src/Blocks/Button.php:41
+#: components-library/src/Blocks/Button.php:44
 msgid "Button"
 msgstr "Przycisk"
 
-#: components-library/src/Blocks/Column.php:22
+#: components-library/src/Blocks/Column.php:25
 msgid "Column"
 msgstr "Kolumna"
 
-#: components-library/src/Blocks/Column.php:23
+#: components-library/src/Blocks/Column.php:26
 msgid "Column block"
 msgstr "Blok kolumna"
 
-#: components-library/src/Blocks/Columns.php:22
+#: components-library/src/Blocks/Columns.php:25
 msgid "Columns"
 msgstr "Kolumny"
 
-#: components-library/src/Blocks/Columns.php:23
+#: components-library/src/Blocks/Columns.php:26
 msgid "Columns block"
 msgstr "Blok kolumny"
 
-#: components-library/src/Blocks/Contact.php:27
-msgid "Contact"
-msgstr "Kontakt"
-
-#: components-library/src/Blocks/ContactAccordeon.php:22
-msgid "Contact accordeon"
-msgstr "Akordeon - kontakt"
-
-#: components-library/src/Blocks/ContactColumn.php:22
-msgid "Contact column"
-msgstr "Kolumna - kontakt"
-
-#: components-library/src/Blocks/Download.php:22
+#: components-library/src/Blocks/Download.php:23
 msgid "Download"
 msgstr "Do pobrania"
 
-#: components-library/src/Blocks/Download.php:23
+#: components-library/src/Blocks/Download.php:24
 msgid "File to download"
 msgstr "Plik do pobrania"
 
-#: components-library/src/Blocks/DynamicPosts.php:44
+#: components-library/src/Blocks/DynamicPosts.php:48
 msgid "Dynamic posts"
 msgstr "Dynamiczne posty"
 
-#: components-library/src/Blocks/DynamicPosts.php:45
+#: components-library/src/Blocks/DynamicPosts.php:49
 msgid "Dynamic posts loaded via AJAX without page refresh"
 msgstr "Dynamiczne posty ładowane bez przeładowania strony za pomocą AJAX"
 
-#: components-library/src/Blocks/Faq.php:23
+#: components-library/src/Blocks/Faq.php:24
 msgid "Faq"
 msgstr "Faq"
 
-#: components-library/src/Blocks/Faq.php:24
+#: components-library/src/Blocks/Faq.php:25
 msgid "FAQ section with questions and anserws grouped in topics"
-msgstr ""
+msgstr "Sekcja FAQ z pytaniami i odpowiedziami pogrupowanymi według tematów"
 
-#: components-library/src/Blocks/Gallery.php:22
+#: components-library/src/Blocks/Gallery.php:23
 msgid "Gallery"
 msgstr "Galeria"
 
-#: components-library/src/Blocks/Gallery.php:23
+#: components-library/src/Blocks/Gallery.php:24
 msgid "Grid gallery"
 msgstr "Galeria"
 
-#: components-library/src/Blocks/GalleryItem.php:23
 #: components-library/src/Blocks/GalleryItem.php:24
+#: components-library/src/Blocks/GalleryItem.php:25
 msgid "Gallery item"
 msgstr "Element galerii"
 
-#: components-library/src/Blocks/Heading.php:46
+#: components-library/src/Blocks/Heading.php:49
 msgid "Heading"
 msgstr "Nagłówek"
 
-#: components-library/src/Blocks/Heading.php:47
+#: components-library/src/Blocks/Heading.php:50
 msgid "Heading block"
 msgstr "Blok nagłówek"
 
-#: components-library/src/Blocks/Icon.php:22
+#: components-library/src/Blocks/Icon.php:23
 msgid "Icon"
 msgstr "Ikona"
 
-#: components-library/src/Blocks/Icon.php:23
+#: components-library/src/Blocks/Icon.php:24
 msgid "Icon block"
 msgstr "Blok ikona"
 
-#: components-library/src/Blocks/ImageSlider.php:41
+#: components-library/src/Blocks/ImageSlider.php:44
 msgid "Image slider"
 msgstr "Slajder obrazków"
 
-#: components-library/src/Blocks/ImageSlider.php:42
+#: components-library/src/Blocks/ImageSlider.php:45
 msgid "Slider with images"
 msgstr "Slajder z obrazkami"
 
-#: components-library/src/Blocks/Map.php:22
+#: components-library/src/Blocks/Map.php:23
 msgid "Map"
 msgstr "Mapa"
 
-#: components-library/src/Blocks/Map.php:23
+#: components-library/src/Blocks/Map.php:24
 msgid "Map block"
 msgstr "Blok mapa"
 
-#: components-library/src/Blocks/PostHero.php:29
+#: components-library/src/Blocks/PostHero.php:32
 msgid "Post hero"
 msgstr "Nagłówek wpisu"
 
-#: components-library/src/Blocks/PostHero.php:30
+#: components-library/src/Blocks/PostHero.php:33
 msgid "Post hero block"
 msgstr "Blok nagłówek wpisu"
 
-#: components-library/src/Blocks/Posts.php:43
+#: components-library/src/Blocks/Posts.php:48
 msgid "Posts"
 msgstr "Posty"
 
-#: components-library/src/Blocks/Posts.php:44
+#: components-library/src/Blocks/Posts.php:49
 msgid "Posts block"
 msgstr "Blok posty"
 
-#: components-library/src/Blocks/PostsSlider.php:46
+#: components-library/src/Blocks/PostsSlider.php:49
 msgid "Posts slider"
 msgstr "Slajder postów"
 
-#: components-library/src/Blocks/PostsSlider.php:47
+#: components-library/src/Blocks/PostsSlider.php:50
 msgid "Posts slider block"
 msgstr "Blok slajder postów"
 
-#: components-library/src/Blocks/Section.php:28
+#: components-library/src/Blocks/Section.php:31
+#: components-library/src/Blocks/Section.php:32
 msgid "Section"
 msgstr "Sekcja"
 
-#: components-library/src/Blocks/Section.php:29
+#: components-library/src/Blocks/Section.php:33
 msgid "Section block"
 msgstr "Blok sekcja"
 
-#: components-library/src/Blocks/Socials.php:22
+#: components-library/src/Blocks/Socials.php:23
 msgid "Socials"
 msgstr "Społecznościowe"
 
-#: components-library/src/Blocks/Socials.php:23
+#: components-library/src/Blocks/Socials.php:24
 msgid "Socials block"
 msgstr "Blok media społecznościowe"
 
-#: components-library/src/Blocks/Stack.php:22
+#: components-library/src/Blocks/Stack.php:25
 msgid "Stack"
 msgstr "Stos"
 
-#: components-library/src/Blocks/Stack.php:23
+#: components-library/src/Blocks/Stack.php:26
 msgid "Stack block"
 msgstr "Blok stos"
 
-#: components-library/src/Blocks/Wrapper.php:41
+#: components-library/src/Blocks/Wrapper.php:44
 msgid "Wrapper"
 msgstr "Kontener"
 
-#: components-library/src/Blocks/Wrapper.php:42
+#: components-library/src/Blocks/Wrapper.php:45
 msgid "Wrapper block"
 msgstr "Blok kontener"
 
@@ -188,16 +177,45 @@ msgstr "Blok kontener"
 msgid "download"
 msgstr "pobierz"
 
-#: components-library/resources/views/blocks/dynamic-posts.blade.php:27
-#: components-library/resources/views/blocks/preview-dynamic-posts.blade.php:22
+#: components-library/src/Blocks/AlbumGallery.php:194
+#: components-library/resources/views/blocks/dynamic-posts.blade.php:28
+#: components-library/resources/views/blocks/preview-dynamic-posts.blade.php:23
 msgid "All"
 msgstr "Wszystkie"
-
-#: components-library/resources/views/blocks/dynamic-posts.blade.php:89
-#: components-library/resources/views/blocks/preview-dynamic-posts.blade.php:63
-msgid "ZOBACZ WIĘCEJ"
-msgstr ""
 
 #: components-library/resources/views/components/map.blade.php:38
 msgid "Use two fingers to move the map"
 msgstr "Przesuń mapę dwoma palcami"
+
+#: components-library/src/Blocks/AlbumGallery.php:46
+msgid "Album Gallery"
+msgstr "Galeria albumów"
+
+#: components-library/src/Blocks/AlbumGallery.php:47
+msgid "Album grid gallery"
+msgstr "Galeria z albumami"
+
+#: components-library/src/Blocks/Breadcrumbs.php:31
+msgid "Breadcrumbs"
+msgstr "Okruszki"
+
+#: components-library/src/Blocks/Card.php:44
+msgid "Card"
+msgstr "Karta"
+
+#: components-library/src/Blocks/Card.php:45
+msgid "Card block"
+msgstr "Blok karta"
+
+#: components-library/src/Blocks/PostsList.php:27
+msgid "Posts list"
+msgstr "Lista postów"
+
+#: components-library/src/Blocks/PostsList.php:28
+msgid "Posts list block"
+msgstr "Blok lista postów"
+
+#: components-library/resources/views/blocks/dynamic-posts.blade.php:89
+#: components-library/resources/views/blocks/preview-dynamic-posts.blade.php:66
+msgid "MORE"
+msgstr "ZOBACZ WIĘCEJ"

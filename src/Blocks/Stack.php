@@ -8,6 +8,8 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Stack extends BaseBlock
 {
+    public $category = 'sm-blocks-layout';
+
     /**
      * The block view path.
      */

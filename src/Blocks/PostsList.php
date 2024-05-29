@@ -10,6 +10,8 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class PostsList extends BaseBlock
 {
+    public $category = 'sm-blocks-posts';
+    
     /**
      * The block view path.
      */

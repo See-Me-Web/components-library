@@ -4,6 +4,7 @@
     $block->classes
   ])
   style="{{ $style ?? '' }}"
+  data-col-span="{{ $colSpan ?? 1 }}"
 >
   <InnerBlocks />
 </div>

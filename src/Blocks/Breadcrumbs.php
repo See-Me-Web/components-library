@@ -8,6 +8,7 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Breadcrumbs extends BaseBlock
 {
+    public $category = 'sm-blocks-layout';
     public $styles_support = ['text'];
 
     /**
@@ -79,8 +80,9 @@ class Breadcrumbs extends BaseBlock
     {
       global $post;
       $items = [];
+      $homepageId = get_option('page_on_front');
 
-      $items['home'] = $this->getBreadcrumb(get_option('page_on_front'));
+      $items['home'] = $this->getBreadcrumb($homepageId);
       $ancestors = get_post_ancestors($post->ID);
 
       if( !empty($ancestors) ) {
@@ -98,7 +100,9 @@ class Breadcrumbs extends BaseBlock
         ];
       }
 
-      $items[$post->ID] = $this->getBreadcrumb($post->ID);
+      if( $post->ID !== $homepageId ) {
+        $items[$post->ID] = $this->getBreadcrumb($post->ID);
+      }
 
       return $items;
     }

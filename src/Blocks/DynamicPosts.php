@@ -12,6 +12,8 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class DynamicPosts extends BaseBlock
 {
+    public $category = 'sm-blocks-posts';
+    
     /**
      * The block styles.
      */

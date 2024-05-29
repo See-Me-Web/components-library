@@ -9,6 +9,8 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Section extends BaseBlock
 {
+    public $category = 'sm-blocks-layout';
+    
     /**
      * The block styles.
      */
@@ -29,7 +31,7 @@ class Section extends BaseBlock
             'name' => __('Section', 'sm-components'),
             'title' => __('Section', 'sm-components'),
             'description' => __('Section block', 'sm-components'),
-            'icon' => 'tagcloud',
+            'icon' => 'layout',
             'keywords' => ['section'],
             'post_types' => [],
             'parent' => [],

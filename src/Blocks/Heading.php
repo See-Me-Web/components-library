@@ -10,6 +10,8 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Heading extends BaseBlock
 {
+    public $category = 'sm-blocks-layout';
+    
     /**
      * The block styles.
      */

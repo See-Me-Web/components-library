@@ -12,6 +12,14 @@ class BlocksService
         [
             'slug' => 'sm-blocks',
             'title' => 'SM Blocks'
+        ],
+        [
+            'slug' => 'sm-blocks-posts',
+            'title' => 'SM Blocks - Posts'
+        ],
+        [
+            'slug' => 'sm-blocks-layout',
+            'title' => 'SM Blocks - Layout'
         ]
     ];
 
@@ -61,7 +69,6 @@ class BlocksService
      * Add custom block category to the Gutenberg editor.
      * 
      * @param array $categories
-     * 
      * @return array
      */
     public function registerBlockCategories($categories): array

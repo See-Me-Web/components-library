@@ -12,6 +12,8 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class PostsSlider extends BaseBlock
 {
+    public $category = 'sm-blocks-posts';
+
     /**
      * The block styles.
      */

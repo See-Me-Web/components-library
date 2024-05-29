@@ -10,6 +10,8 @@ use StoutLogic\AcfBuilder\FieldsBuilder;
 
 class Button extends BaseBlock
 {
+    public $category = 'sm-blocks-layout';
+    
     /**
      * Array of partials used by this block.
      */

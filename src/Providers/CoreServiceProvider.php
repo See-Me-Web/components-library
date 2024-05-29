@@ -83,6 +83,11 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->make(BlocksService::class)->init();
     }
 
+    /**
+     * Register composers classes for views
+     * 
+     * @return void
+     */
     public function handleComposers(): void
     {
         $composers = glob(__DIR__ . '/../View/Composers/*.php');
@@ -93,6 +98,11 @@ class CoreServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * Register ajax service
+     * 
+     * @return void
+     */
     public function handleAjax(): void
     {
         $service = $this->app->make(AjaxService::class);
@@ -101,6 +111,11 @@ class CoreServiceProvider extends ServiceProvider
         $service->execute();
     }
 
+    /**
+     * Register fields
+     * 
+     * @return void
+     */
     public function handleFields(): void
     {
         $fields = glob(__DIR__ . '/../Fields/*.php');
@@ -113,8 +128,17 @@ class CoreServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * Load translations from .mo file
+     * 
+     * @return void
+     */
     public function handleLocalization(): void
     {
+        if( !function_exists('load_theme_textdomain') ) {
+            return;
+        }
+        
         load_theme_textdomain('sm-components', __DIR__ . '/../../lang');
     }
 }

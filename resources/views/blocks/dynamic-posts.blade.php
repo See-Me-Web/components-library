@@ -50,6 +50,7 @@
     @class([
       'relative',
       'grid',
+      'gap-2',
       'grid-flow-row-dense',
       'grid-cols-[--mobile-columns]' => $mobileVertical,
       'md:grid-cols-[--columns]' => $mobileVertical,
@@ -80,7 +81,7 @@
   
   <div class="text-center mt-8" x-show="loading || page < settings.maxPages" x-transition>
     <x-seeme::button variant="{{ $blockVariant ?? 'primary' }}" x-on:click="fetchNextPage()">
-      <span x-show="! loading">{{ __('ZOBACZ WIĘCEJ', 'sm-components') }}</span>
+      <span x-show="! loading">{{ __('MORE', 'sm-components') }}</span>
       <x-seeme::loader x-show="loading" style="display: none" />
     </x-seeme::button>
   </div>
