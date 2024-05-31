@@ -9,6 +9,7 @@ class ArticleHelper
   public static function prepareForTile(int $articleId, array $override = []): array
   {
     return [
+      'id' => $articleId,
       'type' => 'post',
       'permalink' => get_the_permalink($articleId),
       'date' => get_the_date(get_option('date_format'), $articleId),

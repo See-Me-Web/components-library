@@ -1,17 +1,19 @@
 <x-seeme::card variant="{{ $blockVariant ?? '' }}" x-bind:data-card-width="post.cardWidth">
-  <a 
-    x-bind:href="post.permalink" 
-    x-bind:title="post.title"
-  >
-    <img 
-      x-bind:src="post.thumbnail.url"
-      x-bind:width="post.thumbnail.width"
-      x-bind:height="post.thumbnail.height"
-      x-bind:alt="post.thumbnail.alt"
-      loading="lazy"
-      class="mb-4 max-w-full w-full h-full max-h-[15rem] object-cover object-center" 
-    />
-  </a>
+  <template x-if="post.thumbnail">
+    <a 
+      x-bind:href="post.permalink" 
+      x-bind:title="post.title"
+    >
+      <img 
+        x-bind:src="post.thumbnail.url"
+        x-bind:width="post.thumbnail.width"
+        x-bind:height="post.thumbnail.height"
+        x-bind:alt="post.thumbnail.alt"
+        loading="lazy"
+        class="mb-4 max-w-full w-full h-full max-h-[15rem] object-cover object-center" 
+      />
+    </a>
+  </template>
 
   <div class="uppercase" x-html="post.listedCategories"></div>
 

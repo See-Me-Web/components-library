@@ -15,6 +15,7 @@ class PostsHelper
   public static function prepareForTile(int $postId, array $override = []): array
   {
     return [
+      'id' => $postId,
       'type' => get_post_type($postId),
       'permalink' => get_the_permalink($postId),
       'title' => get_the_title($postId),
