@@ -6,6 +6,7 @@ use Seeme\Components\Services\BlocksService;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Seeme\Components\Helpers\ConfigHelper;
 use Seeme\Components\Services\AjaxListenerService;
 use Seeme\Components\Services\AjaxService;
 
@@ -22,7 +23,7 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(self::CONFIG_PATH, 'sm-components');
+        $this->mergeConfigFrom(self::CONFIG_PATH, ConfigHelper::CONFIG_SLUG);
 
         $this->app->bind('ajax', function () {
             return new AjaxListenerService();
@@ -106,7 +107,6 @@ class CoreServiceProvider extends ServiceProvider
     public function handleAjax(): void
     {
         $service = $this->app->make(AjaxService::class);
-
         $service->init();
         $service->execute();
     }

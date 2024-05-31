@@ -3,6 +3,7 @@
 namespace Seeme\Components\Blocks\Abstract;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Log1x\AcfComposer\Block;
 use Seeme\Components\Helpers\ArrHelper;
 use Seeme\Components\Partials\Abstract\BasePartial;
@@ -56,35 +57,27 @@ abstract class BaseBlock extends Block
      */
     public function getClasses(): string
     {
-        $classes = explode(' ', parent::getClasses());
+        return Cache::remember(
+            "block-{$this->block->id}-classes",
+            8 * HOUR_IN_SECONDS,
+            function() {
+                $classes = explode(' ', parent::getClasses());
 
-        foreach($this->styles_support as $partial) {
-            if( $this->supportsStyles($partial) ) {
-                $className = $this->partials_controllers[$partial] ?? false;
-
-                if( !$className ) {
-                    continue;
-                }
-
-                $controller = new $className;
-
-                if( !$controller || ! $controller instanceof BasePartial) {
-                    continue;
-                }
-
-                $classes[] = Arr::toCssClasses($controller->getClasses());
+                $this->forEachPartial(function($partial) use(&$classes) {
+                    $classes[] = Arr::toCssClasses($partial->getClasses());
+                });
+        
+                $classes = Arr::toCssClasses([
+                    ...$classes,
+                    ...$this->getAdditionalClasses()
+                ]);
+        
+                return str_replace(
+                    [...array_keys($this->classes_map), "wp-block-{$this->slug}"],
+                    [...array_values($this->classes_map), "wp-block-sm-{$this->slug}"],
+                    $classes
+                );
             }
-        }
-
-        $classes = Arr::toCssClasses([
-            ...$classes,
-            ...$this->getAdditionalClasses()
-        ]);
-
-        return str_replace(
-            [...array_keys($this->classes_map), "wp-block-{$this->slug}"],
-            [...array_values($this->classes_map), "wp-block-sm-{$this->slug}"],
-            $classes
         );
     }
 
@@ -95,71 +88,54 @@ abstract class BaseBlock extends Block
      */
     public function getStyle(): string
     {
-        $styleSettings = $this->block->style ?? [];
+        return Cache::remember(
+            "block-{$this->block->id}-style",
+            8 * HOUR_IN_SECONDS,
+            function() {
+                $styleSettings = $this->block->style ?? [];
 
-        $style = array_map(fn ($setting) => $this->computeStyle($setting), $styleSettings);
-
-        if (isset($this->block->backgroundColor)) {
-            $style[] = "background-color: var(--wp--preset--color--{$this->block->backgroundColor})";
-        }
-
-        if (isset($this->block->textColor)) {
-            $style[] = ";color: var(--wp--preset--color--{$this->block->textColor})";
-        }
-
-        foreach($this->styles_support as $partial) {
-            if( $this->supportsStyles($partial) ) {
-                $className = $this->partials_controllers[$partial] ?? false;
-
-                if( !$className ) {
-                    continue;
+                $style = array_map(fn ($setting) => $this->computeStyle($setting), $styleSettings);
+        
+                if (isset($this->block->backgroundColor)) {
+                    $style[] = "background-color: var(--wp--preset--color--{$this->block->backgroundColor})";
                 }
-
-                $controller = new $className;
-
-                if( !$controller || ! $controller instanceof BasePartial ) {
-                    continue;
+        
+                if (isset($this->block->textColor)) {
+                    $style[] = ";color: var(--wp--preset--color--{$this->block->textColor})";
                 }
-
-                $style[] = ArrHelper::toCssStyles($controller->getStyles());
+                
+                $this->forEachPartial(function($partial) use(&$style) {
+                    $style[] = ArrHelper::toCssStyles($partial->getStyles());
+                });
+        
+                $style = array_merge($style, $this->getAdditionalStyles());
+        
+                $style = implode(';', $style);
+        
+                return str_replace(
+                    array_keys($this->styles_map),
+                    array_values($this->styles_map),
+                    $style
+                );
             }
-        }
-
-        $style = array_merge($style, $this->getAdditionalStyles());
-
-        $style = implode(';', $style);
-
-        return str_replace(
-            array_keys($this->styles_map),
-            array_values($this->styles_map),
-            $style
         );
     }
 
-    public function getStylesFields()
+    public function getStylesVariables(): array
     {
-        $builder = new FieldsBuilder('styles');
+        return Cache::remember(
+            "block-{$this->block->id}-variables",
+            8 * HOUR_IN_SECONDS,
+            function() {
+                $variables = [];
 
-        foreach($this->styles_support as $partial) {
-            if( $this->supportsStyles($partial) ) {
-                $className = $this->partials_controllers[$partial] ?? false;
-
-                if(! $className) {
-                    continue;
-                }
-
-                $controller = new $className();
-
-                if( !$controller || ! $controller instanceof BasePartial ) {
-                    continue;
-                }
-
-                $builder
-                    ->addFields($controller->fields());
+                $this->forEachPartial(function($partial) use(&$variables) {
+                    $variables = array_merge($variables, $partial->getVariables());
+                });
+        
+                return $variables;
             }
-        }
-
-        return $builder;
+        );
     }
 
     /**
@@ -172,9 +148,10 @@ abstract class BaseBlock extends Block
         return in_array($style, $this->styles_support);
     }
 
-    public function getStylesVariables(): array
-    {
-        $vars = [];
+    public function forEachPartial(callable $callback) {
+        if( empty($this->styles_support) ) {
+            return;
+        }
 
         foreach($this->styles_support as $partial) {
             if( $this->supportsStyles($partial) ) {
@@ -184,17 +161,15 @@ abstract class BaseBlock extends Block
                     continue;
                 }
 
-                $controller = new $className;
+                $partialController = new $className;
 
-                if( !$controller || ! $controller instanceof BasePartial ) {
+                if( !$partialController || ! $partialController instanceof BasePartial ) {
                     continue;
                 }
 
-                $vars = array_merge($vars, $controller->getVariables());
+                $callback($partialController);
             }
         }
-
-        return $vars;
     }
 
     /**
@@ -263,14 +238,30 @@ abstract class BaseBlock extends Block
 
     public function with()
     {
-        return [
-            'style' => $this->getStyle(),
-            ...$this->getStylesVariables(),
-            ...$this->getWith()
-        ];
+        return Cache::remember(
+            "block-{$this->block->id}-with",
+            8 * HOUR_IN_SECONDS,
+            fn() => [
+                'style' => $this->getStyle(),
+                ...$this->getStylesVariables(),
+                ...$this->getWith()
+            ]
+        );
     }
 
-    public function fields() 
+    public function getStylesFields()
+    {
+        $builder = new FieldsBuilder('styles');
+
+        $this->forEachPartial(function($partial) use(&$builder) {
+            $builder
+                ->addFields($partial->fields());
+        });
+
+        return $builder;
+    }
+
+    public function fields()
     {
         $builder = $this->getBlockFields();
 

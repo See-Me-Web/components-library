@@ -6,43 +6,63 @@ use Illuminate\Support\Arr;
 
 class ConfigHelper
 {
+  public const CONFIG_SLUG = 'sm-components';
+
+  public const DEFAULT_POST_TYPES = [
+    'post' => 'Wpis',
+    'portfolio' => 'Realizacje',
+    'offer' => 'Oferta',
+  ];
+
+  public const DEFAULT_TAXONOMIES = [
+    'post' => 'category',
+    'portfolio' => 'portfolio_category',
+    'offer' => 'offer_category',
+  ];
+
+  /**
+   * Return post types from config file
+   * 
+   * @param bool $onlySlug
+   * @return array
+   */
   public static function getPostTypes(bool $onlySlug = false): array
   {
-    $configTypes = config('sm-components.postTypes');
+    $configTypes = config(self::CONFIG_SLUG . '.postTypes');
 
     $types = [
-      'post' => 'Wpis',
-      'portfolio' => 'Realizacje',
-      'offer' => 'Oferta',
+      self::DEFAULT_POST_TYPES,
       ...(is_array($configTypes) ? $configTypes : [])
     ];
 
-    if($onlySlug) {
-      return array_keys($types);
-    }
-
-    return $types;
+    return $onlySlug ? array_keys($types) : $types;
   }
 
+  /**
+   * Return taxonomies related to post types
+   * 
+   * @param bool $onlySlug
+   * @return array
+   */
   public static function getPostTypeTaxonomies(bool $onlySlug = false): array
   {
-      $configTaxonomies = config('sm-components.postTaxonomies');
+    $configTaxonomies = config(self::CONFIG_SLUG . '.postTaxonomies');
 
-      $taxonomies = [
-        'post' => 'category',
-        'portfolio' => 'portfolio_category',
-        'offer' => 'offer_category',
-        ...(is_array($configTaxonomies) ? $configTaxonomies : [])
-      ];
+    $taxonomies = [
+      self::DEFAULT_TAXONOMIES,
+      ...(is_array($configTaxonomies) ? $configTaxonomies : [])
+    ];
 
-      if( $onlySlug ) {
-        return array_values($taxonomies);
-      }
-
-      return $taxonomies;
+    return $onlySlug ? array_values($taxonomies) : $taxonomies;
   }
 
-  public static function getPostTypeTaxonomy(string $postType = 'post')
+  /**
+   * Return taxonomy slug related to post type from config
+   * 
+   * @param string $postType
+   * @return string taxonomy slug
+   */
+  public static function getPostTypeTaxonomy(string $postType = 'post'): string
   {
     return Arr::get(static::getPostTypeTaxonomies(), $postType, 'category');
   }

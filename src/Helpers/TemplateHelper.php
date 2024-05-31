@@ -4,7 +4,14 @@ namespace Seeme\Components\Helpers;
 
 class TemplateHelper
 {
-  public static function getPartialTemplate(string $name, array $data)
+  /**
+   * Return partial data for template
+   * 
+   * @param string $name
+   * @param array $data
+   * @return array
+   */
+  public static function getPartialTemplate(string $name, array $data): array
   {
     $prefixedData = [];
 
