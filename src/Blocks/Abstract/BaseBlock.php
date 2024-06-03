@@ -3,9 +3,9 @@
 namespace Seeme\Components\Blocks\Abstract;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Cache;
 use Log1x\AcfComposer\Block;
 use Seeme\Components\Helpers\ArrHelper;
+use Seeme\Components\Helpers\CacheHelper;
 use Seeme\Components\Partials\Abstract\BasePartial;
 use Seeme\Components\Partials\Background;
 use Seeme\Components\Partials\Border;
@@ -57,7 +57,8 @@ abstract class BaseBlock extends Block
      */
     public function getClasses(): string
     {
-        return Cache::remember(
+        return CacheHelper::conditionalRemember(
+            ! is_admin(),
             "block-{$this->block->id}-classes",
             8 * HOUR_IN_SECONDS,
             function() {
@@ -88,7 +89,8 @@ abstract class BaseBlock extends Block
      */
     public function getStyle(): string
     {
-        return Cache::remember(
+        return CacheHelper::conditionalRemember(
+            ! is_admin(),
             "block-{$this->block->id}-style",
             8 * HOUR_IN_SECONDS,
             function() {
@@ -123,7 +125,8 @@ abstract class BaseBlock extends Block
 
     public function getStylesVariables(): array
     {
-        return Cache::remember(
+        return CacheHelper::conditionalRemember(
+            ! is_admin(),
             "block-{$this->block->id}-variables",
             8 * HOUR_IN_SECONDS,
             function() {
@@ -238,7 +241,8 @@ abstract class BaseBlock extends Block
 
     public function with()
     {
-        return Cache::remember(
+        return CacheHelper::conditionalRemember(
+            ! is_admin(),
             "block-{$this->block->id}-with",
             8 * HOUR_IN_SECONDS,
             fn() => [
