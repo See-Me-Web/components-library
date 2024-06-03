@@ -79,12 +79,18 @@ class PostsHelper
    * 
    * @param int $postId
    * @param string $size
+   * @param bool $placeholder whether to use placeholder
    * @return bool | object
    */
-  public static function getThumbnail(int $postId, string $size = 'large'): bool | object
+  public static function getThumbnail(int $postId, string $size = 'large', bool $placeholder = true): object
   {
     if(! has_post_thumbnail($postId)) {
-      return false;
+      if( ! $placeholder ) {
+        return false;
+      }
+
+      $logo = get_theme_mod( 'custom_logo' );
+      return ViewHelper::prepareImage($logo, $size);
     }
 
     return ViewHelper::prepareImage(get_post_thumbnail_id($postId), $size);
