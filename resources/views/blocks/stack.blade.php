@@ -4,7 +4,8 @@
     'flex flex-wrap',
     'flex-col' => $vertical,
     'flex-row' => ! $vertical,
-    $block->classes
+    $block->classes,
+    'gap-2'
   ])
   style="{{ $style ?? '' }}"
 >

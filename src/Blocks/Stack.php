@@ -10,6 +10,13 @@ class Stack extends BaseBlock
 {
     public $category = 'sm-blocks-layout';
 
+    public $classes_map = [
+      'alignfull' => '[&.is-horizontal]:justify-stretch [&.is-vertical]:items-stretch',
+      'alignleft' => '[&.is-horizontal]:justify-start [&.is-vertical]:items-start',
+      'aligncenter' => '[&.is-horizontal]:justify-center [&.is-vertical]:items-center',
+      'alignright' => '[&.is-horizontal]:justify-end [&.is-vertical]:items-end',
+    ];
+
     /**
      * The block view path.
      */
@@ -30,7 +37,7 @@ class Stack extends BaseBlock
             'parent' => [],
             'mode' => 'preview',
             'supports' => [
-                'align' => false,
+                'align' => true,
                 'align_text' => false,
                 'align_content' => false,
                 'full_height' => false,
@@ -56,11 +63,24 @@ class Stack extends BaseBlock
      */
     public function getWith(): array
     {
-        $vertical = get_field('vertical');
-
         return [
-          'vertical' => $vertical === null ? false : $vertical
+          'vertical' => $this->isVertical()
         ];
+    }
+
+    public function isVertical(): bool
+    {
+      $vertical = get_field('vertical');
+      return $vertical === null ? false : $vertical;
+    }
+
+    public function getAdditionalClasses(): array
+    {
+      if($this->isVertical()) {
+        return ['is-vertical'];
+      } else {
+        return ['is-horizontal'];
+      }
     }
 
     /**
