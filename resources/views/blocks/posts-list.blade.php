@@ -10,7 +10,7 @@
       @foreach($posts as $post)
         <li>
           <a href="{{ $post['permalink'] ?? '#' }}" title="{{ $post['title'] ?? '' }}" class="font-main no-underline hover:underline">
-            {{ $post['title'] ?? '' }}
+            {!! $post['title'] ?? '' !!}
           </a>
         </li>
       @endforeach
