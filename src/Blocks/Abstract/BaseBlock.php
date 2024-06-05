@@ -9,6 +9,7 @@ use Seeme\Components\Helpers\CacheHelper;
 use Seeme\Components\Partials\Abstract\BasePartial;
 use Seeme\Components\Partials\Background;
 use Seeme\Components\Partials\Border;
+use Seeme\Components\Partials\Position;
 use Seeme\Components\Partials\Shadow;
 use Seeme\Components\Partials\Text;
 use StoutLogic\AcfBuilder\FieldsBuilder;
@@ -29,6 +30,7 @@ abstract class BaseBlock extends Block
         'text' => Text::class,
         'border' => Border::class,
         'shadow' => Shadow::class,
+        'position' => Position::class
     ];
 
     public $classes_map = [

@@ -12,6 +12,8 @@ class Card extends BaseBlock
 {
     public $category = 'sm-blocks-layout';
 
+    public $styles_support = ['position'];
+
     /**
      * Array of partials used by this block.
      */
