@@ -21,7 +21,7 @@
               'is-active' => $key === 0
             ])
           >
-            {{ $album->title ?? '' }}
+            {!! $album->title ?? '' !!}
           </x-seeme::button-link>
         @endforeach
       </div>

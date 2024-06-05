@@ -25,7 +25,7 @@
               'is-active': group === '{{ $album->slug }}' || ('{{ $mainAlbumSlug }}' === '{{ $album->slug }}' && group === '')
             }"
           >
-            {{ $album->title ?? '' }}
+            {!! $album->title ?? '' !!}
           </x-seeme::button-link>
         @endforeach
       </div>
