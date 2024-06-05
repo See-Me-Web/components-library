@@ -22,7 +22,7 @@
     x-bind:title="post.title"
     class="hover:no-underline"
   >
-    <h3 class="text-current text-lg mb-4 font-bold" x-html="post.title"></h3>
+    <h3 class="text-current text-base md:text-lg md:leading-tight mb-4 font-bold" x-html="post.title"></h3>
   </a>
 
   <div class="text-current line-clamp-4" x-html="post.excerpt"></div>

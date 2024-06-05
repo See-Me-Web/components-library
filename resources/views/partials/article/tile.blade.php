@@ -25,7 +25,7 @@
       title="{{ isset($title) && $title ? $title : '' }}"
       class="hover:no-underline"
     >
-      <h3 class="text-current text-lg mb-4 font-bold">{!! $title !!}</h3>
+      <h3 class="text-current text-base md:text-lg md:leading-tight mb-4 font-bold">{!! $title !!}</h3>
     </a>
   @endif
 
