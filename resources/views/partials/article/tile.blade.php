@@ -6,7 +6,7 @@
   @if(isset($thumbnail) && $thumbnail)
     <a 
       href="{{ isset($permalink) && $permalink ? $permalink : '#' }}" 
-      title="{{ isset($title) && $title ? $title : '' }}"
+      title="{!! isset($title) && $title ? $title : '' !!}"
     >
       <img 
         src="{{ $thumbnail->url }}"
@@ -22,7 +22,7 @@
   @if(isset($title) && $title)
     <a 
       href="{{ isset($permalink) && $permalink ? $permalink : '#' }}" 
-      title="{{ isset($title) && $title ? $title : '' }}"
+      title="{!! isset($title) && $title ? $title : '' !!}"
       class="hover:no-underline"
     >
       <h3 class="text-current text-base md:text-lg md:leading-tight mb-4 font-bold">{!! $title !!}</h3>
