@@ -1,11 +1,12 @@
 <div 
   id="{{ $block->block->anchor ?? $block->block->id }}"
   @class([
+    'overflow-hidden',
     $block->classes,
   ])
   ax-load="idle"
   x-cloak
-  x-data="shuffle"
+  x-data="albumGallery"
 >
   <div class="flex flex-wrap gap-4 justify-between items-center">
     <div>
@@ -20,9 +21,9 @@
             variant="{{ $blockVariant ?? 'primary' }}"
             size="small"
             rounded="lg"
-            x-on:click="setGroup('{{ $album->slug }}')"
+            x-on:click="setAlbum('{{ $album->slug }}')"
             ::class="{
-              'is-active': group === '{{ $album->slug }}' || ('{{ $mainAlbumSlug }}' === '{{ $album->slug }}' && group === '')
+              'is-active': album === '{{ $album->slug }}' || ('{{ $mainAlbumSlug }}' === '{{ $album->slug }}' && album === '')
             }"
           >
             {!! $album->title ?? '' !!}
@@ -41,15 +42,15 @@
     @foreach($images as $image)
       <div 
         @class([
-          'md:max-w-[calc(100%_/_var(--columns))]',
-          'max-w-[calc(100%_/_var(--mobile-columns))]',
-          'p-[var(--block-gap,0.5rem)] shuffle-item'
+          'md:w-[calc(100%_/_var(--columns))]',
+          'w-[calc(100%_/_var(--mobile-columns))]',
+          'p-[var(--block-gap,0.5rem)] isotope-item',
+          $image->album
         ])
-        data-groups="{{ wp_json_encode($image->album ?? []) }}"
       >
         <x-seeme::card 
           variant="{{ $blockVariant ?? 'primary' }}"
-          class="!p-0 aspect-video"
+          class="!p-0"
         >
           <a 
             href="{{ $image->url ?? '' }}"
@@ -58,7 +59,7 @@
             <x-seeme::image 
               :image="$image"
               class="object-cover object-center !w-full !h-full"
-              x-on:load="shuffle.filter(group)"
+              x-on:load="setAlbum(album)"
             />
           </a>
         </x-seeme::card>

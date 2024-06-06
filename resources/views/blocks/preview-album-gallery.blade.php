@@ -1,6 +1,7 @@
 <div 
   id="{{ $block->block->anchor ?? $block->block->id }}"
   @class([
+    'overflow-hidden',
     $block->classes,
   ])
 >
@@ -29,19 +30,19 @@
   </div>
   <div
     @class([
-      '-mx-[--block-gap]',
-      'flex flex-wrap !gap-0',
+      '-mx-[var(--block-gap,0.5rem)]',
+      'flex flex-wrap'
     ])
     style="{{ $style }}"
   >
     @foreach($images as $image)
       <div 
         @class([
-          'md:max-w-[calc(100%_/_var(--columns))]',
-          'max-w-[calc(100%_/_var(--mobile-columns))]',
-          'p-[var(--block-gap,0.5rem)] shuffle-item'
+          'md:w-[calc(100%_/_var(--columns))]',
+          'w-[calc(100%_/_var(--mobile-columns))]',
+          'p-[var(--block-gap,0.5rem)] isotope-item',
+          $image->album
         ])
-        data-groups="{{ wp_json_encode($image->album ?? []) }}"
       >
         <x-seeme::card 
           variant="{{ $blockVariant ?? 'primary' }}"
@@ -54,7 +55,7 @@
           >
             <x-seeme::image 
               :image="$image"
-              class="object-cover object-center !w-full !h-full" 
+              class="object-cover object-center !w-full !h-full"
             />
           </a>
         </x-seeme::card>

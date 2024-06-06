@@ -216,10 +216,10 @@ class AlbumGallery extends BaseBlock
       foreach($this->albums as $album) {
         $albumImages = array_map(fn($image) => (object) [
           ...(array) $image,
-          'album' => [
+          'album' => Arr::toCssClasses([
             $this->mainAlbum->slug,
             $album->slug
-          ]
+          ])
         ], $album->images);
 
         $images = array_merge($images, $albumImages);
