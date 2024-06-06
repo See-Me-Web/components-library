@@ -4,9 +4,10 @@
     'overflow-hidden',
     $block->classes,
   ])
-  ax-load="idle"
+  ax-load
   x-cloak
   x-data="albumGallery"
+  x-on:load.window="isotope.arrange()"
 >
   <div class="flex flex-wrap gap-4 justify-between items-center">
     <div>
@@ -59,7 +60,7 @@
             <x-seeme::image 
               :image="$image"
               class="object-cover object-center !w-full !h-full"
-              x-on:load="setAlbum(album)"
+              x-on:load="isotope.arrange()"
             />
           </a>
         </x-seeme::card>
