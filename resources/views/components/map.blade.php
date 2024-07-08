@@ -19,7 +19,7 @@
       data-lng="{{ $marker['lng'] ?? '' }}" 
       data-lat="{{ $marker['lat'] ?? '' }}"
       data-icon="{{ $markerIcon ? $markerIcon : asset('/images/marker-icon.png') }}"
-      data-icon-height="26"
+      data-icon-height="40"
     ></div>
   @endforeach
 
