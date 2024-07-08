@@ -3,28 +3,11 @@
 namespace Seeme\Components\Blocks;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Seeme\Components\Blocks\Abstract\BaseBlock;
 use Seeme\Components\Helpers\TemplateHelper;
-use Seeme\Components\Helpers\ViewHelper;
+use Seeme\Components\Models\Album;
 use Seeme\Components\Providers\CoreServiceProvider;
 use StoutLogic\AcfBuilder\FieldsBuilder;
-
-class Album {
-  public $title;
-  public $slug;
-  public array $images = [];
-
-  public function __construct(string $title, string $slug = '') {
-    $this->title = $title;
-    $this->slug = empty($slug) ? Str::slug($title) : $slug;
-  } 
-
-  public function setImages(array $images)
-  {
-    $this->images = array_map(fn($image) => ViewHelper::prepareImage($image, 'large'), $images);
-  }
-}
 
 class AlbumGallery extends BaseBlock
 {
@@ -33,8 +16,8 @@ class AlbumGallery extends BaseBlock
      */
     public $view = CoreServiceProvider::NAMESPACE . '::blocks.album-gallery';
 
-    public ?Album $mainAlbum = null;
-    public array $albums = [];
+    private ?Album $mainAlbum = null;
+    private array $albums = [];
 
     /**
      * The block attributes.
@@ -174,6 +157,9 @@ class AlbumGallery extends BaseBlock
 
     public function setAlbums(): void
     {
+      $this->albums = [];
+      $this->mainAlbum = null;
+
       $albums = get_field('albums') ?: [];
       $allImages = [];
 

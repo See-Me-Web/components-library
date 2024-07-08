@@ -23,7 +23,6 @@
     ></div>
   @endforeach
 
-
   <div 
     class="flex items-center justify-center text-white text-center inset-0 absolute bg-system-black-main text-base md:text-xl z-[1000] pointer-events-none opacity-0 transition-all"
     :class="{'opacity-100': showMask && ! isMobile}">
