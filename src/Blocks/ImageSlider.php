@@ -97,7 +97,7 @@ class ImageSlider extends BaseBlock
         'config' => [
           ...$this->partials['slider']->getConfig(),
           'slidesPerView' => 2,
-          'spaceBetween' => 10,
+          'spaceBetween' => 20,
           'breakpoints' => [
             768 => [
               'slidesPerView' => 4
