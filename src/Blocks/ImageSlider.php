@@ -97,7 +97,7 @@ class ImageSlider extends BaseBlock
         'config' => [
           ...$this->partials['slider']->getConfig(),
           'slidesPerView' => 2,
-          'spaceBetween' => 20,
+          'spaceBetween' => 30,
           'breakpoints' => [
             768 => [
               'slidesPerView' => 4
@@ -164,7 +164,7 @@ class ImageSlider extends BaseBlock
       }
 
       if(isset($sliderSettings['spaceBetween'])) {
-        $styles[] = "--space-between: 20px";
+        $styles[] = "--space-between: 30px";
       }
 
       return $styles;
