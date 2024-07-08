@@ -80,7 +80,7 @@
   </div>
   
   <div class="text-center mt-8" x-show="loading || page < settings.maxPages" x-transition>
-    <x-seeme::button variant="{{ $blockVariant ?? 'primary' }}" x-on:click="fetchNextPage()">
+    <x-seeme::button variant="{{ $blockVariant ?? 'primary' }}" x-on:click="fetchNextPage()" size="small">
       <span x-show="! loading">{{ __('MORE', 'sm-components') }}</span>
       <x-seeme::loader x-show="loading" style="display: none" />
     </x-seeme::button>

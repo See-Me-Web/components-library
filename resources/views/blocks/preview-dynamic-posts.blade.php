@@ -58,7 +58,7 @@
   </div>
   
   <div class="text-center mt-8">
-    <x-seeme::button variant="{{ $blockVariant ?? 'primary' }}">
+    <x-seeme::button variant="{{ $blockVariant ?? 'primary' }}" size="small">
       {{ __('MORE', 'sm-components') }}
     </x-seeme::button>
   </div>
