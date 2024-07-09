@@ -6,7 +6,7 @@
   ])
   ax-load
   x-cloak
-  x-data="albumGallery"
+  x-data="albumGallery({}, @Js($paged), @Js($perPage))"
   x-on:load.window="isotope.arrange()"
 >
   <div class="flex flex-wrap gap-4 justify-between items-center">
@@ -40,14 +40,15 @@
     x-ref="list"
     style="{{ $style }}"
   >
-    @foreach($images as $image)
+    @foreach($images as $index => $image)
       <div 
         @class([
           'md:w-[calc(100%_/_var(--columns))]',
           'w-[calc(100%_/_var(--mobile-columns))]',
           'p-[var(--block-gap,0.5rem)] isotope-item',
-          $image->album
+          $image->album,
         ])
+        data-page="{{ ceil(($index + 1) / $perPage) }}"
       >
         <x-seeme::card 
           variant="{{ $blockVariant ?? 'primary' }}"
@@ -66,5 +67,15 @@
         </x-seeme::card>
       </div>
     @endforeach
+  </div>
+  <div class="text-center mt-8" x-transition>
+    <x-seeme::button 
+      x-show="hasNextPage"
+      variant="{{ $blockVariant ?? 'primary' }}" 
+      x-on:click="loadNextPage()" 
+      size="small"
+    >
+      {{ __('MORE', 'sm-components') }}
+    </x-seeme::button>
   </div>
 </div>

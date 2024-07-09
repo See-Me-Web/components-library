@@ -66,6 +66,8 @@ class AlbumGallery extends BaseBlock
           'albums' => $this->getAllAlbums(),
           'images' => $this->getAllImages(),
           'mainAlbumSlug' => $this->mainAlbum->slug,
+          'paged' => get_field('paged'),
+          'perPage' => (int) get_field('per-page') ?: 6,
           'allowedBlocks' => [
             'acf/heading'
           ],
@@ -134,6 +136,24 @@ class AlbumGallery extends BaseBlock
             'max' => 6,
             'step' => 1,
             'default_value' => 1,
+          ])
+          ->addTrueFalse('paged', [
+            'label' => 'Z podziałem na strony',
+            'default_value' => false
+          ])
+          ->addRange('per-page', [
+            'label' => 'Liczba zdjęć na stronę',
+            'min' => 1,
+            'default_value' => 6,
+            'conditional_logic' => [
+              [
+                [
+                  'field' => 'paged',
+                  'operator' => '==',
+                  'value' => '1'
+                ]
+              ]
+            ]
           ]);
         
         return $builder;
