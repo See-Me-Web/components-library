@@ -7,7 +7,7 @@
   ax-load
   x-cloak
   x-data="albumGallery({}, @Js($paged), @Js($perPage))"
-  x-on:load.window="isotope.arrange()"
+  x-on:load.window="update"
 >
   <div class="flex flex-wrap gap-4 justify-between items-center">
     <div>
@@ -48,7 +48,6 @@
           'p-[var(--block-gap,0.5rem)] isotope-item',
           $image->album,
         ])
-        data-page="{{ ceil(($index + 1) / $perPage) }}"
       >
         <x-seeme::card 
           variant="{{ $blockVariant ?? 'primary' }}"
@@ -61,7 +60,7 @@
             <x-seeme::image 
               :image="$image"
               class="object-cover object-center !w-full !h-full"
-              x-on:load="isotope.arrange()"
+              x-on:load="update"
             />
           </a>
         </x-seeme::card>
