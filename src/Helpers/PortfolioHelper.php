@@ -29,6 +29,7 @@ class PortfolioHelper
         'cardWidth' => Card::getCardWidth($postId),
         'excerpt' => PostsHelper::getExcerpt($postId),
         'thumbnail' => PostsHelper::getThumbnail($postId),
+        'hasThumbnail' => has_post_thumbnail($postId),
         'categories' => PostsHelper::getTopLevelCategories($postId),
         'listedCategories' => ViewHelper::listCategories(PostsHelper::getTopLevelCategories($postId)),
       ]

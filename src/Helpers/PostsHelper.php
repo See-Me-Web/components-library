@@ -26,6 +26,7 @@ class PostsHelper
         'title' => get_the_title($postId),
         'excerpt' => apply_filters('orphan_replace', get_the_excerpt($postId)),
         'thumbnail' => PostsHelper::getThumbnail($postId),
+        'hasThumbnail' => has_post_thumbnail($postId),
         'cardWidth' => Card::getCardWidth($postId),
       ]
     );
