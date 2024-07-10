@@ -27,7 +27,7 @@ class ArticleHelper
         'title' => get_the_title($articleId),
         'excerpt' => apply_filters('orphan_replace', get_the_excerpt($articleId)),
         'thumbnail' => PostsHelper::getThumbnail($articleId),
-        'hasThumbnail' => has_post_thumbnail($postId),
+        'hasThumbnail' => has_post_thumbnail($articleId),
         'cardWidth' => Card::getCardWidth($articleId),
       ]
     );
