@@ -100,9 +100,15 @@ class Posts extends BaseBlock
         return get_field('posts') ?: [];
       }
 
+      $perPage = -1;
+
+      if( $mode === 'newest' ) {
+        $perPage = get_field('perPage') ?: 3;
+      }
+
       $query = PostsFeedAjax::getPosts([
         'postType' => get_field('postType') ?: 'post',
-        'perPage' => -1
+        'perPage' => $perPage
       ]);
 
       return array_map(fn ($post) => $post->ID, $query->posts);
@@ -124,9 +130,10 @@ class Posts extends BaseBlock
               'label' => 'Tryb bloku',
               'choices' => [
                 'chosen' => 'Wybrane posty',
-                'all' => 'Wszystkie posty'
+                'all' => 'Wszystkie posty',
+                'newest' => 'Najnowsze posty'
               ],
-              'default_value' => 'all'
+              'default_value' => 'newest'
             ])
             ->addPostObject('posts', [
               'label' => 'Posty',
@@ -149,10 +156,30 @@ class Posts extends BaseBlock
               'default_value' => 'post',
               'conditional_logic' => [
                 [
+                  'relation' => 'OR',
                   [
                     'field' => 'mode',
                     'operator' => '==',
                     'value' => 'all'
+                  ],
+                  [
+                    'field' => 'mode',
+                    'operator' => '==',
+                    'value' => 'newest'
+                  ],
+                ]
+              ]
+            ])
+            ->addRange('perPage', [
+              'label' => 'Liczba postów',
+              'min' => 1,
+              'default_value' => 3,
+              'conditional_logic' => [
+                [
+                  [
+                    'field' => 'mode',
+                    'operator' => '==',
+                    'value' => 'newest'
                   ]
                 ]
               ]
