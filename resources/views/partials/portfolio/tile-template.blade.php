@@ -10,7 +10,10 @@
         x-bind:height="post.thumbnail.height"
         x-bind:alt="post.thumbnail.alt"
         loading="lazy"
-        class="mb-4 max-w-full w-full h-full max-h-[15rem] object-cover object-center" 
+        :class="{
+          'mb-4 max-w-full w-full h-auto max-h-[15rem]',
+          'object-cover object-center' : post.hasThumbnail
+        }"
       />
     </a>
   </template>

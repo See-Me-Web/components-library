@@ -10,7 +10,10 @@
         height="{{ $thumbnail->height }}"
         alt="{{ $thumbnail->alt }}"
         loading="lazy"
-        class="mb-4 max-w-full w-full h-full max-h-[15rem] object-cover object-center" 
+        @class([
+          'mb-4 max-w-full w-full h-auto max-h-[15rem]',
+          'object-cover object-center' => $hasThumbnail ?? false
+        ])
       />
     </a>
   @endif
