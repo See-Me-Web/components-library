@@ -124,7 +124,7 @@ class BackgroundImage extends BasePartial
     $styles = [];
 
     if(isset($settings['desktopImage']) && is_array($settings['desktopImage'])) {
-      $styles[] = "--image-desktop: url({$settings['desktopImage']['sizes']['full']})";
+      $styles[] = "--image-desktop: url({$settings['desktopImage']['url']})";
     } else {
       $styles[] = "--image-desktop: none";
     }
