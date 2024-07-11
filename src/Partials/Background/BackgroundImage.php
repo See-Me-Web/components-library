@@ -124,13 +124,13 @@ class BackgroundImage extends BasePartial
     $styles = [];
 
     if(isset($settings['desktopImage']) && is_array($settings['desktopImage'])) {
-      $styles[] = "--image-desktop: url({$settings['desktopImage']['sizes']['large']})";
+      $styles[] = "--image-desktop: url({$settings['desktopImage']['sizes']['full']})";
     } else {
       $styles[] = "--image-desktop: none";
     }
 
     if(isset($settings['mobileImage']) && is_array($settings['mobileImage'])) {
-      $styles[] = "--image-mobile: url({$settings['mobileImage']['sizes']['medium_large']})";
+      $styles[] = "--image-mobile: url({$settings['mobileImage']['sizes']['large']})";
     } else {
       $styles[] = "--image-mobile: none";
     }
