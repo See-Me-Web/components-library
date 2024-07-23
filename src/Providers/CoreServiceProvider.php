@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Seeme\Components\Helpers\ConfigHelper;
 use Seeme\Components\Services\AjaxListenerService;
 use Seeme\Components\Services\AjaxService;
+use Seeme\Components\Services\CF7FormService;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -45,6 +46,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->handleComposers();
         $this->handleAjax();
         $this->handleFields();
+        $this->handleForms();
     }
 
     /**
@@ -140,5 +142,11 @@ class CoreServiceProvider extends ServiceProvider
         }
         
         load_theme_textdomain('sm-components', __DIR__ . '/../../lang');
+    }
+
+    public function handleForms(): void
+    {
+        $this->app->make(CF7FormService::class)->init();
+
     }
 }
