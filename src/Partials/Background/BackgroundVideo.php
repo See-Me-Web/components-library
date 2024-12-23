@@ -38,6 +38,19 @@ class BackgroundVideo extends BasePartial
             ]
           ]
         ])
+        ->addFile('mobile-video', [
+          'label' => 'Film mobile',
+          'mime_types' => 'mp4, mov, wmv, avi, ogv',
+          'conditional_logic' => [
+            [
+              [
+                'field' => 'provider',
+                'operator' => '==',
+                'value' => 'file'
+              ]
+            ]
+          ]
+        ])
         ->addText('youtube-id', [
           'label' => 'ID filmu YouTube',
           'conditional_logic' => [
@@ -85,6 +98,10 @@ class BackgroundVideo extends BasePartial
       $classes[] = "has-file-video-bg";
     }
 
+    if(isset($settings['mobile-video']) && $provider === 'file') {
+      $classes[] = "has-mobile-file-video-bg";
+    }
+
     return $classes;
   }
 
@@ -95,6 +112,7 @@ class BackgroundVideo extends BasePartial
     return [
       'provider' => $settings['provider'] ?? 'file',
       'video' => $settings['video'] ?? [],
+      'mobileVideo' => $settings['mobile-video'] ?? [],
       'youtubeId' => $settings['youtube-id'] ?? false
     ];
   }
