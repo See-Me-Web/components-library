@@ -1,11 +1,11 @@
 @props([
   'size' => 'md',
-  'element' => 'h3',
+  'headingSize' => 'h3',
   'weight' => 'normal'
 ])
 
-<{{ $element }}
+<{{ $headingSize }}
   {{ $attributes->class($classes) }}
 >
  {{ $slot }}
-</{{ $element }}>
+</{{ $headingSize }}>

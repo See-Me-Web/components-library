@@ -44,6 +44,7 @@ class Heading extends BasePartial
       'label' => 'Element',
       'choices' => [
         'div' => 'Div',
+        'h1' => 'Nagłówek H1',
         'h2' => 'Nagłówek H2',
         'h3' => 'Nagłówek H3',
         'h4' => 'Nagłówek H4',

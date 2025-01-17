@@ -6,9 +6,9 @@
 ])
 
 <x-seeme::heading
+  :headingSize="$element"
   id="{{ $block->block->anchor ?? $block->block->id }}"
   :size="$size"
-  :element="$element"
   :weight="$weight"
   :class="Arr::toCssClasses([
     $block->classes
