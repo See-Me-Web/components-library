@@ -69,12 +69,12 @@ abstract class BaseBlock extends Block
                 $this->forEachPartial(function($partial) use(&$classes) {
                     $classes[] = Arr::toCssClasses($partial->getClasses());
                 });
-        
+
                 $classes = Arr::toCssClasses([
                     ...$classes,
                     ...$this->getAdditionalClasses()
                 ]);
-        
+
                 return str_replace(
                     [...array_keys($this->classes_map), "wp-block-{$this->slug}"],
                     [...array_values($this->classes_map), "wp-block-sm-{$this->slug}"],
@@ -86,7 +86,7 @@ abstract class BaseBlock extends Block
 
     /**
      * Get block style property from gutenberg settings
-     * 
+     *
      * @return string
      */
     public function getStyle(): string
@@ -99,23 +99,23 @@ abstract class BaseBlock extends Block
                 $styleSettings = $this->block->style ?? [];
 
                 $style = array_map(fn ($setting) => $this->computeStyle($setting), $styleSettings);
-        
+
                 if (isset($this->block->backgroundColor)) {
                     $style[] = "background-color: var(--wp--preset--color--{$this->block->backgroundColor})";
                 }
-        
+
                 if (isset($this->block->textColor)) {
                     $style[] = ";color: var(--wp--preset--color--{$this->block->textColor})";
                 }
-                
+
                 $this->forEachPartial(function($partial) use(&$style) {
                     $style[] = ArrHelper::toCssStyles($partial->getStyles());
                 });
-        
+
                 $style = array_merge($style, $this->getAdditionalStyles());
-        
+
                 $style = implode(';', $style);
-        
+
                 return str_replace(
                     array_keys($this->styles_map),
                     array_values($this->styles_map),
@@ -137,7 +137,7 @@ abstract class BaseBlock extends Block
                 $this->forEachPartial(function($partial) use(&$variables) {
                     $variables = array_merge($variables, $partial->getVariables());
                 });
-        
+
                 return $variables;
             }
         );
@@ -145,7 +145,7 @@ abstract class BaseBlock extends Block
 
     /**
      * Check if block supports custom styles
-     * 
+     *
      * @return bool
      */
     public function supportsStyles(string $style): bool
@@ -179,17 +179,17 @@ abstract class BaseBlock extends Block
 
     /**
      * Compute style from gutenberg settings.
-     * 
+     *
      * @param array $setting
-     * 
+     *
      * @return string
      */
-    protected function computeStyle($setting): string 
+    protected function computeStyle($setting): string
     {
         $properties = Arr::dot($setting);
 
         $styles = array_map(
-            fn ($value, $property) => $property . ':' . $this->getPropertyValue($value),
+            fn ($value, $property) => $this->getPropertyStyle($property, $value),
             array_values($properties),
             array_keys($properties)
         );
@@ -197,11 +197,19 @@ abstract class BaseBlock extends Block
         return implode(';', $styles);
     }
 
+    protected function getPropertyStyle(string $property, string $value): string
+    {
+        return implode(';', [
+            str_replace('.', '-', $property) . ":" . $this->getPropertyValue(($value)),
+            "--block-" . str_replace('.', '-', $property)  . ":" . $this->getPropertyValue(($value))
+        ]);
+    }
+
     /**
      * Get property value for stle entry.
-     * 
+     *
      * @param string $value
-     * 
+     *
      * @return string
      */
     protected function getPropertyValue(string $value): string
