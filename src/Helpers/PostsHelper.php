@@ -9,7 +9,7 @@ class PostsHelper
 {
   /**
    * Return data needed to display post tile by id
-   * 
+   *
    * @param int $postId post id
    * @param array $override data to one time override
    * @return array
@@ -39,26 +39,30 @@ class PostsHelper
 
   /**
    * Return top level categories for post
-   * 
+   *
    * @param int $postId
    * @return array
    */
   public static function getTopLevelCategories(int $postId): array
   {
-    $taxonomy = ConfigHelper::getPostTypeTaxonomy(get_post_type($postId));
+      $taxonomy = ConfigHelper::getPostTypeTaxonomy(get_post_type($postId));
 
-    if(empty($taxonomy)) {
-      return [];
-    }
+      if (empty($taxonomy)) {
+          return [];
+      }
 
-    $categories = get_the_terms($postId, $taxonomy);
+      $categories = get_the_terms($postId, $taxonomy);
 
-    return array_filter($categories, fn ($category) => $category->parent === 0);
+      if (!is_array($categories)) {
+          $categories = [];
+      }
+
+      return array_filter($categories, fn ($category) => $category->parent === 0);
   }
 
   /**
    * Return all subcategories for post
-   * 
+   *
    * @param int $postId
    * @return array
    */
@@ -77,7 +81,7 @@ class PostsHelper
 
   /**
    * Return post thumbnail, prepared for view with ViewHelper
-   * 
+   *
    * @param int $postId
    * @param string $size
    * @param bool $placeholder whether to use placeholder
@@ -99,7 +103,7 @@ class PostsHelper
 
   /**
    * Return post excerpt with orphan_replace filter applied
-   * 
+   *
    * @param int $postId
    * @return string
    */
