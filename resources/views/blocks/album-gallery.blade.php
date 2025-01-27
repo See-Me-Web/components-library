@@ -64,7 +64,7 @@
               x-on:load="update"
             />
 
-            @if( $displayCaption && ! empty($image->caption) )
+            @if( isset($displayCaption) && $displayCaption && ! empty($image->caption) )
               <div @class([
                 'absolute inset-0 flex items-end',
                 'bg-gradient-to-b from-transparent from-0% via-transparent via-75% to-base-white to-100%'
