@@ -206,8 +206,8 @@ class AlbumGallery extends BaseBlock
     public function getAllAlbums(): array
     {
       return [
+        ...$this->albums,
         $this->mainAlbum,
-        ...$this->albums
       ];
     }
 
