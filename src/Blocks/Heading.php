@@ -90,7 +90,7 @@ class Heading extends BaseBlock
     /**
      * The block field group.
      *
-     * @return array
+     * @return FieldsBuilder
      */
     public function getBlockFields(): FieldsBuilder
     {
