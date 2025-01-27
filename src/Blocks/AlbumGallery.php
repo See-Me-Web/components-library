@@ -68,6 +68,7 @@ class AlbumGallery extends BaseBlock
           'mainAlbumSlug' => $this->mainAlbum->slug,
           'paged' => get_field('paged'),
           'perPage' => (int) get_field('per-page') ?: 6,
+          'displayCaption' => boolval(get_field('display-image-caption')),
           'allowedBlocks' => [
             'acf/heading'
           ],
@@ -154,6 +155,10 @@ class AlbumGallery extends BaseBlock
                 ]
               ]
             ]
+          ])
+          ->addTrueFalse('display-image-caption', [
+            'label' => 'Wyświetlaj podpis zdjęć',
+            'default_value' => false
           ]);
         
         return $builder;

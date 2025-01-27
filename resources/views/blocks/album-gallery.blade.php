@@ -56,12 +56,24 @@
           <a 
             href="{{ $image->url ?? '' }}"
             data-fancybox="{{ $block->block->anchor ?? $block->block->id }}"
+            class="relative"
           >
             <x-seeme::image 
               :image="$image"
               class="object-cover object-center !w-full !h-full"
               x-on:load="update"
             />
+
+            @if( $displayCaption && ! empty($image->caption) )
+              <div @class([
+                'absolute inset-0 flex items-end',
+                'bg-gradient-to-b from-transparent from-0% via-transparent via-75% to-base-white to-100%'
+              ])>
+                <div class="p-4 font-bold text-center w-full">
+                  {{ $image->caption }}
+                </div>
+              </div>
+            @endif
           </a>
         </x-seeme::card>
       </div>
