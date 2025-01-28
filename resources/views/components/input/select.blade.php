@@ -28,7 +28,7 @@
             'flex flex-col justify-center w-full h-[3.125rem] cursor-pointer',
             'bg-surface-01 text-text-secondary text-sm shadow-01',
             'px-3 border border-border-secondary rounded-lg transition-all',
-            'hover:border-border-active hover:bg-surface-hover-01'
+            'hover:border-border-active'
         ])
         :class="{
             '!rounded-b-none !border-border-active !bg-surface-hover-01': open

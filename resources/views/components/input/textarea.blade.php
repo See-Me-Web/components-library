@@ -16,7 +16,7 @@
             'peer w-full min-h-[3.125rem]',
             'bg-transparent text-text-secondary text-sm shadow-01',
             'px-3 border border-border-secondary rounded-lg transition-colors',
-            'hover:border-border-active hover:bg-surface-hover-01',
+            'hover:border-border-active',
             'focus:border-border-active focus:outline-0 focus:ring-0',
             'disabled:bg-border-disabled disabled:text-text-disabled disabled:cursor-not-allowed disabled:border-border-disabled',
         ])
