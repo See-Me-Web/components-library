@@ -67,7 +67,7 @@
             @if( isset($displayCaption) && $displayCaption && ! empty($image->caption) )
               <div @class([
                 'absolute inset-0 flex items-end',
-                'bg-gradient-to-t from-base-white from-0% via-base-white via-25% to-transparent to-40%'
+                'bg-gradient-to-t from-base-white/90 from-0% via-base-white/90 via-20% to-transparent to-30%'
               ])>
                 <div class="p-4 font-semibold text-center w-full leading-tight">
                   {!! $image->caption !!}
