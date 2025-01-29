@@ -16,19 +16,8 @@ class CF7FormService
         remove_action('wpcf7_init', 'wpcf7_add_form_tag_text', 10, 0);
         add_action('wpcf7_init', function () {
             wpcf7_add_form_tag(
-                array('text', 'text*', 'email', 'email*', 'url', 'url*'),
+                array('text', 'text*', 'email', 'email*', 'url', 'url*', 'tel', 'tel*'),
                 [$this, 'textFieldHandler'],
-                array(
-                    'name-attr' => true,
-                )
-            );
-        });
-
-        remove_action('wpcf7_init', 'wpcf7_add_form_tag_phone', 10, 0);
-        add_action('wpcf7_init', function () {
-            wpcf7_add_form_tag(
-                array('tel', 'tel*'),
-                [$this, 'phoneFieldHandler'],
                 array(
                     'name-attr' => true,
                 )
