@@ -191,7 +191,6 @@ class AlbumGallery extends BaseBlock
       foreach($albums as $album) {
         $images = Arr::get($album, 'images', []);
 
-
         if(is_array($images) && !empty($images)) {
           $a = new Album(Arr::get($album, 'title', ''));
 

@@ -37,7 +37,7 @@ class Video extends BaseBlock
             'parent' => [],
             'mode' => 'preview',
             'supports' => [
-                'align' => false,
+                'align' => true,
                 'align_text' => false,
                 'align_content' => false,
                 'full_height' => false,

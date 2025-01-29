@@ -36,6 +36,7 @@ class ViewHelper
       'width' => $imageSrc[1] ?? '',
       'height' => $imageSrc[2] ?? '',
       'caption' => wp_get_attachment_caption($imageId),
+      'title' => get_the_title($imageId),
       ...$dataToPass
     ];
   }
