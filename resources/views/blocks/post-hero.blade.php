@@ -13,7 +13,10 @@
       <img src="{{ $thumbnail->url }}" class="object-cover object-center w-full h-full max-h-[200px] md:max-h-[40vh]" />
     </div>
     <div class="flex flex-col justify-center p-8">
-      <div class="font-extralight mb-2">{!! $categories !!}</div>
+      @if( ! empty($categories) )
+        <div class="font-extralight mb-2">{!! $categories !!}</div>
+      @endif
+      
       <x-seeme::heading size="xl">{{ $title }}</x-seeme::heading>
     </div>
   </div>

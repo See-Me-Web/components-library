@@ -66,11 +66,12 @@ class PostHero extends BaseBlock
     public function getWith(): array
     {
         $postId = get_the_ID();
+        $showCategories = boolval(get_field('show-categories'));
 
         return [
           'title' => get_the_title(),
           'thumbnail' => PostsHelper::getThumbnail($postId),
-          'categories' => ViewHelper::listCategories(PostsHelper::getTopLevelCategories($postId))
+          'categories' => $showCategories ? ViewHelper::listCategories(PostsHelper::getTopLevelCategories($postId)) : '',
         ];
     }
 
@@ -82,6 +83,12 @@ class PostHero extends BaseBlock
     public function getBlockFields(): FieldsBuilder
     {
         $builder = new FieldsBuilder($this->getSlug());
+
+        $builder
+          ->addTrueFalse('show-categories', [
+            'label' => 'Wyświetl kategorie'
+          ]);
+
         return $builder;
     }
 }
