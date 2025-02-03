@@ -5,9 +5,7 @@
     $block->classes,
   ])
   ax-load
-  x-cloak
   x-data="albumGallery({}, @Js($paged), @Js($perPage))"
-  x-on:load.window="update"
 >
   <div class="flex flex-wrap gap-4 justify-between items-center">
     <div>
@@ -61,15 +59,17 @@
             <x-seeme::image 
               :image="$image"
               class="object-cover object-center !w-full !h-full"
-              x-on:load="update"
             />
 
             @if( isset($displayCaption) && $displayCaption && ! empty($image->caption) )
               <div @class([
                 'absolute inset-0 flex items-end',
-                'bg-gradient-to-t from-base-white/90 from-0% via-base-white/90 via-20% to-transparent to-30%'
               ])>
-                <div class="p-4 font-semibold text-center w-full leading-tight">
+                <div @class([
+                  'p-2 font-semibold text-center w-full leading-none text-sm lg:text-base lg:leading-normal bg-base-white/90 relative',
+                  'before:block before:absolute before:top-0 before:-translate-y-full before:left-0',
+                  'before:w-full before:h-2 before:bg-gradient-to-t before:from-base-white/90 before:to-transparent'
+                ])>
                   {!! $image->caption !!}
                 </div>
               </div>
