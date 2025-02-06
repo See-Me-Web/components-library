@@ -55,6 +55,7 @@ class AnimatedText extends BaseBlock
             'text' => get_field('text') ?: '',
             'speedFactor' => (float) get_field('speedFactor'),
             'fontSize' => get_field('fontSize') ?: 17,
+            'headingLevel' => get_field('heading-level') ?: 'div'
         ];
     }
 
@@ -89,7 +90,20 @@ class AnimatedText extends BaseBlock
             'step' => 0.5,
             'append' => 'vw',
             'default_value' => 17
-          ]);
+          ])
+          ->addSelect('heading-level', [
+            'label' => 'Element',
+            'choices' => [
+                'div' => 'Div',
+                'h1' => 'Nagłówek H1',
+                'h2' => 'Nagłówek H2',
+                'h3' => 'Nagłówek H3',
+                'h4' => 'Nagłówek H4',
+                'h5' => 'Nagłówek H5',
+                'h6' => 'Nagłówek H6',
+            ],
+            'default_value' => 'div'
+        ]);
 
         return $builder;
     }

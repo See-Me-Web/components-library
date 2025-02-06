@@ -17,6 +17,6 @@
     x-on:scroll.window="calculateTransform"
     :style="`transform: translateX(-${transform}px)`"
   >
-    {!! $text !!}
+    <{{ $headingLevel}}>{!! $text !!}</{{ $headingLevel }}>
   </div>
 </div>
