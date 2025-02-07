@@ -54,7 +54,7 @@
           <a 
             href="{{ $image->url ?? '' }}"
             data-fancybox="{{ $block->block->anchor ?? $block->block->id }}"
-            class="relative"
+            class="relative block"
           >
             <x-seeme::image 
               :image="$image"
