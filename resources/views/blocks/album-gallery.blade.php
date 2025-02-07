@@ -66,9 +66,9 @@
                 'absolute inset-0 flex items-end',
               ])>
                 <div @class([
-                  'p-2 font-semibold text-center w-full leading-none text-sm lg:text-base lg:leading-normal bg-base-white/90 relative',
+                  'p-2 font-semibold text-center w-full leading-none text-[0.75rem] lg:text-[0.9rem] lg:leading-[1.3] bg-base-white/90 relative',
                   'before:block before:absolute before:top-0 before:-translate-y-full before:left-0',
-                  'before:w-full before:h-8 before:bg-gradient-to-t before:from-base-white/90 before:to-transparent'
+                  'before:w-full before:h-[10rem] before:bg-gradient-to-t before:from-base-white/90 before:to-base-white/0'
                 ])>
                   {!! $image->caption !!}
                 </div>
